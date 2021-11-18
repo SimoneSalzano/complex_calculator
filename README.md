@@ -9,10 +9,10 @@ The assignment is not focused on completing the project or on implementing it as
 Each member of the team is expected to work 10 hours a week for three weeks. 
 
 ## Authors
-- **Simone Salzano**: @SimoneSalzano
-- **Andrea Tisi**: @ATISI7
-- **Dario Montervino**: @dariomontervino
-- **Michele Spremulli**: @MicheleSp27
+- **Simone Salzano**: [@SimoneSalzano](https://github.com/SimoneSalzano)
+- **Andrea Tisi**: [@ATISI7](https://github.com/ATISI7)
+- **Dario Montervino**: [@dariomontervino](https://github.com/dariomontervino)
+- **Michele Spremulli**: [@MicheleSp27](https://github.com/MicheleSp27)
 
 ## Depencencies
 
