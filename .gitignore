@@ -54,3 +54,6 @@ nbdist/
 *.zip
 *.tar.gz
 *.rar
+
+#docx artifacts
+~$cklogGruppo14IZ.docx
