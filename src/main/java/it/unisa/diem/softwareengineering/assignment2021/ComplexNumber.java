@@ -30,25 +30,34 @@ public class ComplexNumber {
 
     public static ComplexNumber parseToComplexNumber(String str) throws NumberFormatException {
         //Pattern that matches [real]+j[imm] or [real]+[imm]j:
-        Pattern complexPatternRealFirst = Pattern.compile("((\\d+\\.\\d+)|(\\d+))(\\+|-)((((\\d+\\.\\d+)|(\\d+))j)|j((\\d+\\.\\d+)|(\\d+)))");
+        Pattern complexPatternRealFirst = Pattern.compile("(|\\+|-)((\\d+\\.\\d+)|(\\d+))(\\+|-)((((\\d+\\.\\d+)|(\\d+))j)|j((\\d+\\.\\d+)|(\\d+)))");
         Matcher complexPatternRealFirstMatcher = complexPatternRealFirst.matcher(str);
         //Pattern that matches j[imm]+[real] or [imm]j+[real]:
-        Pattern complexPatternImmFirst = Pattern.compile("((((\\d+\\.\\d+)|(\\d+))j)|j((\\d+\\.\\d+)|(\\d+)))(\\+|-)((\\d+\\.\\d+)|(\\d+))");
+        Pattern complexPatternImmFirst = Pattern.compile("(|\\+|-)((((\\d+\\.\\d+)|(\\d+))j)|j((\\d+\\.\\d+)|(\\d+)))(\\+|-)((\\d+\\.\\d+)|(\\d+))");
         Matcher complexPatternImmFirstMatcher = complexPatternImmFirst.matcher(str);
         //Pattern that matches real numbers:
-        Pattern realPattern = Pattern.compile("(\\d+\\.\\d+)|(\\d+)");
+        Pattern realPattern = Pattern.compile("(|\\+|-)(\\d+\\.\\d+)|(\\d+)");
         Matcher realPatternMatcher = realPattern.matcher(str);
         //Now we check what pattern matches our string and we build our ComplexNumber accordingly:
         if (complexPatternRealFirstMatcher.matches()) {
-            String [] splitString = str.split("\\+|-");
-            Double real = Double.parseDouble(splitString[0]);
-            Double imm = Double.parseDouble(splitString[1].replace("j",""));
+            String [] splitString = str.split("(?<!^)(\\+|-)");
+            Double real,imm;
+            real = Double.parseDouble(splitString[0]);
+            //Check if imm is positive or negative by looking at its sign and parse it accordingly
+            if (str.contains("+") && str.indexOf("+",1)>-1)
+                imm = Double.parseDouble(splitString[1].replace("j",""));
+            else
+                imm = Double.parseDouble("-" + splitString[1].replace("j",""));
             return new ComplexNumber(real,imm);
         }
         else if (complexPatternImmFirstMatcher.matches()) {
-            String [] splitString = str.split("\\+|-");
-            Double real = Double.parseDouble(splitString[1]);
-            Double imm = Double.parseDouble(splitString[0].replace("j",""));
+            String [] splitString = str.split("(?<!^)(\\+|-)");
+            Double real,imm;
+            if (str.contains("+") && str.indexOf("+",1)>-1)
+                real = Double.parseDouble(splitString[1].replace("j",""));
+            else
+                real = Double.parseDouble("-" + splitString[1].replace("j",""));
+            imm = Double.parseDouble(splitString[0].replace("j",""));
             return new ComplexNumber(real,imm);
         }
         else if (realPatternMatcher.matches()) {
