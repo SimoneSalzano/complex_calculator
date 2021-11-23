@@ -59,8 +59,8 @@ public class ComplexOperations{
         if((c*c+d*d)==0){
             throw new ArithmeticException("Divide by 0");
         }
-        double realTot=(a*c+b*d)/(c*c+d*d);
-        double immTot=(b*c-a*d)/(c*c+d*d);
+        double realTot=Math.round((a*c+b*d)/(c*c+d*d)*1000d)/1000d;
+        double immTot=Math.round((b*c-a*d)/(c*c+d*d)*1000d)/1000d;
 
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
         return complexResult;
@@ -76,13 +76,15 @@ public class ComplexOperations{
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
         return complexResult;
     }
-
-    public static ComplexNumber sqrt(ComplexNumber complex1, int index){
+    //mod=2.12
+    //arg=4.71
+    public static ComplexNumber sqrt(ComplexNumber complex1){
         double mod=mod(complex1);
         double arg=arg(complex1);
-
-        double realTot=Math.pow(mod,1/2)*(Math.cos(arg/2));
-        double immTot=Math.pow(mod,1/2)*(Math.sin(arg/2));
+        System.out.println(mod);
+        System.out.println(arg);
+        double realTot=Math.round((Math.sqrt(mod)*Math.cos(arg/2))*1000d)/1000d;
+        double immTot=Math.round((Math.sqrt(mod)*Math.sin(arg/2))*1000d)/1000d;
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
         return complexResult;
     }
@@ -91,7 +93,6 @@ public class ComplexOperations{
         double a=complex1.getReal();
         double b=complex1.getImm();
 
-        
         double mod=Math.sqrt(a*a+b*b);
         return mod;
     }
@@ -101,22 +102,22 @@ public class ComplexOperations{
         double b=complex1.getImm();
         
         if(a==0 && b>0){
-            return Math.PI/2;
+            return (Math.PI/2*1000d);
         }
         if(a==0 && b<0){
-            return -Math.PI/2;
+            return (-Math.PI/2);
         }
         if(a==0 && b==0){
             throw new ArithmeticException("Arg of 0 isn't defined");
         }
-        if(a>0){
-            return Math.atan(b/a);
-        }
         if(a<0 && b>=0){
             return (Math.atan(b/a)+Math.PI);
         }
-        //if(a<0 && b<0){
-        return (Math.atan(b/a)-Math.PI);
+        if(a<0 && b<0){
+            return (Math.atan(b/a)-Math.PI);
+        } 
+        
+        return (Math.atan(b/a));
     }
 
 

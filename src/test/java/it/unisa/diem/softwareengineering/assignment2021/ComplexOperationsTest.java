@@ -161,7 +161,6 @@ public class ComplexOperationsTest {
 
         assertEquals(ComplexOperations.div(complex4, complex5), expected45);
 
-        assertThrows(ArithmeticException)
     }
 
     @Test
