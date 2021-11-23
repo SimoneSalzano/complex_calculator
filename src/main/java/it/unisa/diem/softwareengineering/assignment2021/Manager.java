@@ -2,11 +2,6 @@ package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
-
-import javax.management.openmbean.OpenDataException;
-
-import javafx.stage.Popup;
 
 public class Manager {
 
@@ -53,9 +48,9 @@ public class Manager {
                 case "+-":
                     firstOperand = memory.pop();
                     result = ComplexOperations.inv(firstOperand);
-                case "sqrt":
+                default:
                     firstOperand = memory.pop();
-                    result = ComplexOperations.sqrt(firstOperand);              
+                    result = ComplexOperations.sqrt(firstOperand);             
             }
             memory.push(result);
         }
