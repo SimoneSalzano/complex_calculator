@@ -18,11 +18,11 @@ Each member of the team is expected to work 10 hours a week for three weeks.
 
 ## Depencencies
 
-This **Maven** project requires **JDK 8** alongside with **openJFX 8** to run. 
+This **Maven** project requires **JDK 8** to run. 
 
 ## How to run
 
-Just clone the repository and run **App.java** in your favorite IDE. 
+Just clone the repository and run **GUI.java** in your favorite IDE. 
 
 ## Who can contribute to this project?
 
