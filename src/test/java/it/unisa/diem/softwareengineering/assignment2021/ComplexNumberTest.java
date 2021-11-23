@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 public class ComplexNumberTest {
+
 
     @Test
     public void testParseToComplexNumber() {
@@ -15,6 +17,8 @@ public class ComplexNumberTest {
         ComplexNumber expected4 = new ComplexNumber(55.7,-55.7);
         ComplexNumber expected5 = new ComplexNumber(-12.357, -12345.4);
         ComplexNumber expected6 = new ComplexNumber(312.78, 0.0);
+        ComplexNumber expected7 = new ComplexNumber(0.0,54.9);
+        ComplexNumber expected8 = new ComplexNumber(0.0,-1.0);
 
         ComplexNumber c1 = ComplexNumber.parseToComplexNumber("3.8+4.8j");
         ComplexNumber c2 = ComplexNumber.parseToComplexNumber("3.8+j4.8");
@@ -46,6 +50,16 @@ public class ComplexNumberTest {
         c2 = ComplexNumber.parseToComplexNumber("0j+312.78");
         assertEquals(expected6,c1);
         assertEquals(expected6,c2);
+        
+        c1 = ComplexNumber.parseToComplexNumber("54.9j");
+        c2 = ComplexNumber.parseToComplexNumber("54.9j+0");
+        assertEquals(expected7,c1);
+        assertEquals(expected7,c2);
+
+        c1 = ComplexNumber.parseToComplexNumber("-j");
+        c2 = ComplexNumber.parseToComplexNumber("0-j");
+        assertEquals(expected8,c1);
+        assertEquals(expected8,c2);
 
         //Assert it throws exceptions when passing string that are not complex numbers
         assertThrows(NumberFormatException.class, () -> ComplexNumber.parseToComplexNumber("Not a complex number"));
@@ -65,9 +79,14 @@ public class ComplexNumberTest {
         c.setImm(-4.5);
         assertEquals(expected,c.toString());
 
-        expected = "-7.7-7.7j";
-        c.setReal(-7.7);
-        c.setImm(-7.7);
+        expected = "-7.777-7.77j";
+        c.setReal(-7.777);
+        c.setImm(-7.77);
+        assertEquals(expected,c.toString());
+
+        expected = "-2+3j";
+        c.setReal(-2.000);
+        c.setImm(3.0);
         assertEquals(expected,c.toString());
     }
 
