@@ -31,19 +31,19 @@ public class ComplexOperationsTest {
 
         ComplexNumber expected45=new ComplexNumber(14.5, -4.5);
 
-        assertEquals(ComplexOperations.sum(complex1, complex2), expected12);
-        assertEquals(ComplexOperations.sum(complex1, complex3), expected13);
-        assertEquals(ComplexOperations.sum(complex1, complex4), expected14);
-        assertEquals(ComplexOperations.sum(complex1, complex5), expected15);
+        assertEquals(expected12,ComplexOperations.sum(complex1, complex2));
+        assertEquals(expected13,ComplexOperations.sum(complex1, complex3));
+        assertEquals(expected14,ComplexOperations.sum(complex1, complex4));
+        assertEquals(expected15,ComplexOperations.sum(complex1, complex5));
 
-        assertEquals(ComplexOperations.sum(complex2, complex3), expected23);
-        assertEquals(ComplexOperations.sum(complex2, complex4), expected24);
-        assertEquals(ComplexOperations.sum(complex2, complex5), expected25);
+        assertEquals(expected23,ComplexOperations.sum(complex2, complex3));
+        assertEquals(expected24,ComplexOperations.sum(complex2, complex4));
+        assertEquals(expected25,ComplexOperations.sum(complex2, complex5));
 
-        assertEquals(ComplexOperations.sum(complex3, complex4), expected34);
-        assertEquals(ComplexOperations.sum(complex3, complex5), expected35);
+        assertEquals(expected34,ComplexOperations.sum(complex3, complex4));
+        assertEquals(expected35,ComplexOperations.sum(complex3, complex5));
 
-        assertEquals(ComplexOperations.sum(complex4, complex5), expected45);
+        assertEquals(expected45,ComplexOperations.sum(complex4, complex5));
     }
 
     @Test
@@ -69,19 +69,19 @@ public class ComplexOperationsTest {
 
         ComplexNumber expected45=new ComplexNumber(14.5, 4.5);
 
-        assertEquals(ComplexOperations.sub(complex1, complex2), expected12);
-        assertEquals(ComplexOperations.sub(complex1, complex3), expected13);
-        assertEquals(ComplexOperations.sub(complex1, complex4), expected14);
-        assertEquals(ComplexOperations.sub(complex1, complex5), expected15);
+        assertEquals(expected12,ComplexOperations.sub(complex1, complex2));
+        assertEquals(expected13,ComplexOperations.sub(complex1, complex3));
+        assertEquals(expected14,ComplexOperations.sub(complex1, complex4));
+        assertEquals(expected15,ComplexOperations.sub(complex1, complex5));
 
-        assertEquals(ComplexOperations.sub(complex2, complex3), expected23);
-        assertEquals(ComplexOperations.sub(complex2, complex4), expected24);
-        assertEquals(ComplexOperations.sub(complex2, complex5), expected25);
+        assertEquals(expected23,ComplexOperations.sub(complex2, complex3));
+        assertEquals(expected24,ComplexOperations.sub(complex2, complex4));
+        assertEquals(expected25,ComplexOperations.sub(complex2, complex5));
 
-        assertEquals(ComplexOperations.sub(complex3, complex4), expected34);
-        assertEquals(ComplexOperations.sub(complex3, complex5), expected35);
+        assertEquals(expected34,ComplexOperations.sub(complex3, complex4));
+        assertEquals(expected35,ComplexOperations.sub(complex3, complex5));
 
-        assertEquals(ComplexOperations.sub(complex4, complex5), expected45);
+        assertEquals(expected45,ComplexOperations.sub(complex4, complex5));
     }
 
     @Test
@@ -92,7 +92,6 @@ public class ComplexOperationsTest {
         ComplexNumber complex4=new ComplexNumber(14.5,0.0);
         ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
     
-
         ComplexNumber expected12=new ComplexNumber(-70.0, 10.0);
         ComplexNumber expected13=new ComplexNumber(70.0, 90.0);
         ComplexNumber expected14=new ComplexNumber(72.5, 145.0);
@@ -108,19 +107,19 @@ public class ComplexOperationsTest {
 
         ComplexNumber expected45=new ComplexNumber(0.0, -65.25);
 
-        assertEquals(ComplexOperations.mul(complex1, complex2), expected12);
-        assertEquals(ComplexOperations.mul(complex1, complex3), expected13);
-        assertEquals(ComplexOperations.mul(complex1, complex4), expected14);
-        assertEquals(ComplexOperations.mul(complex1, complex5), expected15);
+        assertEquals(expected12, ComplexOperations.mul(complex1, complex2));
+        assertEquals(expected13,ComplexOperations.mul(complex1, complex3));
+        assertEquals(expected14,ComplexOperations.mul(complex1, complex4));
+        assertEquals(expected15,ComplexOperations.mul(complex1, complex5));
 
-        assertEquals(ComplexOperations.mul(complex2, complex3), expected23);
-        assertEquals(ComplexOperations.mul(complex2, complex4), expected24);
-        assertEquals(ComplexOperations.mul(complex2, complex5), expected25);
+        assertEquals(expected23,ComplexOperations.mul(complex2, complex3));
+        assertEquals(expected24,ComplexOperations.mul(complex2, complex4));
+        assertEquals(expected25,ComplexOperations.mul(complex2, complex5));
 
-        assertEquals(ComplexOperations.mul(complex3, complex4), expected34);
-        assertEquals(ComplexOperations.mul(complex3, complex5), expected35);
+        assertEquals(expected34,ComplexOperations.mul(complex3, complex4));
+        assertEquals(expected35,ComplexOperations.mul(complex3, complex5));
 
-        assertEquals(ComplexOperations.mul(complex4, complex5), expected45);
+        assertEquals(expected45,ComplexOperations.mul(complex4, complex5));
     }
 
     @Test
@@ -147,19 +146,21 @@ public class ComplexOperationsTest {
 
         ComplexNumber expected45=new ComplexNumber(0.0, 3.222);
 
-        assertEquals(ComplexOperations.div(complex1, complex2), expected12);
-        assertEquals(ComplexOperations.div(complex1, complex3), expected13);
-        assertEquals(ComplexOperations.div(complex1, complex4), expected14);
-        assertEquals(ComplexOperations.div(complex1, complex5), expected15);
+        assertEquals(expected12,ComplexOperations.div(complex1, complex2));
+        assertEquals(expected13,ComplexOperations.div(complex1, complex3));
+        assertEquals(expected14,ComplexOperations.div(complex1, complex4));
+        assertEquals(expected15,ComplexOperations.div(complex1, complex5));
 
-        assertEquals(ComplexOperations.div(complex2, complex3), expected23);
-        assertEquals(ComplexOperations.div(complex2, complex4), expected24);
-        assertEquals(ComplexOperations.div(complex2, complex5), expected25);
+        assertEquals(expected23,ComplexOperations.div(complex2, complex3));
+        assertEquals(expected24,ComplexOperations.div(complex2, complex4));
+        assertEquals(expected25,ComplexOperations.div(complex2, complex5));
 
-        assertEquals(ComplexOperations.div(complex3, complex4), expected34);
-        assertEquals(ComplexOperations.div(complex3, complex5), expected35);
+        assertEquals(expected34,ComplexOperations.div(complex3, complex4));
+        assertEquals(expected35,ComplexOperations.div(complex3, complex5));
 
-        assertEquals(ComplexOperations.div(complex4, complex5), expected45);
+        assertEquals(expected45,ComplexOperations.div(complex4, complex5));
+
+        assertThrows(ArithmeticException.class, () -> ComplexOperations.div(complex1, complex6));
 
     }
 
@@ -175,13 +176,13 @@ public class ComplexOperationsTest {
         double expected2=1.893;
         double expected3=-0.197;
         double expected4=0;
-        double expected5=4.712;
+        double expected5=-1.571;
 
-        assertEquals(Math.round(arg1*1000d)/1000d, expected1);
-        assertEquals(Math.round(arg2*1000d)/1000d, expected2);
-        assertEquals(Math.round(arg3*1000d)/1000d, expected3);
-        assertEquals(Math.round(arg4*1000d)/1000d, expected4);
-        assertEquals(Math.round(arg5*1000d)/1000d, expected5);
+        assertEquals(expected1,Math.round(arg1*1000d)/1000d);
+        assertEquals(expected2,Math.round(arg2*1000d)/1000d);
+        assertEquals(expected3,Math.round(arg3*1000d)/1000d);
+        assertEquals(expected4,Math.round(arg4*1000d)/1000d);
+        assertEquals(expected5,Math.round(arg5*1000d)/1000d);
     }
 
     @Test
@@ -198,11 +199,11 @@ public class ComplexOperationsTest {
         double expected4=14.5;
         double expected5=4.5;
 
-        assertEquals(Math.round(mod1*1000d)/1000d, expected1);
-        assertEquals(Math.round(mod2*1000d)/1000d, expected2);
-        assertEquals(Math.round(mod3*1000d)/1000d, expected3);
-        assertEquals(Math.round(mod4*1000d)/1000d, expected4);
-        assertEquals(Math.round(mod5*1000d)/1000d, expected5);
+        assertEquals(expected1,Math.round(mod1*1000d)/1000d);
+        assertEquals(expected2,Math.round(mod2*1000d)/1000d);
+        assertEquals(expected3,Math.round(mod3*1000d)/1000d);
+        assertEquals(expected4,Math.round(mod4*1000d)/1000d);
+        assertEquals(expected5,Math.round(mod5*1000d)/1000d);
     }
     
     @Test
@@ -219,11 +220,11 @@ public class ComplexOperationsTest {
         ComplexNumber expected4=new ComplexNumber(3.808, 0.0);
         ComplexNumber expected5=new ComplexNumber(1.5, -1.5);
 
-        assertEquals(complex1, expected1);
-        assertEquals(complex2, expected2);
-        assertEquals(complex3, expected3);
-        assertEquals(complex4, expected4);
-        assertEquals(expected5, complex5);
+        assertEquals(expected1,complex1);
+        assertEquals(expected2,complex2);
+        assertEquals(expected3,complex3);
+        assertEquals(expected4,complex4);
+        assertEquals(complex5,expected5);
     }
 
     
