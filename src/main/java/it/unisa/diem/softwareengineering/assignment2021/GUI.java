@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.diem.softwareengineering.assignment2021;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Michele
- */
 public class GUI extends javax.swing.JFrame {
 
     /**
@@ -59,9 +51,9 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 155, 150));
 
-        inputTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputTextFieldActionPerformed(evt);
+        inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputTextFieldKeyPressed(evt);
             }
         });
 
@@ -136,6 +128,11 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This method is called when the butto is pressed or when in the inputTextFiled area the "enter" key
+     * is presed, it is used to insert a new number in the stack if it is valid or, it will notificate an error through a pop-up notification
+     * @param evt 
+     */
     private void computeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeButtonActionPerformed
      
         String text = inputTextField.getText();   
@@ -149,10 +146,16 @@ public class GUI extends javax.swing.JFrame {
         }
     
     }//GEN-LAST:event_computeButtonActionPerformed
-
-    private void inputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputTextFieldActionPerformed
+    /**
+     * This method is called when the user press the "enter" key inside the inputTextField.
+     * This is the equivalent of clicking on the button "compute" 
+     * @param evt 
+     */
+    private void inputTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyPressed
+        if(KeyEvent.VK_ENTER == evt.getKeyCode()){
+            computeButton.doClick();
+        }
+    }//GEN-LAST:event_inputTextFieldKeyPressed
 
     /**
      * @param args the command line arguments
