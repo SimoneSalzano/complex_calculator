@@ -28,6 +28,15 @@ public class Memory {
         return this.stack.size()==0;
     }
 
+    public List<ComplexNumber> asList(int n){
+        Iterator<ComplexNumber> itr=this.stack.descendingIterator();
+        List<ComplexNumber> list_temp=new ArrayList<ComplexNumber>();
+        for(int i=0;i<n && itr.hasNext();i++){
+            list_temp.add(itr.next());
+        }
+        return list_temp;
+    }
 
+    
 }
 
