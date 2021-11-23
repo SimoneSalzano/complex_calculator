@@ -35,35 +35,41 @@ public class Manager {
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.sum(firstOperand,secondOperand);
+                    break;
                 case "-":
                     if (memory.size() < 2)
                         throw new NotEnoughOperationsException("Subtraction requires 2 operands to be in the memory!");
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.sub(firstOperand,secondOperand);
+                    break;
                 case "*":
                     if (memory.size() < 2)
                         throw new NotEnoughOperationsException("Multiplication requires 2 operands to be in the memory!");
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.mul(firstOperand,secondOperand);
+                    break;
                 case "/":
                     if (memory.size() < 2)
                         throw new NotEnoughOperationsException("Division requires 2 operands to be in the memory!");
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.div(firstOperand,secondOperand);
+                    break;
                 case "+-":
                     if (memory.size() < 1)
                         throw new NotEnoughOperationsException("Inversion requires 1 operand to be in the memory!");
                     firstOperand = memory.pop();
                     result = ComplexOperations.inv(firstOperand);
                 //If input is contained in allowedOperations but is not any of the cases above, then it's sqrt.
+                    break;
                 default:
                     if (memory.size() < 1)
                         throw new NotEnoughOperationsException("Inversion requires 1 operand to be in the memory!");
                     firstOperand = memory.pop();
-                    result = ComplexOperations.sqrt(firstOperand);             
+                    result = ComplexOperations.sqrt(firstOperand);   
+                    break;
             }
             memory.push(result);
         }

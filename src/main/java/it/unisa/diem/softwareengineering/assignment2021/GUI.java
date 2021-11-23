@@ -1,9 +1,15 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class GUI extends javax.swing.JFrame {
+    
+    private List<ComplexNumber> memory = new ArrayList<>();
 
     /**
      * Creates new form GUI
@@ -45,6 +51,7 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
+        textArea.setEditable(false);
         textArea.setColumns(20);
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
@@ -130,19 +137,22 @@ public class GUI extends javax.swing.JFrame {
 
     /**
      * This method is called when the butto is pressed or when in the inputTextFiled area the "enter" key
-     * is presed, it is used to insert a new number in the stack if it is valid or, it will notificate an error through a pop-up notification
+     * is presed, it is used to insert a new number in the memory if it is valid or, it will notificate an error through a pop-up notification
      * @param evt 
      */
     private void computeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeButtonActionPerformed
      
-        String text = inputTextField.getText();   
-        try{
-            ComplexNumber complex = ComplexNumber.parseToComplexNumber(text);
+        String text = inputTextField.getText();
+        Manager manager = Manager.getManager();
+        try{ 
+            memory= manager.processInput(text);
+            textArea.setText(memory.toString());
             inputTextField.setText("");
-           
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(rootPane, "L'elemento inserito non è un numero!");
             inputTextField.setText(""); 
+        } catch (NotEnoughOperationsException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }//GEN-LAST:event_computeButtonActionPerformed
@@ -154,6 +164,7 @@ public class GUI extends javax.swing.JFrame {
     private void inputTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyPressed
         if(KeyEvent.VK_ENTER == evt.getKeyCode()){
             computeButton.doClick();
+           
         }
     }//GEN-LAST:event_inputTextFieldKeyPressed
 
