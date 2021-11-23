@@ -91,6 +91,7 @@ public class ComplexOperations{
         double a=complex1.getReal();
         double b=complex1.getImm();
 
+        
         double mod=Math.sqrt(a*a+b*b);
         return mod;
     }
