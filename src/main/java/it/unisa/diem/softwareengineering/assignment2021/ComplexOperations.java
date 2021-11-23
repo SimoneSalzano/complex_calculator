@@ -77,7 +77,7 @@ public class ComplexOperations{
         return complexResult;
     }
 
-    public static ComplexNumber sqrt(ComplexNumber complex1, int index){
+    public static ComplexNumber sqrt(ComplexNumber complex1){
         double mod=mod(complex1);
         double arg=arg(complex1);
 

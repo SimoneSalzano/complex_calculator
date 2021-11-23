@@ -38,40 +38,37 @@ public class Manager {
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.sum(firstOperand,secondOperand);
-                    memory.push(result);
                 case "-":
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.sub(firstOperand,secondOperand);
-                    memory.push(result);
                 case "*":
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.mul(firstOperand,secondOperand);
-                    memory.push(result);                 
                 case "/":
                     firstOperand = memory.pop();
                     secondOperand = memory.pop();
                     result = ComplexOperations.div(firstOperand,secondOperand);
-                    memory.push(result);
                 case "+-":
                     firstOperand = memory.pop();
                     result = ComplexOperations.inv(firstOperand);
                 case "sqrt":
                     firstOperand = memory.pop();
-                    result =               
+                    result = ComplexOperations.sqrt(firstOperand);              
             }
+            memory.push(result);
         }
         //if it's not a number, either it's acomplex number, that we need to push into the stack, or we need to propagate the exception to the GUI
         else {
-            newNumber = ComplexNumber.parseToComplexNumber(input);
+            ComplexNumber newNumber = ComplexNumber.parseToComplexNumber(input);
             memory.push(newNumber);
         }
         return memory.asList(numberOfElements);
     }
 
     public List<ComplexNumber> processInput(String input) {
-        processInput(input,12);
+        return processInput(input,12);
     }
 
 }
