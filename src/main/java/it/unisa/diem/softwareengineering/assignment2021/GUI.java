@@ -3,8 +3,6 @@ package it.unisa.diem.softwareengineering.assignment2021;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class GUI extends javax.swing.JFrame {
@@ -149,13 +147,16 @@ public class GUI extends javax.swing.JFrame {
             textArea.setText(memory.toString());
             inputTextField.setText("");
         }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(rootPane, "L'elemento inserito non è un numero!");
+            JOptionPane.showMessageDialog(rootPane, "The inserted element is neither a number nor an operation!");
             inputTextField.setText(""); 
-        } catch (NotEnoughOperationsException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotEnoughOperatorsException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        } catch (ArithmeticException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
         }
+    }
     
-    }//GEN-LAST:event_computeButtonActionPerformed
+    //GEN-LAST:event_computeButtonActionPerformed
     /**
      * This method is called when the user press the "enter" key inside the inputTextField.
      * This is the equivalent of clicking on the button "compute" 
