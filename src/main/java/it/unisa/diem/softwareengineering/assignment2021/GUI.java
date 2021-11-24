@@ -1,5 +1,6 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
+import java.awt.ComponentOrientation;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +9,16 @@ import javax.swing.JOptionPane;
 public class GUI extends javax.swing.JFrame {
     
     private List<ComplexNumber> memory = new ArrayList<>();
+    Manager manager;
 
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
+        textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        manager = Manager.getManager();
+        
     }
 
     /**
@@ -32,7 +37,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         inputTextField = new javax.swing.JTextField();
         computeButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -51,11 +55,17 @@ public class GUI extends javax.swing.JFrame {
 
         textArea.setEditable(false);
         textArea.setColumns(20);
+        textArea.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
 
         jPanel2.setBackground(new java.awt.Color(0, 155, 150));
 
+        inputTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputTextFieldActionPerformed(evt);
+            }
+        });
         inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 inputTextFieldKeyPressed(evt);
@@ -90,31 +100,27 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jSeparator1.setBackground(new java.awt.Color(0, 155, 150));
-        jSeparator1.setForeground(new java.awt.Color(0, 155, 150));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,9 +131,7 @@ public class GUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -141,22 +145,26 @@ public class GUI extends javax.swing.JFrame {
     private void computeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeButtonActionPerformed
      
         String text = inputTextField.getText();
-        Manager manager = Manager.getManager();
+        
         try{ 
-            memory= manager.processInput(text);
-            textArea.setText(memory.toString());
-            inputTextField.setText("");
-        }catch(NumberFormatException e){
+            manager.processInput(text);
+            
+        } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(rootPane, "The inserted element is neither a number nor an operation!");
-            inputTextField.setText(""); 
+            
         } catch (NotEnoughOperatorsException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            
         } catch (ArithmeticException ex) {
             JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
+            
+        }finally{
+            printOnTextArea(manager.getMemory());
+            inputTextField.setText("");
         }
     }
     
-    //GEN-LAST:event_computeButtonActionPerformed
+//GEN-LAST:event_computeButtonActionPerformed
     /**
      * This method is called when the user press the "enter" key inside the inputTextField.
      * This is the equivalent of clicking on the button "compute" 
@@ -164,10 +172,13 @@ public class GUI extends javax.swing.JFrame {
      */
     private void inputTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyPressed
         if(KeyEvent.VK_ENTER == evt.getKeyCode()){
-            computeButton.doClick();
-           
+            computeButton.doClick(); 
         }
     }//GEN-LAST:event_inputTextFieldKeyPressed
+
+    private void inputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +214,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
+    private void printOnTextArea(List<ComplexNumber> memory){
+        String str = "";
+        for (ComplexNumber c: memory){
+            str = c.toString() +"\n" + str;
+        }
+        textArea.setText(str);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton computeButton;
@@ -211,7 +229,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,7 +29,7 @@ public class Memory {
     }
 
     public List<ComplexNumber> asList(int n){
-        Iterator<ComplexNumber> itr=this.stack.descendingIterator();
+        Iterator<ComplexNumber> itr=this.stack.iterator();
         List<ComplexNumber> list_temp=new ArrayList<ComplexNumber>();
         for(int i=0;i<n && itr.hasNext();i++){
             list_temp.add(itr.next());
