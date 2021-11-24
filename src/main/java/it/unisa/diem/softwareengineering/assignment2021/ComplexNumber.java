@@ -31,9 +31,13 @@ public class ComplexNumber {
 
     
     /** 
-     * @param str The string to parse to a complex number
+     * A method to convert a properly formatted String to a Complex Number.
+     * Accepted formats are:
+     *      a+bj, a+jb, jb+a, bj+a, a, j.
+     * Where a and b are strings parsable to Double. 
+     * @param str The string to parse to a complex number.
      * @return ComplexNumber the complex number corresponding to the parsed string
-     * @throws NumberFormatException When str doesn't have the correct format. 
+     * @throws NumberFormatException When str doesn't have the correct format, so it can't be covnerted. 
      */
     public static ComplexNumber parseToComplexNumber(String str) throws NumberFormatException {
         //Pattern that matches a+jb or a+bj:
@@ -93,8 +97,9 @@ public class ComplexNumber {
 
     
     /** 
-     * @param obj
-     * @return boolean
+     * Checks if this Complex Number is equal to another one by checking if the real and immaginary parts correspond.  
+     * @param obj the object to compare
+     * @return boolean ture if the two elements are equal, false if not.
      */
     @Override
     public boolean equals(Object obj) {
@@ -107,11 +112,12 @@ public class ComplexNumber {
 
     
     /** 
-     * @return String
+     * Converts a Complex Number to a String with the format a+bj, precision to the the third digit
+     * @return String the String representation of a Complex Number.
      */
     @Override
     public String toString() {
-        //Precision is 5, with DecimalFormat if we have 0s, it won't output them.
+        //Precision is 3, with DecimalFormat if we have 0s, it won't output them.
         DecimalFormat df = new DecimalFormat("#.###");
         String realString = df.format(real);
         String immString = df.format(imm);
@@ -122,11 +128,11 @@ public class ComplexNumber {
 
     
     /** 
+     * Utility method to convert a String formatted as a pure immaginary number to a Double 
      * @param immStr
-     * @return Double
+     * @return Double the Double corresponding to the converted immaginary-formatted String
      */
     private static Double convertImmStrToDouble(String immStr) {
-        //utility method to convert a imaginary number
         String jLess = immStr.replace("j","");
         if (jLess.equals("-"))
             return -1.0;
