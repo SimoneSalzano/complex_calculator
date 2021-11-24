@@ -6,6 +6,14 @@ import java.lang.ArithmeticException;
 
 public class ComplexOperations{
     
+
+    
+    /**
+     * Return the sum between two complex numbers
+     * @param complex1
+     * @param complex2
+     * @return ComplexNumber
+     */
     public static ComplexNumber sum(ComplexNumber complex1, ComplexNumber complex2){
         double a=complex1.getReal();
         double b=complex1.getImm();
@@ -20,6 +28,13 @@ public class ComplexOperations{
         return complexResult;
     }
     
+    
+    /** 
+     * Return the subtraction between two complex numbers
+     * @param complex1  first operand
+     * @param complex2  second operand
+     * @return ComplexNumber
+     */
     public static ComplexNumber sub(ComplexNumber complex1, ComplexNumber complex2){
         double a=complex1.getReal();
         double b=complex1.getImm();
@@ -34,6 +49,13 @@ public class ComplexOperations{
         return complexResult;
     }
 
+    
+    /** 
+     * Return the multiplication between two complex numbers
+     * @param complex1
+     * @param complex2
+     * @return ComplexNumber
+     */
     public static ComplexNumber mul(ComplexNumber complex1, ComplexNumber complex2){
         double a=complex1.getReal();
         double b=complex1.getImm();
@@ -48,6 +70,14 @@ public class ComplexOperations{
         return complexResult;
     }
 
+    
+    /**  
+     * Return the division between two complex numbers
+     * @param complex1  first operan
+     * @param complex2  second operan
+     * @return ComplexNumber    
+     * @throws ArithmeticException Throws exceptio if second operand is 0 (Division by 0)
+     */
     public static ComplexNumber div(ComplexNumber complex1, ComplexNumber complex2) throws ArithmeticException{
         double a=complex1.getReal();
         double b=complex1.getImm();
@@ -66,6 +96,12 @@ public class ComplexOperations{
         return complexResult;
     }
 
+    
+    /** 
+     * Return the negative complex number
+     * @param complex1
+     * @return ComplexNumber
+     */
     public static ComplexNumber inv(ComplexNumber complex1){
         double a=complex1.getReal();
         double b=complex1.getImm();
@@ -76,6 +112,12 @@ public class ComplexOperations{
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
         return complexResult;
     }
+    
+    /** 
+     * Return the square root of a complex number. The solution is calculated assuming k=0
+     * @param complex1
+     * @return ComplexNumber
+     */
     public static ComplexNumber sqrt(ComplexNumber complex1){
         double mod=mod(complex1);
         double arg=arg(complex1);
@@ -87,7 +129,13 @@ public class ComplexOperations{
         return complexResult;
     }
 
-    public static double mod(ComplexNumber complex1){
+    
+    /** 
+     * return the magnitude of a complex number
+     * @param complex1
+     * @return double
+     */
+    private static double mod(ComplexNumber complex1){
         double a=complex1.getReal();
         double b=complex1.getImm();
 
@@ -95,7 +143,14 @@ public class ComplexOperations{
         return mod;
     }
 
-    public static double arg(ComplexNumber complex1) throws ArithmeticException{
+    
+    /** 
+     * return the argument of a complex number
+     * @param complex1
+     * @return double
+     * @throws ArithmeticException
+     */
+    private static double arg(ComplexNumber complex1) throws ArithmeticException{
         double a=complex1.getReal();
         double b=complex1.getImm();
         
