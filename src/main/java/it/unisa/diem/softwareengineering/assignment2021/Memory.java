@@ -13,7 +13,7 @@ public class Memory {
     }
 
     public ComplexNumber top(){
-        return this.stack.getLast();
+        return this.stack.getFirst();
     }
 
     public void push(ComplexNumber complex1){
@@ -36,8 +36,5 @@ public class Memory {
         }
         return list_temp;
     }
-    
-
-
 }
 
