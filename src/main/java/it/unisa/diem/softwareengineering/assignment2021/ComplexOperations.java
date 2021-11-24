@@ -57,7 +57,7 @@ public class ComplexOperations{
         //a+bj  c+dj
         //(ac+bd)/(c^2+d^2)+j(bc-ad)/(c^2+d^2)
         if((c*c+d*d)==0){
-            throw new ArithmeticException("Divide by 0");
+            throw new ArithmeticException("Division by 0");
         }
         double realTot=Math.round((a*c+b*d)/(c*c+d*d)*1000d)/1000d;
         double immTot=Math.round((b*c-a*d)/(c*c+d*d)*1000d)/1000d;

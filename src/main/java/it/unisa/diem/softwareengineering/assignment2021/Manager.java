@@ -7,6 +7,10 @@ public class Manager {
 
     //Manager is a Singleton. 
     private static Manager instance = null;
+    
+    /** 
+     * @return Manager
+     */
     public static Manager getManager() {
         if (instance == null)
             instance = new Manager();
@@ -20,53 +24,66 @@ public class Manager {
         memory = new Memory();
     }
 
+    
+    /** 
+     * @param numberOfElements
+     * @return List<ComplexNumber>
+     */
     public List<ComplexNumber> getMemory(int numberOfElements) {
         return memory.asList(numberOfElements);
     }
     
-    public List<ComplexNumber> processInput(String input, int numberOfElements) throws NumberFormatException,NotEnoughOperationsException{
+    
+    /** 
+     * @param input
+     * @param numberOfElements
+     * @return List<ComplexNumber>
+     * @throws NumberFormatException
+     * @throws NotEnoughOperatorsException
+     */
+    public List<ComplexNumber> processInput(String input, int numberOfElements) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
         //Check if inpput contains a legal operation
         if (Arrays.asList(allowedOperations).contains(input)) {
-            ComplexNumber firstOperand, secondOperand,result;
+            ComplexNumber secondOperand, firstOperand,result;
             switch (input) {
                 case "+":
                     if (memory.size() < 2)
-                        throw new NotEnoughOperationsException("Sum requires 2 operands to be in the memory!");
-                    firstOperand = memory.pop();
+                        throw new NotEnoughOperatorsException("Sum requires 2 operands to be in the memory!");
                     secondOperand = memory.pop();
+                    firstOperand = memory.pop();
                     result = ComplexOperations.sum(firstOperand,secondOperand);
                     break;
                 case "-":
                     if (memory.size() < 2)
-                        throw new NotEnoughOperationsException("Subtraction requires 2 operands to be in the memory!");
-                    firstOperand = memory.pop();
+                        throw new NotEnoughOperatorsException("Subtraction requires 2 operands to be in the memory!");
                     secondOperand = memory.pop();
+                    firstOperand = memory.pop();
                     result = ComplexOperations.sub(firstOperand,secondOperand);
                     break;
                 case "*":
                     if (memory.size() < 2)
-                        throw new NotEnoughOperationsException("Multiplication requires 2 operands to be in the memory!");
-                    firstOperand = memory.pop();
+                        throw new NotEnoughOperatorsException("Multiplication requires 2 operands to be in the memory!");
                     secondOperand = memory.pop();
+                    firstOperand = memory.pop();
                     result = ComplexOperations.mul(firstOperand,secondOperand);
                     break;
                 case "/":
                     if (memory.size() < 2)
-                        throw new NotEnoughOperationsException("Division requires 2 operands to be in the memory!");
-                    firstOperand = memory.pop();
+                        throw new NotEnoughOperatorsException("Division requires 2 operands to be in the memory!");
                     secondOperand = memory.pop();
+                    firstOperand = memory.pop();
                     result = ComplexOperations.div(firstOperand,secondOperand);
                     break;
                 case "+-":
                     if (memory.size() < 1)
-                        throw new NotEnoughOperationsException("Inversion requires 1 operand to be in the memory!");
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
                     firstOperand = memory.pop();
                     result = ComplexOperations.inv(firstOperand);
-                //If input is contained in allowedOperations but is not any of the cases above, then it's sqrt.
                     break;
                 default:
+                    //If input is contained in allowedOperations but is not any of the cases above, then it's sqrt.
                     if (memory.size() < 1)
-                        throw new NotEnoughOperationsException("Inversion requires 1 operand to be in the memory!");
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
                     firstOperand = memory.pop();
                     result = ComplexOperations.sqrt(firstOperand);   
                     break;
@@ -81,7 +98,14 @@ public class Manager {
         return memory.asList(numberOfElements);
     }
 
-    public List<ComplexNumber> processInput(String input) throws NumberFormatException, NotEnoughOperationsException{
+    
+    /** 
+     * @param input
+     * @return List<ComplexNumber>
+     * @throws NumberFormatException
+     * @throws NotEnoughOperatorsException
+     */
+    public List<ComplexNumber> processInput(String input) throws NumberFormatException, NotEnoughOperatorsException{
         return processInput(input,12);
     }
 

@@ -29,6 +29,12 @@ public class ComplexNumber {
         this.imm = imm;
     }
 
+    
+    /** 
+     * @param str The string to parse to a complex number
+     * @return ComplexNumber the complex number corresponding to the parsed string
+     * @throws NumberFormatException When str doesn't have the correct format. 
+     */
     public static ComplexNumber parseToComplexNumber(String str) throws NumberFormatException {
         //Pattern that matches a+jb or a+bj:
         Pattern complexPatternRealFirst = Pattern.compile("(|\\+|-)((\\d+\\.\\d+)|(\\d+))(\\+|-)(j((\\d+\\.\\d+)|(\\d+))*|(((\\d+\\.\\d+)|(\\d+))*j))");
@@ -85,6 +91,11 @@ public class ComplexNumber {
         }
     }
 
+    
+    /** 
+     * @param obj
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj!=null && obj.getClass().equals(this.getClass())) {
@@ -94,6 +105,10 @@ public class ComplexNumber {
         return false;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         //Precision is 5, with DecimalFormat if we have 0s, it won't output them.
@@ -105,6 +120,11 @@ public class ComplexNumber {
         return realString+plus+immString+'j';
     }
 
+    
+    /** 
+     * @param immStr
+     * @return Double
+     */
     private static Double convertImmStrToDouble(String immStr) {
         //utility method to convert a imaginary number
         String jLess = immStr.replace("j","");
