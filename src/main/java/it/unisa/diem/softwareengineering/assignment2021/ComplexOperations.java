@@ -89,8 +89,8 @@ public class ComplexOperations{
         if((c*c+d*d)==0){
             throw new ArithmeticException("Division by 0");
         }
-        double realTot=Math.round((a*c+b*d)/(c*c+d*d)*1000d)/1000d;
-        double immTot=Math.round((b*c-a*d)/(c*c+d*d)*1000d)/1000d;
+        double realTot=(a*c+b*d)/(c*c+d*d);
+        double immTot=(b*c-a*d)/(c*c+d*d);
 
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
         return complexResult;
@@ -123,8 +123,8 @@ public class ComplexOperations{
         double arg=arg(complex1);
         System.out.println(mod);
         System.out.println(arg);
-        double realTot=Math.round((Math.sqrt(mod)*Math.cos(arg/2))*1000d)/1000d;
-        double immTot=Math.round((Math.sqrt(mod)*Math.sin(arg/2))*1000d)/1000d;
+        double realTot=Math.sqrt(mod)*Math.cos(arg/2);
+        double immTot=Math.sqrt(mod)*Math.sin(arg/2);
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
         return complexResult;
     }

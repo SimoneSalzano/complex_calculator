@@ -15,12 +15,15 @@ public class ComplexOperationsTest {
         ComplexNumber complex3=new ComplexNumber(10.0,-2.0);
         ComplexNumber complex4=new ComplexNumber(14.5,0.0);
         ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
+        ComplexNumber complex6=new ComplexNumber(-3.0, -5.0);
+        ComplexNumber complex7=new ComplexNumber(0.0, 0.0);
 
         ComplexNumber expected12=new ComplexNumber(3.0, 16.0);
         ComplexNumber expected13=new ComplexNumber(15.0, 8.0);
         ComplexNumber expected14=new ComplexNumber(19.5, 10.0);
         ComplexNumber expected15=new ComplexNumber(5.0, 5.5);
-
+        ComplexNumber expected16=new ComplexNumber(-2.0, 5.0);
+        
         ComplexNumber expected23=new ComplexNumber(8.0, 4.0);
         ComplexNumber expected24=new ComplexNumber(12.5, 6.0);
         ComplexNumber expected25=new ComplexNumber(-2.0, 1.5);
@@ -146,19 +149,49 @@ public class ComplexOperationsTest {
 
         ComplexNumber expected45=new ComplexNumber(0.0, 3.222);
 
-        assertEquals(expected12,ComplexOperations.div(complex1, complex2));
-        assertEquals(expected13,ComplexOperations.div(complex1, complex3));
-        assertEquals(expected14,ComplexOperations.div(complex1, complex4));
-        assertEquals(expected15,ComplexOperations.div(complex1, complex5));
+        ComplexNumber actual12=ComplexOperations.div(complex1, complex2);
+        actual12.setReal(Math.round(actual12.getReal()*1000d)/1000d);
+        actual12.setImm(Math.round(actual12.getImm()*1000d)/1000d);
+        assertEquals(expected12,actual12);
+        ComplexNumber actual13=ComplexOperations.div(complex1, complex3);
+        actual13.setReal(Math.round(actual13.getReal()*1000d)/1000d);
+        actual13.setImm(Math.round(actual13.getImm()*1000d)/1000d);
+        assertEquals(expected13,actual13);
+        ComplexNumber actual14=ComplexOperations.div(complex1, complex4);
+        actual14.setReal(Math.round(actual14.getReal()*1000d)/1000d);
+        actual14.setImm(Math.round(actual14.getImm()*1000d)/1000d);
+        assertEquals(expected14,actual14);
+        ComplexNumber actual15=ComplexOperations.div(complex1, complex5);
+        actual15.setReal(Math.round(actual15.getReal()*1000d)/1000d);
+        actual15.setImm(Math.round(actual15.getImm()*1000d)/1000d);
+        assertEquals(expected15,actual15);
 
-        assertEquals(expected23,ComplexOperations.div(complex2, complex3));
-        assertEquals(expected24,ComplexOperations.div(complex2, complex4));
-        assertEquals(expected25,ComplexOperations.div(complex2, complex5));
+        ComplexNumber actual23=ComplexOperations.div(complex2, complex3);
+        actual23.setReal(Math.round(actual23.getReal()*1000d)/1000d);
+        actual23.setImm(Math.round(actual23.getImm()*1000d)/1000d);
+        assertEquals(expected23,actual23);
+        ComplexNumber actual24=ComplexOperations.div(complex2, complex4);
+        actual24.setReal(Math.round(actual24.getReal()*1000d)/1000d);
+        actual24.setImm(Math.round(actual24.getImm()*1000d)/1000d);
+        assertEquals(expected24,actual24);
+        ComplexNumber actual25=ComplexOperations.div(complex2, complex5);
+        actual25.setReal(Math.round(actual25.getReal()*1000d)/1000d);
+        actual25.setImm(Math.round(actual25.getImm()*1000d)/1000d);
+        assertEquals(expected25,actual25);
 
-        assertEquals(expected34,ComplexOperations.div(complex3, complex4));
-        assertEquals(expected35,ComplexOperations.div(complex3, complex5));
+        ComplexNumber actual34=ComplexOperations.div(complex3, complex4);
+        actual34.setReal(Math.round(actual34.getReal()*1000d)/1000d);
+        actual34.setImm(Math.round(actual34.getImm()*1000d)/1000d);
+        assertEquals(expected34,actual34);
+        ComplexNumber actual35=ComplexOperations.div(complex3, complex5);
+        actual35.setReal(Math.round(actual35.getReal()*1000d)/1000d);
+        actual35.setImm(Math.round(actual35.getImm()*1000d)/1000d);
+        assertEquals(expected35,actual35);
 
-        assertEquals(expected45,ComplexOperations.div(complex4, complex5));
+        ComplexNumber actual45=ComplexOperations.div(complex4, complex5);
+        actual45.setReal(Math.round(actual45.getReal()*1000d)/1000d);
+        actual45.setImm(Math.round(actual45.getImm()*1000d)/1000d);
+        assertEquals(expected45,actual45);
 
         assertThrows(ArithmeticException.class, () -> ComplexOperations.div(complex1, complex6));
 
@@ -209,10 +242,24 @@ public class ComplexOperationsTest {
     @Test
     public void testSqrt(){
         ComplexNumber complex1=ComplexOperations.sqrt(new ComplexNumber(5.0,10.0));
+        complex1.setReal(Math.round(complex1.getReal()*1000d)/1000d);
+        complex1.setImm(Math.round(complex1.getImm()*1000d)/1000d);
+
         ComplexNumber complex2=ComplexOperations.sqrt(new ComplexNumber(-2.0,6.0));
+        complex2.setReal(Math.round(complex2.getReal()*1000d)/1000d);
+        complex2.setImm(Math.round(complex2.getImm()*1000d)/1000d);
+
         ComplexNumber complex3=ComplexOperations.sqrt(new ComplexNumber(10.0,-2.0));
+        complex3.setReal(Math.round(complex3.getReal()*1000d)/1000d);
+        complex3.setImm(Math.round(complex3.getImm()*1000d)/1000d);
+
         ComplexNumber complex4=ComplexOperations.sqrt(new ComplexNumber(14.5,0.0));
+        complex4.setReal(Math.round(complex4.getReal()*1000d)/1000d);
+        complex4.setImm(Math.round(complex4.getImm()*1000d)/1000d);
+
         ComplexNumber complex5=ComplexOperations.sqrt(new ComplexNumber(0.0, -4.5));
+        complex5.setReal(Math.round(complex5.getReal()*1000d)/1000d);
+        complex5.setImm(Math.round(complex5.getImm()*1000d)/1000d);
 
         ComplexNumber expected1=new ComplexNumber(2.844, 1.758);
         ComplexNumber expected2=new ComplexNumber(1.470, 2.040);
