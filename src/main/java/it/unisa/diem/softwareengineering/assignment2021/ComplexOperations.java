@@ -121,10 +121,8 @@ public class ComplexOperations{
     public static ComplexNumber sqrt(ComplexNumber complex1){
         double mod=mod(complex1);
         double arg=arg(complex1);
-        System.out.println(mod);
-        System.out.println(arg);
-        double realTot=Math.sqrt(mod)*Math.cos(arg/2);
-        double immTot=Math.sqrt(mod)*Math.sin(arg/2);
+        double realTot=Math.round((Math.sqrt(mod)*Math.cos(arg/2))*1000d)/1000d;
+        double immTot=Math.round((Math.sqrt(mod)*Math.sin(arg/2))*1000d)/1000d;
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
         return complexResult;
     }
