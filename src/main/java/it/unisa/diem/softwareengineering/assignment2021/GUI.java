@@ -3,6 +3,7 @@ package it.unisa.diem.softwareengineering.assignment2021;
 import java.awt.ComponentOrientation;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -10,6 +11,7 @@ public class GUI extends javax.swing.JFrame {
     
     private List<ComplexNumber> memory = new ArrayList<>();
     Manager manager;
+    private final static int readLimiter = 12; //.... 
 
     /**
      * Creates new form GUI
@@ -168,8 +170,8 @@ public class GUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
             
         }finally{
-            printOnTextArea(manager.getMemory());
-            inputTextField.setText("");
+            printOnTextArea();
+            
         }
     }
     
@@ -223,12 +225,17 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-    private void printOnTextArea(List<ComplexNumber> memory){
+    private void printOnTextArea(){
+        inputTextField.setText(""); //clean the inputTextField
+        Iterator<ComplexNumber> memory = manager.getMemory();
+        int flag = 0;
         String str = "";
-        for (ComplexNumber c: memory){
-            str = c.toString() +"\n" + str;
+        while (memory.hasNext() && flag < readLimiter){
+            str = memory.next().toString() +"\n" + str;
+            flag += 1;
         }
         textArea.setText(str);
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
