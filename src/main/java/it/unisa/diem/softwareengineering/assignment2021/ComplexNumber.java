@@ -1,6 +1,8 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -143,8 +145,11 @@ public class ComplexNumber {
      */
     @Override
     public String toString() {
+        //Separates with a dot integer part from decimal part 
+        DecimalFormatSymbols symbol= new DecimalFormatSymbols(new Locale("US"));
         //Precision is 3, with DecimalFormat if we have 0s, it won't output them.
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat("#.###", symbol);
+        df.toLocalizedPattern();
         String realString = df.format(real);
         String immString = df.format(imm);
         //We only need plus symbol if imm is greather than 0, because - is printed by toString otherwise.
