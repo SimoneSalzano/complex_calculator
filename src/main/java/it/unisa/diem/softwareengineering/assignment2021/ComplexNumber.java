@@ -4,6 +4,12 @@ import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+* A representation of a Complex Number that with a real part and an imaginary part. 
+* @author Simone Salzano
+* 
+*/
 public class ComplexNumber {
     private Double real;
     private Double imm;
@@ -13,18 +19,38 @@ public class ComplexNumber {
         this.imm=imm;
     }
 
+    
+    /** 
+     * Gets the real part associated with the complex number.
+     * @return Double
+     */
     public Double getReal() {
         return this.real;
     }
 
+    
+    /** 
+     * Sets the real part associated with the complex number to the passed double.
+     * @param real
+     */
     public void setReal(Double real) {
         this.real = real;
     }
 
+    
+    /** 
+     * Gets the real imaginary associated with the complex number.
+     * @return Double
+     */
     public Double getImm() {
         return this.imm;
     }
 
+    
+    /** 
+     * Sets the imaginary part associated with the complex number to the passed double.
+     * @param imm
+     */
     public void setImm(Double imm) {
         this.imm = imm;
     }
@@ -97,7 +123,7 @@ public class ComplexNumber {
 
     
     /** 
-     * Checks if this Complex Number is equal to another one by checking if the real and immaginary parts correspond.  
+     * Checks if this Complex Number is equal to another one by checking if the real and imaginary parts correspond.  
      * @param obj the object to compare
      * @return boolean ture if the two elements are equal, false if not.
      */
@@ -128,9 +154,9 @@ public class ComplexNumber {
 
     
     /** 
-     * Utility method to convert a String formatted as a pure immaginary number to a Double 
+     * Utility method to convert a String formatted as a pure imaginary number to a Double 
      * @param immStr
-     * @return Double the Double corresponding to the converted immaginary-formatted String
+     * @return Double the Double corresponding to the converted imaginary-formatted String
      */
     private static Double convertImmStrToDouble(String immStr) {
         String jLess = immStr.replace("j","");

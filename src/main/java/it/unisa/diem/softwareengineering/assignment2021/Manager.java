@@ -1,8 +1,14 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
 
+
+/**
+* The Manager of the Complex Calculator, which makes the comunication between the GUI, the Memory and the available operations possible.
+* @author Simone Salzano
+* 
+*/
 public class Manager {
 
     //Manager is a Singleton. 
@@ -25,22 +31,12 @@ public class Manager {
         memory = new Memory();
     }
 
-    
-    /** 
-     * Gets a chosen number of elements from the memory as a list. 
-     * @param numberOfElements the number of elements to show from the memory. 
-     * @return List<ComplexNumber> the list of the elements in the memory
-     */
-    public List<ComplexNumber> getMemory(int numberOfElements) {
-        return memory.asList(numberOfElements);
-    }
-
     /** 
      * Gets 12 elements from the memory as a list.
      * @return List<ComplexNumber> the list of the elements in the memory
      */
-    public List<ComplexNumber> getMemory() {
-        return memory.asList(12);
+    public Iterator<ComplexNumber> getMemory() {
+        return memory.getIterator();
     }
     
     
