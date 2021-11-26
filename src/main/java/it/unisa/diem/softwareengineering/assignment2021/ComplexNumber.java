@@ -69,16 +69,16 @@ public class ComplexNumber {
      */
     public static ComplexNumber parseToComplexNumber(String str) throws NumberFormatException {
         //Pattern that matches a+jb or a+bj:
-        Pattern complexPatternRealFirst = Pattern.compile("(|\\+|-)((\\d+\\.\\d+)|(\\d+))(\\+|-)(j((\\d+\\.\\d+)|(\\d+))*|(((\\d+\\.\\d+)|(\\d+))*j))");
+        Pattern complexPatternRealFirst = Pattern.compile("(-|\\+|)((\\d+\\.\\d+)|(\\d+))(\\+|-)(j((\\d+\\.\\d+)|(\\d+))*|(((\\d+\\.\\d+)|(\\d+))*j))");
         Matcher complexPatternRealFirstMatcher = complexPatternRealFirst.matcher(str);
         //Pattern that matches jb+a or aj+b:
-        Pattern complexPatternImmFirst = Pattern.compile("(|\\+|-)((((\\d+\\.\\d+)|(\\d+))*j)|j((\\d+\\.\\d+)|(\\d+))*)(\\+|-)((\\d+\\.\\d+)|(\\d+))");
+        Pattern complexPatternImmFirst = Pattern.compile("(-|\\+|)((((\\d+\\.\\d+)|(\\d+))*j)|j((\\d+\\.\\d+)|(\\d+))*)(\\+|-)((\\d+\\.\\d+)|(\\d+))");
         Matcher complexPatternImmFirstMatcher = complexPatternImmFirst.matcher(str);
         //Pattern that matches real numbers:
-        Pattern realPattern = Pattern.compile("(|\\+|-)(\\d+\\.\\d+)|(\\d+)");
+        Pattern realPattern = Pattern.compile("(-|\\+|)((\\d+\\.\\d+)|(\\d+))");
         Matcher realPatternMatcher = realPattern.matcher(str);
         //Pattern that matches pure imaginary numbers:
-        Pattern immPattern = Pattern.compile("((|\\+|-)((\\d+\\.\\d+)|(\\d+))*j)|(j(|\\+|-)((\\d+\\.\\d+)|(\\d+))*)");
+        Pattern immPattern = Pattern.compile("((-|\\+|)((\\d+\\.\\d+)|(\\d+))*j)|(j(|\\+|-)((\\d+\\.\\d+)|(\\d+))*)");
         Matcher immPatternMatcher = immPattern.matcher(str);
         //Now we check what pattern matches our string and we build our ComplexNumber accordingly:
 
@@ -148,12 +148,13 @@ public class ComplexNumber {
         //Separates with a dot integer part from decimal part 
         DecimalFormatSymbols symbol= new DecimalFormatSymbols(new Locale("US"));
         //Precision is 3, with DecimalFormat if we have 0s, it won't output them.
-        DecimalFormat df = new DecimalFormat("#.###", symbol);
-        df.toLocalizedPattern();
+        DecimalFormat df = new DecimalFormat("#.###",symbol);
+        //df.toLocalizedPattern();
         String realString = df.format(real);
         String immString = df.format(imm);
         //We only need plus symbol if imm is greather than 0, because - is printed by toString otherwise.
         String plus = imm >= 0.0 ? "+" : "";
+        System.out.println(realString+plus+immString+'j');
         return realString+plus+immString+'j';
     }
 
