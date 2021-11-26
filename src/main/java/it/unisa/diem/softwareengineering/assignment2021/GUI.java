@@ -18,7 +18,7 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
-        textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        
         manager = Manager.getManager();
         
     }
@@ -237,11 +237,12 @@ public class GUI extends javax.swing.JFrame {
         int flag = 0;
         String str = "";
         while (memory.hasNext() && flag < readLimiter){
-            str = memory.next().toString() +"\n" + str;
+            ComplexNumber a = memory.next();
+            str = a.toString() +"\n" + str;
             flag += 1;
         }
         textArea.setText(str);
-        
+            
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
