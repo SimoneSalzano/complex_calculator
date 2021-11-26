@@ -181,10 +181,10 @@ public class MemoryTest {
         
         assertTrue(assertArrayListEquals(expected_array, memory.asList(0)));
 
-        expected_array.add(complex1);
+        expected_array.add(0, complex1);
         assertTrue(assertArrayListEquals(expected_array, memory.asList(1)));
 
-        expected_array.add(complex2);
+        expected_array.add(0,complex2);
         assertTrue(assertArrayListEquals(expected_array, memory.asList(2)));
 
         expected_array.add(complex3);

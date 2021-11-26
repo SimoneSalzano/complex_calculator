@@ -52,17 +52,13 @@ public class Memory {
     }
 
     
-    /** Return a sublist of n element
+    /** Return an iterator of the stack
      * @param n  
      * @return List<ComplexNumber>
      */
-    public List<ComplexNumber> asList(int n){
+    public Iterator<ComplexNumber> getIterator(){
         Iterator<ComplexNumber> itr=this.stack.iterator();
-        List<ComplexNumber> list_temp=new ArrayList<ComplexNumber>();
-        for(int i=0;i<n && itr.hasNext();i++){
-            list_temp.add(itr.next());
-        }
-        return list_temp;
+        return itr;
     }
 }
 
