@@ -160,7 +160,7 @@ public class MemoryTest {
 
 
     @Test
-    public void testAsList(){
+    public void testGetIterator(){
         Memory memory=new Memory();
         ComplexNumber complex1=new ComplexNumber(5.0,10.0);
         ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
@@ -176,31 +176,25 @@ public class MemoryTest {
         memory.push(complex5);
         memory.push(complex6);
 
-        List<ComplexNumber> expected_array= new ArrayList<ComplexNumber>();
+        Iterator<ComplexNumber> itr=memory.getIterator();
+        List<ComplexNumber> list_expected=new ArrayList<ComplexNumber>();
+
+        list_expected.add(complex6);
+        list_expected.add(complex5);
+        list_expected.add(complex4);
+        list_expected.add(complex3);
+        list_expected.add(complex2);
+        list_expected.add(complex1);
+
+        Iterator<ComplexNumber> itr_list=list_expected.iterator();
         
-        
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(0)));
+        while(itr.hasNext()){
+            if(itr.next()!=itr_list.next()){
+                assertEquals(true, false);
+            }
+        }
 
-        expected_array.add(0, complex1);
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(1)));
-
-        expected_array.add(0,complex2);
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(2)));
-
-        expected_array.add(complex3);
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(3)));
-
-        expected_array.add(complex4);
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(4)));
-
-        expected_array.add(complex5);
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(5)));
-
-        expected_array.add(complex6);
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(6)));
-
-        
-        assertTrue(assertArrayListEquals(expected_array, memory.asList(7)));
+        assertEquals(true, true);
         
     }
 
