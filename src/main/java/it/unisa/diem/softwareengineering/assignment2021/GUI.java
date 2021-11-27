@@ -17,10 +17,8 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public GUI() {
-        initComponents();
-        
-        manager = Manager.getManager();
-        
+        initComponents(); 
+        manager = Manager.getManager();      
     }
 
     /**
