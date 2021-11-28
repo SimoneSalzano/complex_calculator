@@ -1,23 +1,19 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
-import java.awt.ComponentOrientation;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class GUI extends javax.swing.JFrame {
     
-    private List<ComplexNumber> memory = new ArrayList<>();
     Manager manager;
-    private final static int readLimiter = 12; //.... 
+    private final static int readlimiter = 12; //.... 
 
     /**
      * Creates new form GUI
      */
     public GUI() {
-        initComponents(); 
+        initComponents();
         manager = Manager.getManager();      
     }
 
@@ -51,6 +47,7 @@ public class GUI extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Complex Calculator");
 
         jPanel1.setBackground(new java.awt.Color(0, 72, 121));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -69,11 +66,6 @@ public class GUI extends javax.swing.JFrame {
 
         inputTextField.setForeground(new java.awt.Color(0, 72, 121));
         inputTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
-        inputTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputTextFieldActionPerformed(evt);
-            }
-        });
         inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 inputTextFieldKeyPressed(evt);
@@ -130,7 +122,7 @@ public class GUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,8 +166,7 @@ public class GUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
             
         }finally{
-            printOnTextArea();
-            
+            printOnTextArea(); 
         }
     }
     
@@ -190,10 +181,6 @@ public class GUI extends javax.swing.JFrame {
             computeButton.doClick(); 
         }
     }//GEN-LAST:event_inputTextFieldKeyPressed
-
-    private void inputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,15 +213,19 @@ public class GUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
+                
             }
         });
     }
+    /**
+     * This method is called whenever a methods needs to update the Output in the textArea (it also clean the inputTextfield). 
+     */ 
     private void printOnTextArea(){
         inputTextField.setText(""); //clean the inputTextField
         Iterator<ComplexNumber> memory = manager.getMemory();
         int flag = 0;
         String str = "";
-        while (memory.hasNext() && flag < readLimiter){
+        while (memory.hasNext() && flag < readlimiter){
             ComplexNumber a = memory.next();
             str = a.toString() +"\n" + str;
             flag += 1;

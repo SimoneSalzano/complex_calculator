@@ -154,7 +154,6 @@ public class ComplexNumber {
         String immString = df.format(imm);
         //We only need plus symbol if imm is greather than 0, because - is printed by toString otherwise.
         String plus = imm >= 0.0 ? "+" : "";
-        System.out.println(realString+plus+immString+'j');
         return realString+plus+immString+'j';
     }
 
