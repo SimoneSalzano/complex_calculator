@@ -77,7 +77,6 @@ public class Manager {
     }
 
     public void insertPersonalizedOperation(String key, String operations) throws PersonalizedOperationException{
-        boolean validOperation = true;
         if (operations != null)
             throw new PersonalizedOperationException("You have inserted no operation for this command!");
         else if (ComplexNumber.isComplexNumber(key))
@@ -85,17 +84,15 @@ public class Manager {
         else {
             StringTokenizer itr = new StringTokenizer(operations);
             String operationToCheck;
-            boolean validOperation = true;
-            while (itr.hasMoreTokens() || !validOperation) {
+            while (itr.hasMoreTokens()) {
                 operationToCheck = itr.nextToken();
                 if (Arrays.asList(allowedOperations).contains(operationToCheck)) 
                     continue;
                 else if (personalizedOperations.containsKey(operationToCheck))
                     continue;
-                else if (ComplexNumber.isComplexNumber())
+                else if (ComplexNumber.isComplexNumber(operationToCheck))
                     continue;
-                else
-                    throw new PersonalizedOperationException("One or more of your commands isn't recognized!");
+                throw new PersonalizedOperationException("One or more of your commands isn't recognized!");
             }
         }
     }

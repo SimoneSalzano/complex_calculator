@@ -172,7 +172,7 @@ public class ComplexNumber {
         String complexNumberRealFirstRegex = "(-|\\+|)((\\d+\\.\\d+)|(\\d+))(\\+|-)(j((\\d+\\.\\d+)|(\\d+))*|(((\\d+\\.\\d+)|(\\d+))*j))";
         String complexNumberImmFirstRegex = "(-|\\+|)((((\\d+\\.\\d+)|(\\d+))*j)|j((\\d+\\.\\d+)|(\\d+))*)(\\+|-)((\\d+\\.\\d+)|(\\d+))";
 
-        boolean check = input.matches(realNumberRegex) || input.matches(immNumberRegex) || input.matches(complexNumberRealFirstRegex) || input.matches(complexNumberImmFirstRegex));
+        boolean check = input.matches(realNumberRegex) || input.matches(immNumberRegex) || input.matches(complexNumberRealFirstRegex) || input.matches(complexNumberImmFirstRegex);
 
         return check;
     }
