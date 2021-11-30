@@ -34,6 +34,12 @@ public class GUI extends javax.swing.JFrame {
         inputTextField = new javax.swing.JTextField();
         computeButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel3 = new javax.swing.JPanel();
+        clearButton = new javax.swing.JButton();
+        dropButton = new javax.swing.JButton();
+        dupButton = new javax.swing.JButton();
+        overButton = new javax.swing.JButton();
+        swapButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -106,6 +112,89 @@ public class GUI extends javax.swing.JFrame {
         jSeparator1.setBackground(new java.awt.Color(45, 161, 200));
         jSeparator1.setForeground(new java.awt.Color(207, 237, 242));
 
+        jPanel3.setBackground(new java.awt.Color(45, 161, 200));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(207, 237, 242), 1, true));
+
+        clearButton.setBackground(new java.awt.Color(207, 237, 242));
+        clearButton.setForeground(new java.awt.Color(0, 72, 121));
+        clearButton.setText("CLEAR");
+        clearButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
+
+        dropButton.setBackground(new java.awt.Color(207, 237, 242));
+        dropButton.setForeground(new java.awt.Color(0, 72, 121));
+        dropButton.setText("DROP");
+        dropButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        dropButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dropButtonActionPerformed(evt);
+            }
+        });
+
+        dupButton.setBackground(new java.awt.Color(207, 237, 242));
+        dupButton.setForeground(new java.awt.Color(0, 72, 121));
+        dupButton.setText("DUP");
+        dupButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        dupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dupButtonActionPerformed(evt);
+            }
+        });
+
+        overButton.setBackground(new java.awt.Color(207, 237, 242));
+        overButton.setForeground(new java.awt.Color(0, 72, 121));
+        overButton.setText("OVER");
+        overButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        overButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                overButtonActionPerformed(evt);
+            }
+        });
+
+        swapButton.setBackground(new java.awt.Color(207, 237, 242));
+        swapButton.setForeground(new java.awt.Color(0, 72, 121));
+        swapButton.setText("SWAP");
+        swapButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        swapButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                swapButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dropButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(overButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(swapButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dropButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(overButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(swapButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -113,8 +202,12 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jSeparator1)
         );
@@ -122,7 +215,11 @@ public class GUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -134,7 +231,7 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,29 +242,14 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This method is called when the butto is pressed or when in the inputTextFiled area the "enter" key
-     * is presed, it is used to insert a new number in the memory if it is valid or, it will notificate an error through a pop-up notification
+     * This method is called when the button is pressed or when in the inputTextFiled area the "enter" key
+     * is pressed, it is used to insert a new number, operator or function in the memory, (take it from the inputTextField) 
      * @param evt 
      */
     private void computeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeButtonActionPerformed
-     
-        String text = inputTextField.getText();
-        
-        try{ 
-            manager.processInput(text);
-            
-        } catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(rootPane, "The inserted element is neither a number nor an operation!");
-            
-        } catch (NotEnoughOperatorsException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            
-        } catch (ArithmeticException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
-            
-        }finally{
-            printOnTextArea(); 
-        }
+
+        if(computeButton.isEnabled())
+            runTask(inputTextField.getText());
     }
     
 //GEN-LAST:event_computeButtonActionPerformed
@@ -181,6 +263,42 @@ public class GUI extends javax.swing.JFrame {
             computeButton.doClick(); 
         }
     }//GEN-LAST:event_inputTextFieldKeyPressed
+
+    /**
+     * This method clear the memory
+     * @param evt 
+     */
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        runTask("clear");
+    }//GEN-LAST:event_clearButtonActionPerformed
+    /**
+     * This method drop the last element inserted in the memory
+     * @param evt 
+     */
+    private void dropButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropButtonActionPerformed
+        runTask("drop");
+    }//GEN-LAST:event_dropButtonActionPerformed
+    /**
+     * This method duplicate the last element inserted in the memory
+     * @param evt 
+     */
+    private void dupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dupButtonActionPerformed
+        runTask("dup");
+    }//GEN-LAST:event_dupButtonActionPerformed
+    /**
+     * This method duplicate the penultimate element inserted in the memory
+     * @param evt 
+     */
+    private void overButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overButtonActionPerformed
+        runTask("over");
+    }//GEN-LAST:event_overButtonActionPerformed
+    /**
+     * This method swap the last and the penultimate element inserted in the memory
+     * @param evt 
+     */
+    private void swapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swapButtonActionPerformed
+        runTask("swap");
+    }//GEN-LAST:event_swapButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,6 +335,44 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
+    
+    //------------------------------------------- Private methods ------------------------------------------------------------------
+    
+    /**
+     * This methods check if the input (operators, function, operators) is valid and run the task required or, it will notificate an error through a pop-up notification
+     * @param text 
+     */
+    private void runTask(String text){
+        computeButton.setEnabled(false);
+        clearButton.setEnabled(false);
+        dropButton.setEnabled(false);
+        dupButton.setEnabled(false);
+        overButton.setEnabled(false);
+        swapButton.setEnabled(false);
+        
+        try{ 
+            manager.processInput(text);
+            
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(rootPane, "The inserted element is neither a number nor an operation!");
+            
+        } catch (NotEnoughOperatorsException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            
+        } catch (ArithmeticException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
+            
+        }finally{
+            printOnTextArea();
+            computeButton.setEnabled(true);
+            clearButton.setEnabled(true);
+            dropButton.setEnabled(true);
+            dupButton.setEnabled(true);
+            overButton.setEnabled(true);
+            swapButton.setEnabled(true);
+        }
+    }
+    
     /**
      * This method is called whenever a methods needs to update the Output in the textArea (it also clean the inputTextfield). 
      */ 
@@ -235,13 +391,19 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton clearButton;
     private javax.swing.JButton computeButton;
+    private javax.swing.JButton dropButton;
+    private javax.swing.JButton dupButton;
     private javax.swing.JTextField inputTextField;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton overButton;
+    private javax.swing.JButton swapButton;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }
