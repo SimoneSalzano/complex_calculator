@@ -195,8 +195,245 @@ public class MemoryTest {
         assertEquals(true, true);
         
     }
-
     
+    @Test
+    public void testClear(){
+        Memory memory=new Memory();
+        ComplexNumber complex1=new ComplexNumber(5.0,10.0);
+        ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
+        ComplexNumber complex3=new ComplexNumber(10.0,-2.0);
+        ComplexNumber complex4=new ComplexNumber(14.5,0.0);
+        ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
+        ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
+        
+        memory.push(complex1);
+        memory.push(complex2);
+        memory.push(complex3);
+        memory.push(complex4);
+        memory.push(complex5);
+        memory.push(complex6);
+        
+        memory.clear();
+        assertEquals(0,memory.size());
+        
+        memory.clear();
+        assertEquals(0,memory.size());
+        
+        
+       
+    }  
+    
+    @Test
+    public void testDup(){
+        Memory memory = new Memory();   
+        ComplexNumber complex1=new ComplexNumber(5.0,10.0);
+        ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
+        ComplexNumber complex3=new ComplexNumber(10.0,-2.0);
+        ComplexNumber complex4=new ComplexNumber(14.5,0.0);
+        ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
+        ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
+        
+        ComplexNumber expected;
+        ComplexNumber complex;
+        
+        memory.dup();
+        assertEquals(0,memory.size());
+        
+        complex = new ComplexNumber(3.0,2.5);
+        memory.push(complex);
+        memory.dup();
+        
+        expected = memory.pop();
+        complex = memory.pop();
+        assertEquals(expected,complex);
+        memory.clear();
+        
+        memory.push(complex1);
+        memory.push(complex2);
+        memory.push(complex3);
+        memory.push(complex4);
+        memory.push(complex5);
+        memory.push(complex6);
+        
+        memory.dup();
+        expected = memory.pop();
+        complex = memory.pop();
+        assertEquals(expected,complex);
+        
+        memory.dup();
+        expected = memory.pop();
+        complex = memory.pop();
+        assertEquals(expected,complex);
+        
+        memory.dup();
+        expected = memory.pop();
+        complex = memory.pop();
+        assertEquals(expected,complex);
+        
+        memory.dup();
+        expected = memory.pop();
+        complex = memory.pop();
+        assertEquals(expected,complex);
+        
+        memory.dup();
+        expected = memory.pop();
+        complex = memory.pop();
+        assertEquals(expected,complex);
+        
+        memory.dup();
+        expected = memory.pop();
+        complex = memory.pop();
+        assertEquals(expected,complex);
+            
+    }
+    
+    @Test
+    public void testDrop(){
+        Memory memory = new Memory();      
+        ComplexNumber complex1=new ComplexNumber(5.0,10.0);
+        ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
+        ComplexNumber complex3=new ComplexNumber(10.0,-2.0);
+        ComplexNumber complex4=new ComplexNumber(14.5,0.0);
+        ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
+        ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
+        
+        memory.push(complex1);
+        memory.push(complex2);
+        memory.push(complex3);
+        memory.push(complex4);
+        memory.push(complex5);
+        memory.push(complex6);
+        
+        
+        assertEquals(6,memory.size()); 
+        memory.drop();
+        assertEquals(5,memory.size());
+        memory.drop();
+        assertEquals(4,memory.size());
+        memory.drop();
+        assertEquals(3,memory.size());
+        memory.drop();
+        assertEquals(2,memory.size());
+        memory.drop();
+        assertEquals(1,memory.size());
+        memory.drop();
+        assertEquals(0,memory.size());
+  
+    }
+    
+    @Test
+    public void testOver(){
+        Memory memory = new Memory();     
+        ComplexNumber over;
+        ComplexNumber last;
+        ComplexNumber penultimate;       
+        ComplexNumber complex1=new ComplexNumber(5.0,10.0);
+        ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
+        ComplexNumber complex3=new ComplexNumber(10.0,-2.0);
+        ComplexNumber complex4=new ComplexNumber(14.5,0.0);
+        ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
+        ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
+        
+        memory.push(complex1);
+        memory.over();
+        assertEquals(1,memory.size());
+        
+        memory.push(complex2);
+        memory.over();
+        over = memory.pop();
+        last = memory.pop();
+        penultimate= memory.pop();
+        assertEquals(over,penultimate);
+        
+        memory.push(complex1);
+        memory.push(complex2);
+        memory.push(complex3);
+        memory.push(complex4);
+        memory.push(complex5);
+        memory.push(complex6);
+        
+        memory.over();
+        over = memory.pop();
+        last = memory.pop();
+        penultimate= memory.pop();
+        assertEquals(over,penultimate);
+        memory.push(last);
+        
+        memory.over();
+        over = memory.pop();
+        last = memory.pop();
+        penultimate= memory.pop();
+        assertEquals(over,penultimate);
+        memory.push(last);
+        
+        memory.over();
+        over = memory.pop();
+        last = memory.pop();
+        penultimate= memory.pop();
+        assertEquals(over,penultimate);
+        memory.push(last);
+        
+        memory.over();
+        over = memory.pop();
+        last = memory.pop();
+        penultimate= memory.pop();
+        assertEquals(over,penultimate);
+        memory.push(last);
+        
+        memory.over();
+        over = memory.pop();
+        last = memory.pop();
+        penultimate= memory.pop();
+        assertEquals(over,penultimate);
+        memory.push(last);
+ 
+    }
+    
+    @Test
+    public void testSwap(){
+        Memory memory = new Memory();
+        ComplexNumber complex1=new ComplexNumber(5.0,10.0);
+        ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
+        ComplexNumber complex3=new ComplexNumber(10.0,-2.0);
+        ComplexNumber complex4=new ComplexNumber(14.5,0.0);
+        ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
+        ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
+        
+        
+        memory.push(complex1);
+        memory.push(complex2);
+        
+        memory.swap();
+        ComplexNumber last = memory.pop();
+        ComplexNumber penultimate = memory.pop();
+        assertEquals(complex1,last);
+        assertEquals(complex2,penultimate);
+        
+        memory.push(complex1);
+        memory.push(complex2);
+        memory.push(complex3);
+        memory.push(complex4);
+        memory.push(complex5);
+        memory.push(complex6);
+        
+        memory.swap();
+        last = memory.pop();
+        penultimate = memory.pop();
+        assertEquals(complex5,last);
+        assertEquals(complex6,penultimate);
+        
+        memory.swap();
+        last = memory.pop();
+        penultimate = memory.pop();
+        assertEquals(complex3,last);
+        assertEquals(complex4,penultimate);
+        
+        memory.swap();
+        last = memory.pop();
+        penultimate = memory.pop();
+        assertEquals(complex1,last);
+        assertEquals(complex2,penultimate);
 
-
+    }
+        
 }

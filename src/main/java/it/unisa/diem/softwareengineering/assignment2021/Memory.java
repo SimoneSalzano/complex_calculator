@@ -60,5 +60,54 @@ public class Memory {
         Iterator<ComplexNumber> itr=this.stack.iterator();
         return itr;
     }
+    
+    /**
+     * Remove all the elements from the stacks
+     */ 
+    public void clear(){
+        this.stack.removeAll(stack);
+    }
+    
+    /**
+     * Duplicate the last element in the stack
+     */
+    public void dup(){
+        if(this.size()>=1){
+            this.push(this.top());
+        }
+    }
+    /**
+     * Delete the last element in the stack
+     */
+    public void drop(){
+        if(this.size()>=1){
+            this.pop();
+        }
+    }
+    /**
+     * Duplicate the penultimate element from the stack
+     */
+    public void over(){
+        if(this.size()>=2){
+            ComplexNumber last = this.pop();
+            ComplexNumber penultimate = this.pop();
+            this.push(penultimate);
+            this.push(last);
+            this.push(penultimate);
+        }
+    }
+    /**
+     * Swap the last element and penultimate element
+     */
+    public void swap(){
+        if(this.size()>=2){
+            ComplexNumber last = this.pop();
+            ComplexNumber penultimate = this.pop();
+            this.push(last);
+            this.push(penultimate);
+        }
+    }
 }
+
+
 
