@@ -2,6 +2,9 @@ package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.StringTokenizer;
+
+import javax.lang.model.util.ElementScanner6;
 
 
 /**
@@ -25,18 +28,28 @@ public class Manager {
     }
 
     private Memory memory;
-    private String [] allowedOperations = {"+","-","*","/","+-","sqrt"}; 
+    private PersonalizedOperationsMap personalizedOperations;
+    private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","dup","over","swap"}; 
 
     private Manager() {
         memory = new Memory();
+        personalizedOperations = new PersonalizedOperationsMap();
     }
 
     /** 
-     * Gets 12 elements from the memory as a list.
-     * @return List<ComplexNumber> the list of the elements in the memory
+     * Gets 12 elements from the memory as an iterator.
+     * @return Iterator<ComplexNumber> the iterator over the elements in the memory
      */
     public Iterator<ComplexNumber> getMemory() {
         return memory.getIterator();
+    }
+
+        /** 
+     * Gets an iterator over the personalized operation loaded in runtime, separating key name from the operation list with ":".
+     * @return Iterator<String>
+     */
+    public Iterator<String> getPersonalizedOperations() {
+        return personalizedOperations.getMapIterator();
     }
     
     
@@ -51,57 +64,113 @@ public class Manager {
     public void processInput(String input) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
         //Check if inpput contains a legal operation
         if (Arrays.asList(allowedOperations).contains(input)) {
-            ComplexNumber secondOperand, firstOperand,result;
-            switch (input) {
-                case "+":
-                    if (memory.size() < 2)
-                        throw new NotEnoughOperatorsException("Sum requires 2 operands to be in the memory!");
-                    secondOperand = memory.pop();
-                    firstOperand = memory.pop();
-                    result = ComplexOperations.sum(firstOperand,secondOperand);
-                    break;
-                case "-":
-                    if (memory.size() < 2)
-                        throw new NotEnoughOperatorsException("Subtraction requires 2 operands to be in the memory!");
-                    secondOperand = memory.pop();
-                    firstOperand = memory.pop();
-                    result = ComplexOperations.sub(firstOperand,secondOperand);
-                    break;
-                case "*":
-                    if (memory.size() < 2)
-                        throw new NotEnoughOperatorsException("Multiplication requires 2 operands to be in the memory!");
-                    secondOperand = memory.pop();
-                    firstOperand = memory.pop();
-                    result = ComplexOperations.mul(firstOperand,secondOperand);
-                    break;
-                case "/":
-                    if (memory.size() < 2)
-                        throw new NotEnoughOperatorsException("Division requires 2 operands to be in the memory!");
-                    secondOperand = memory.pop();
-                    firstOperand = memory.pop();
-                    result = ComplexOperations.div(firstOperand,secondOperand);
-                    break;
-                case "+-":
-                    if (memory.size() < 1)
-                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                    firstOperand = memory.pop();
-                    result = ComplexOperations.inv(firstOperand);
-                    break;
-                default:
-                    //If input is contained in allowedOperations but is not any of the cases above, then it's sqrt.
-                    if (memory.size() < 1)
-                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                    firstOperand = memory.pop();
-                    result = ComplexOperations.sqrt(firstOperand);   
-                    break;
-            }
-            memory.push(result);
+            this.executeOperation(input);
         }
-        //if it's not a number, either it's a complex number, that we need to push into the stack, or we need to propagate the exception to the GUI
+        //Check if input references the name of a personalized operation
+        else if (personalizedOperations.containsKey(input)) {
+            this.executePersonalizedOperation(input);
+        }
+        //if it's not an operation, it's either a complex number, or a wrong input, in which case formatting it to a Complex Number produces an exception which will be handles by GUI. 
         else {
-            ComplexNumber newNumber = ComplexNumber.parseToComplexNumber(input);
-            memory.push(newNumber);
+            this.executeNumberInsertion(input);
         }
+    }
+
+    public void insertPersonalizedOperation(String key, String operations) throws PersonalizedOperationException{
+        boolean validOperation = true;
+        if (operations != null)
+            throw new PersonalizedOperationException("You have inserted no operation for this command!");
+        else if (ComplexNumber.isComplexNumber(key))
+            throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
+        else {
+            StringTokenizer itr = new StringTokenizer(operations);
+            String operationToCheck;
+            boolean validOperation = true;
+            while (itr.hasMoreTokens() || !validOperation) {
+                operationToCheck = itr.nextToken();
+                if (Arrays.asList(allowedOperations).contains(operationToCheck)) 
+                    continue;
+                else if (personalizedOperations.containsKey(operationToCheck))
+                    continue;
+                else if (ComplexNumber.isComplexNumber())
+                    continue;
+                else
+                    throw new PersonalizedOperationException("One or more of your commands isn't recognized!");
+            }
+        }
+    }
+
+
+    private void executeOperation(String operationName) throws ArithmeticException, NotEnoughOperatorsException {
+        ComplexNumber secondOperand, firstOperand,result;
+
+        switch (operationName) {
+
+            case "+":
+                if (memory.size() < 2)
+                    throw new NotEnoughOperatorsException("Sum requires 2 operands to be in the memory!");
+                secondOperand = memory.pop();
+                firstOperand = memory.pop();
+                result = ComplexOperations.sum(firstOperand,secondOperand);
+                break;
+
+            case "-":
+                if (memory.size() < 2)
+                    throw new NotEnoughOperatorsException("Subtraction requires 2 operands to be in the memory!");
+                secondOperand = memory.pop();
+                firstOperand = memory.pop();
+                result = ComplexOperations.sub(firstOperand,secondOperand);
+                break;
+
+            case "*":
+                if (memory.size() < 2)
+                    throw new NotEnoughOperatorsException("Multiplication requires 2 operands to be in the memory!");
+                secondOperand = memory.pop();
+                firstOperand = memory.pop();
+                result = ComplexOperations.mul(firstOperand,secondOperand);
+                break;
+
+            case "/":
+                if (memory.size() < 2)
+                    throw new NotEnoughOperatorsException("Division requires 2 operands to be in the memory!");
+                secondOperand = memory.pop();
+                firstOperand = memory.pop();
+                result = ComplexOperations.div(firstOperand,secondOperand);
+                break;
+
+            case "+-":
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                firstOperand = memory.pop();
+                result = ComplexOperations.inv(firstOperand);
+                break;
+
+            default:
+                //If input is contained in allowedOperations but is not any of the cases above, then it's sqrt.
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                firstOperand = memory.pop();
+                result = ComplexOperations.sqrt(firstOperand);   
+                break;
+        }
+
+        memory.push(result);
+
+    }
+
+
+    private void executePersonalizedOperation(String personalizedOperationName) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
+        Iterator<String> personalizedOperation = personalizedOperations.getPersonalizedOperationIterator(personalizedOperationName);
+
+        while (personalizedOperation.hasNext()) {
+            this.processInput(personalizedOperation.next());
+        }
+
+    }
+
+    private void executeNumberInsertion(String complexNumber) throws NumberFormatException{
+        ComplexNumber newNumber = ComplexNumber.parseToComplexNumber(complexNumber);
+        memory.push(newNumber);
     }
 
 }

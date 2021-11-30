@@ -157,6 +157,26 @@ public class ComplexNumber {
         return realString+plus+immString+'j';
     }
 
+
+
+    
+    /** 
+     * Check if a String is a valid complex number.
+     * @param input what you want to check if it's a complex number
+     * @return boolean
+     */
+    public static boolean isComplexNumber(String input) {
+
+        String realNumberRegex = "(-|\\+|)((\\d+\\.\\d+)|(\\d+))";
+        String immNumberRegex = "((-|\\+|)((\\d+\\.\\d+)|(\\d+))*j)|(j(|\\+|-)((\\d+\\.\\d+)|(\\d+))*)";
+        String complexNumberRealFirstRegex = "(-|\\+|)((\\d+\\.\\d+)|(\\d+))(\\+|-)(j((\\d+\\.\\d+)|(\\d+))*|(((\\d+\\.\\d+)|(\\d+))*j))";
+        String complexNumberImmFirstRegex = "(-|\\+|)((((\\d+\\.\\d+)|(\\d+))*j)|j((\\d+\\.\\d+)|(\\d+))*)(\\+|-)((\\d+\\.\\d+)|(\\d+))";
+
+        boolean check = input.matches(realNumberRegex) || input.matches(immNumberRegex) || input.matches(complexNumberRealFirstRegex) || input.matches(complexNumberImmFirstRegex));
+
+        return check;
+    }
+
     
     /** 
      * Utility method to convert a String formatted as a pure imaginary number to a Double 
