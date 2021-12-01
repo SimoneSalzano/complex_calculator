@@ -3,6 +3,7 @@ package it.unisa.diem.softwareengineering.assignment2021;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Iterator;
@@ -80,5 +81,93 @@ public class ManagerTest {
         result.setReal(Math.round(result.getReal()*1000d)/1000d);
         result.setImm(Math.round(result.getImm()*1000d)/1000d);
         assertEquals(expected[5], result);
+
+        manager.processInput("dup");
+        memory = manager.getMemory();
+        ComplexNumber duplicate = memory.next();
+        ComplexNumber original = memory.next();
+        assertEquals(duplicate, original);
+
+        manager.processInput("drop");
+        memory = manager.getMemory();
+        ComplexNumber last = memory.next();
+        ComplexNumber secondToLast = memory.next();
+        assertEquals(expected[5], last);
+        assertEquals(expected[4], secondToLast);
+
+        manager.processInput("over");
+        memory = manager.getMemory();
+        duplicate = memory.next();
+        memory.next();
+        original = memory.next();
+        assertEquals(duplicate, original);
+
+        manager.processInput("drop");
+
+        manager.processInput("swap");
+        memory = manager.getMemory();
+        last = memory.next();
+        secondToLast = memory.next();
+        assertEquals(expected[4], last);
+        assertEquals(expected[5], secondToLast);
+
+        manager.processInput("clear");
+        memory = manager.getMemory();
+        assertFalse(memory.hasNext());
     }
+
+    @Test
+    public void testInsertPersonalizedOperation() throws PersonalizedOperationException {
+        String name1 = "DoubleSum";
+        String name2 = "Get3Pi/2";
+        String wrongName1 = "3-4j";
+        String wrongName2 = "Double Sum";
+        
+        String operations1 = "+ +";
+        String operations2 = "3.14 dup dup DoubleSum 2 /";
+        String wrongOperations1 = "";
+        String wrongOperations2 = null;
+        
+
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(wrongName1, operations1));
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(wrongName2, operations2));
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name2, operations2)); //Reference to an operation not yet inserted
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name1, wrongOperations1));
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name2, wrongOperations2));
+
+        manager.insertPersonalizedOperation(name1, operations1);
+        manager.insertPersonalizedOperation(name2, operations2);
+        
+        Iterator<String> personalizedOperations = manager.getPersonalizedOperations();
+        assertEquals(personalizedOperations.next(), name2+":"+operations2);
+        assertEquals(personalizedOperations.next(), name1+":"+operations1);
+    }
+
+    @Test
+    public void testExecutePersonalizedOperation() throws PersonalizedOperationException, NumberFormatException, ArithmeticException, NotEnoughOperatorsException {
+        String name1 = "DoubleSum";
+        String name2 = "Get3Pi/2";
+        String operations1 = "+ +";
+        String operations2 = "3.141 dup dup DoubleSum 2 /";
+        ComplexNumber threeAndAHalphPi = new ComplexNumber(3.0*3.141/2.0,0.0); 
+        Iterator<ComplexNumber> memory;
+
+        manager.insertPersonalizedOperation(name1, operations1);
+        manager.insertPersonalizedOperation(name2, operations2);
+
+        manager.processInput("1+1j");
+        manager.processInput("2");
+        manager.processInput("5+6j");
+        manager.processInput(name1);
+        memory = manager.getMemory();
+        
+        assertEquals(expected[0], memory.next());
+
+        manager.processInput(name2);
+        memory = manager.getMemory();
+
+        assertEquals(threeAndAHalphPi, memory.next());
+    }
+
+
 }

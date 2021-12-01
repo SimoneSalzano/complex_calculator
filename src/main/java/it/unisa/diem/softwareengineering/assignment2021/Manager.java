@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import javax.lang.model.util.ElementScanner6;
-
-
 /**
 * The Manager of the Complex Calculator, which makes the comunication between the GUI, the Memory and the available operations possible.
 * @author Simone Salzano
@@ -29,7 +26,7 @@ public class Manager {
 
     private Memory memory;
     private PersonalizedOperationsMap personalizedOperations;
-    private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","dup","over","swap"}; 
+    private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","dup","drop","over","swap"}; 
 
     private Manager() {
         memory = new Memory();
@@ -76,14 +73,24 @@ public class Manager {
         }
     }
 
-    public void insertPersonalizedOperation(String key, String operations) throws PersonalizedOperationException{
-        if (operations != null)
+    /**
+     * Inserts a personalized operation into runtime environment, so that it can be later called again. 
+     * @param name the name of the personalized operation 
+     * @param operations the list of elementary operations that compose the personalized operation
+     * @throws PersonalizedOperationException when a element of operations isn't recognized, or when naming the operation with a complex number.
+     */
+    public void insertPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
+
+        if (operations == null || operations == "")
             throw new PersonalizedOperationException("You have inserted no operation for this command!");
-        else if (ComplexNumber.isComplexNumber(key))
+
+        else if (ComplexNumber.isComplexNumber(name))
             throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
+
         else {
             StringTokenizer itr = new StringTokenizer(operations);
             String operationToCheck;
+
             while (itr.hasMoreTokens()) {
                 operationToCheck = itr.nextToken();
                 if (Arrays.asList(allowedOperations).contains(operationToCheck)) 
@@ -92,12 +99,21 @@ public class Manager {
                     continue;
                 else if (ComplexNumber.isComplexNumber(operationToCheck))
                     continue;
+                //if our operation doesn't pass any of the above checks, then it hasn't been recognized.
                 throw new PersonalizedOperationException("One or more of your commands isn't recognized!");
             }
+            //if every operation passes a check, we can safely put our new personalized operation into the map.
+            personalizedOperations.put(name,operations);
         }
     }
 
 
+    /**
+     * A utility method used by processInput to execute elementary allowed operations. 
+     * @param operationName the name of the operation to execute.
+     * @throws ArithmeticException when the resulting operation is arithmetically illegal.
+     * @throws NotEnoughOperatorsException when there aren't enough operators in the stack to execute the operation.
+     */
     private void executeOperation(String operationName) throws ArithmeticException, NotEnoughOperatorsException {
         ComplexNumber secondOperand, firstOperand,result;
 
@@ -109,6 +125,7 @@ public class Manager {
                 secondOperand = memory.pop();
                 firstOperand = memory.pop();
                 result = ComplexOperations.sum(firstOperand,secondOperand);
+                memory.push(result);
                 break;
 
             case "-":
@@ -117,6 +134,7 @@ public class Manager {
                 secondOperand = memory.pop();
                 firstOperand = memory.pop();
                 result = ComplexOperations.sub(firstOperand,secondOperand);
+                memory.push(result);
                 break;
 
             case "*":
@@ -125,6 +143,7 @@ public class Manager {
                 secondOperand = memory.pop();
                 firstOperand = memory.pop();
                 result = ComplexOperations.mul(firstOperand,secondOperand);
+                memory.push(result);
                 break;
 
             case "/":
@@ -133,6 +152,7 @@ public class Manager {
                 secondOperand = memory.pop();
                 firstOperand = memory.pop();
                 result = ComplexOperations.div(firstOperand,secondOperand);
+                memory.push(result);
                 break;
 
             case "+-":
@@ -140,22 +160,47 @@ public class Manager {
                     throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
                 firstOperand = memory.pop();
                 result = ComplexOperations.inv(firstOperand);
+                memory.push(result);
                 break;
 
-            default:
-                //If input is contained in allowedOperations but is not any of the cases above, then it's sqrt.
+            case "sqrt":
                 if (memory.size() < 1)
                     throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
                 firstOperand = memory.pop();
-                result = ComplexOperations.sqrt(firstOperand);   
+                result = ComplexOperations.sqrt(firstOperand);
+                memory.push(result);
+                break;
+
+            case "clear":
+                memory.clear();
+                break;
+
+            case "drop":
+                memory.drop();
+                break;
+
+            case "swap":
+                memory.swap();
+                break;
+
+            case "over":
+                memory.over();
+                break;
+
+            case "dup":
+                memory.dup();
                 break;
         }
-
-        memory.push(result);
-
     }
 
 
+    /**
+     * Utility method used by processInput to execute personalized operations, by calling processInput for each elementary operation or complex number stated in the personalized operation.
+     * @param personalizedOperationName the name of the personalized operation.
+     * @throws NumberFormatException on the same conditions of processInput.
+     * @throws NotEnoughOperatorsException on the same conditions of processInput.
+     * @throws ArithmeticException on the same conditions of processInput.
+     */
     private void executePersonalizedOperation(String personalizedOperationName) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
         Iterator<String> personalizedOperation = personalizedOperations.getPersonalizedOperationIterator(personalizedOperationName);
 
@@ -165,6 +210,11 @@ public class Manager {
 
     }
 
+    /**
+     * Utility method used py processInput to insert a new Complex Number, if the passed argument has the proper format.
+     * @param complexNumber the String to parse to Complex Number. 
+     * @throws NumberFormatException when the passed String is not a ComplexNumber.
+     */
     private void executeNumberInsertion(String complexNumber) throws NumberFormatException{
         ComplexNumber newNumber = ComplexNumber.parseToComplexNumber(complexNumber);
         memory.push(newNumber);

@@ -78,7 +78,7 @@ public class ComplexNumber {
         Pattern realPattern = Pattern.compile("(-|\\+|)((\\d+\\.\\d+)|(\\d+))");
         Matcher realPatternMatcher = realPattern.matcher(str);
         //Pattern that matches pure imaginary numbers:
-        Pattern immPattern = Pattern.compile("((-|\\+|)((\\d+\\.\\d+)|(\\d+))*j)|(j(|\\+|-)((\\d+\\.\\d+)|(\\d+))*)");
+        Pattern immPattern = Pattern.compile("(-|\\+|)((((\\d+\\.\\d+)|(\\d+))+j)|j((\\d+\\.\\d+)|(\\d+))*)");
         Matcher immPatternMatcher = immPattern.matcher(str);
         //Now we check what pattern matches our string and we build our ComplexNumber accordingly:
 
@@ -168,7 +168,7 @@ public class ComplexNumber {
     public static boolean isComplexNumber(String input) {
 
         String realNumberRegex = "(-|\\+|)((\\d+\\.\\d+)|(\\d+))";
-        String immNumberRegex = "((-|\\+|)((\\d+\\.\\d+)|(\\d+))*j)|(j(|\\+|-)((\\d+\\.\\d+)|(\\d+))*)";
+        String immNumberRegex = "(-|\\+|)((((\\d+\\.\\d+)|(\\d+))+j)|j((\\d+\\.\\d+)|(\\d+))*)";
         String complexNumberRealFirstRegex = "(-|\\+|)((\\d+\\.\\d+)|(\\d+))(\\+|-)(j((\\d+\\.\\d+)|(\\d+))*|(((\\d+\\.\\d+)|(\\d+))*j))";
         String complexNumberImmFirstRegex = "(-|\\+|)((((\\d+\\.\\d+)|(\\d+))*j)|j((\\d+\\.\\d+)|(\\d+))*)(\\+|-)((\\d+\\.\\d+)|(\\d+))";
 

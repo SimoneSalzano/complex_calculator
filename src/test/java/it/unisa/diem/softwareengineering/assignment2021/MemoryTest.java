@@ -224,7 +224,7 @@ public class MemoryTest {
     }  
     
     @Test
-    public void testDup(){
+    public void testDup() throws NotEnoughOperatorsException{
         Memory memory = new Memory();   
         ComplexNumber complex1=new ComplexNumber(5.0,10.0);
         ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
@@ -235,9 +235,8 @@ public class MemoryTest {
         
         ComplexNumber expected;
         ComplexNumber complex;
-        
-        memory.dup();
-        assertEquals(0,memory.size());
+
+        assertThrows(NotEnoughOperatorsException.class,() -> memory.dup());
         
         complex = new ComplexNumber(3.0,2.5);
         memory.push(complex);
@@ -288,7 +287,7 @@ public class MemoryTest {
     }
     
     @Test
-    public void testDrop(){
+    public void testDrop() throws NotEnoughOperatorsException{
         Memory memory = new Memory();      
         ComplexNumber complex1=new ComplexNumber(5.0,10.0);
         ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
@@ -297,6 +296,8 @@ public class MemoryTest {
         ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
         ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
         
+        assertThrows(NotEnoughOperatorsException.class,() -> memory.drop());
+
         memory.push(complex1);
         memory.push(complex2);
         memory.push(complex3);
@@ -322,7 +323,7 @@ public class MemoryTest {
     }
     
     @Test
-    public void testOver(){
+    public void testOver() throws NotEnoughOperatorsException{
         Memory memory = new Memory();     
         ComplexNumber over;
         ComplexNumber last;
@@ -335,8 +336,7 @@ public class MemoryTest {
         ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
         
         memory.push(complex1);
-        memory.over();
-        assertEquals(1,memory.size());
+        assertThrows(NotEnoughOperatorsException.class,() -> memory.over());
         
         memory.push(complex2);
         memory.over();
@@ -390,7 +390,7 @@ public class MemoryTest {
     }
     
     @Test
-    public void testSwap(){
+    public void testSwap() throws NotEnoughOperatorsException{
         Memory memory = new Memory();
         ComplexNumber complex1=new ComplexNumber(5.0,10.0);
         ComplexNumber complex2=new ComplexNumber(-2.0,6.0);
@@ -399,8 +399,9 @@ public class MemoryTest {
         ComplexNumber complex5=new ComplexNumber(0.0, -4.5);
         ComplexNumber complex6=new ComplexNumber(0.0, 0.0);
         
-        
+        assertThrows(NotEnoughOperatorsException.class,() -> memory.swap());
         memory.push(complex1);
+        assertThrows(NotEnoughOperatorsException.class,() -> memory.swap());
         memory.push(complex2);
         
         memory.swap();

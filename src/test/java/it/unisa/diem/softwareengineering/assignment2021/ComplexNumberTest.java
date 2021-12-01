@@ -3,7 +3,9 @@ package it.unisa.diem.softwareengineering.assignment2021;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ComplexNumberTest {
@@ -88,6 +90,36 @@ public class ComplexNumberTest {
         c.setReal(-2.000);
         c.setImm(3.0);
         assertEquals(expected,c.toString());
+    }
+
+    @Test
+    public void testIsComplexNumber() {
+        String cn1 = "3-4j";
+        String cn2 = "-3-4j";
+        String cn3 = "3.5j-4.8";
+        String cn4 = "-3.77-j4.77";
+        String cn5 = "3+4j";
+        String cn6 = "3.12";
+        String cn7 = "j3.4";
+        String cn8 = "-j57.4";
+        String notcn1 = "notcn";
+        String notcn2 = "jnotcn";
+        String notcn3 = "54.12+notcn.38j";
+        String notcn4 = "54.4+12.7j-8.4j";
+
+        assertTrue(ComplexNumber.isComplexNumber(cn1));
+        assertTrue(ComplexNumber.isComplexNumber(cn2));
+        assertTrue(ComplexNumber.isComplexNumber(cn3));
+        assertTrue(ComplexNumber.isComplexNumber(cn4));
+        assertTrue(ComplexNumber.isComplexNumber(cn5));
+        assertTrue(ComplexNumber.isComplexNumber(cn6));
+        assertTrue(ComplexNumber.isComplexNumber(cn7));
+        assertTrue(ComplexNumber.isComplexNumber(cn8));
+        
+        assertFalse(ComplexNumber.isComplexNumber(notcn1));
+        assertFalse(ComplexNumber.isComplexNumber(notcn2));
+        assertFalse(ComplexNumber.isComplexNumber(notcn3));
+        assertFalse(ComplexNumber.isComplexNumber(notcn4));
     }
 
 

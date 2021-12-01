@@ -70,24 +70,31 @@ public class Memory {
     
     /**
      * Duplicate the last element in the stack
+     * @throws NotEnoughOperatorsException
      */
-    public void dup(){
+    public void dup() throws NotEnoughOperatorsException{
         if(this.size()>=1){
             this.push(this.top());
         }
+        else
+            throw new NotEnoughOperatorsException("Drop requires one operand!");
     }
     /**
      * Delete the last element in the stack
+     * @throws NotEnoughOperatorsException
      */
-    public void drop(){
+    public void drop() throws NotEnoughOperatorsException{
         if(this.size()>=1){
             this.pop();
         }
+        else
+            throw new NotEnoughOperatorsException("Drop requires one operand!");
     }
     /**
      * Duplicate the penultimate element from the stack
+     * @throws NotEnoughOperatorsException
      */
-    public void over(){
+    public void over() throws NotEnoughOperatorsException{
         if(this.size()>=2){
             ComplexNumber last = this.pop();
             ComplexNumber penultimate = this.pop();
@@ -95,17 +102,22 @@ public class Memory {
             this.push(last);
             this.push(penultimate);
         }
+        else
+            throw new NotEnoughOperatorsException("Swap requires two operands!");
     }
     /**
      * Swap the last element and penultimate element
+     * @throws NotEnoughOperatorsException
      */
-    public void swap(){
+    public void swap() throws NotEnoughOperatorsException{
         if(this.size()>=2){
             ComplexNumber last = this.pop();
             ComplexNumber penultimate = this.pop();
             this.push(last);
             this.push(penultimate);
         }
+        else
+            throw new NotEnoughOperatorsException("Swap requires two operands!");
     }
 }
 
