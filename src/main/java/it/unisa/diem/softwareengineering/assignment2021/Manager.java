@@ -82,7 +82,7 @@ public class Manager {
     public void insertPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
 
         if (operations == null || operations == "")
-            throw new PersonalizedOperationException("You have inserted no operation for this command!");
+            throw new PersonalizedOperationException("You have inserted no operation for " + name + "!");
 
         else if (ComplexNumber.isComplexNumber(name))
             throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
@@ -100,11 +100,15 @@ public class Manager {
                 else if (ComplexNumber.isComplexNumber(operationToCheck))
                     continue;
                 //if our operation doesn't pass any of the above checks, then it hasn't been recognized.
-                throw new PersonalizedOperationException("One or more of your commands isn't recognized!");
+                throw new PersonalizedOperationException("One or more of your commands in " + name +" isn't recognized!");
             }
             //if every operation passes a check, we can safely put our new personalized operation into the map.
             personalizedOperations.put(name,operations);
         }
+    }
+
+    public void deletePersonalizedOperation(String name) {
+        personalizedOperations.remove(name);
     }
 
 

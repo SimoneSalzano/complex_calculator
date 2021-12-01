@@ -63,7 +63,7 @@ public class ComplexNumberTest {
         assertEquals(expected8,c1);
         assertEquals(expected8,c2);
 
-        //Assert it throws exceptions when passing string that are not complex numbers
+        //Assert it throws exceptions when passing strings that are not complex numbers
         assertThrows(NumberFormatException.class, () -> ComplexNumber.parseToComplexNumber("Not a complex number"));
         assertThrows(NumberFormatException.class, () -> ComplexNumber.parseToComplexNumber("+"));
         assertThrows(NumberFormatException.class, () -> ComplexNumber.parseToComplexNumber("7+somethingj"));
@@ -115,7 +115,7 @@ public class ComplexNumberTest {
         assertTrue(ComplexNumber.isComplexNumber(cn6));
         assertTrue(ComplexNumber.isComplexNumber(cn7));
         assertTrue(ComplexNumber.isComplexNumber(cn8));
-        
+
         assertFalse(ComplexNumber.isComplexNumber(notcn1));
         assertFalse(ComplexNumber.isComplexNumber(notcn2));
         assertFalse(ComplexNumber.isComplexNumber(notcn3));
