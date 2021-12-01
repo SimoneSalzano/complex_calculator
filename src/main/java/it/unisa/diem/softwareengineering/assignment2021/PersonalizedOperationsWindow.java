@@ -5,10 +5,14 @@
  */
 package it.unisa.diem.softwareengineering.assignment2021;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +22,10 @@ import javax.swing.table.DefaultTableModel;
 public class PersonalizedOperationsWindow extends javax.swing.JPanel {
 
     private Manager manager;
-    private DefaultTableModel model; 
+    private DefaultTableModel model;
+    private String keyModified;
+    
+    
     /**
      * Creates new form PersonalizedOperationsWindow
      */
@@ -33,6 +40,21 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             String[] words = itr.next().split(":");
             model.addRow(new Object[]{words[0],words[1]});
         }
+        
+        table.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent m){
+                int row = table.getSelectedRow();
+                keyModified = table.getModel().getValueAt(row, 0).toString();
+            }
+        });
+        
+        table.getModel().addTableModelListener(new TableModelListener(){
+
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                //aggiornare il valore in base alla chiave
+            }
+        });
         
         
     }
@@ -113,19 +135,22 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(addOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addComponent(loadButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                .addGap(33, 33, 33)
-                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addComponent(loadButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addOpButton, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(loadButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(saveButton))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(addOpButton, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                        .addComponent(loadButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -189,3 +214,4 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
+
