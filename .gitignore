@@ -38,7 +38,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
+nb-*
 
 # Compiled class file
 *.class
@@ -57,3 +57,7 @@ nbdist/
 
 #docx artifacts
 ~$cklogGruppo14IZ.docx
+
+
+#dummy I/O test files
+test_file
