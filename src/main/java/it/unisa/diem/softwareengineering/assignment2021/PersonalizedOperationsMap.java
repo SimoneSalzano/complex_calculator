@@ -34,13 +34,23 @@ public class PersonalizedOperationsMap extends HashMap<String,String>{
                 String key=pair.getKey();
                 String value=pair.getValue();
                 int i=0;
-                boolean check=false;
-                String copyValue=value;
-                while(mapOnFile.containsKey(copyValue)){
-                    i=i+1;
-                    copyValue=value+"_"+i;
+                boolean check_duplicate=false;
+                String copyKey=key;
+                while(mapOnFile.containsKey(copyKey)){
+                   // System.out.println(copyKey+":"+mapOnFile.get(copyKey)+"     "+this.get(copyKey));
+                    if(mapOnFile.get(copyKey).equals(this.get(copyKey))){
+                        
+                        check_duplicate=true;
+                        break;
+                    }else{
+                        i=i+1;
+                        copyKey=key+"_"+i;
+                    }
+                    
                 }
-                mapOnFile.put(key, value);
+                if(!check_duplicate){
+                    mapOnFile.put(copyKey, value);
+                }   
             }
             file.delete();
             ObjectOutputStream out=new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)));
@@ -61,13 +71,22 @@ public class PersonalizedOperationsMap extends HashMap<String,String>{
         for (Map.Entry<String, String> pair: mapOnFile.entrySet()){
             String key=pair.getKey();
             String value=pair.getValue();
+            boolean check_duplicate=false;
             int i=0;
-            String copyValue=value;
-            while(this.containsKey(copyValue)){
-                i=i+1;
-                copyValue=value+"_"+i;
+            String copyKey=key;
+            while(this.containsKey(copyKey)){
+                if(this.get(copyKey).equals(mapOnFile.get(copyKey))){
+                    check_duplicate=true;
+                    break;
+                }else{
+                    i=i+1;
+                    copyKey=key+"_"+i;
+                }
             }
-            this.put(key, copyValue);
+            if(!check_duplicate){
+                this.put(copyKey, value);
+            }
+            
         }
     }
 
