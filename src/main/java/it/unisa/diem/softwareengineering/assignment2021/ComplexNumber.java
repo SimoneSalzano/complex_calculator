@@ -166,7 +166,6 @@ public class ComplexNumber {
      * @return boolean
      */
     public static boolean isComplexNumber(String input) {
-
         String realNumberRegex = "(-|\\+|)((\\d+\\.\\d+)|(\\d+))";
         String immNumberRegex = "(-|\\+|)((((\\d+\\.\\d+)|(\\d+))+j)|j((\\d+\\.\\d+)|(\\d+))*)";
         String complexNumberRealFirstRegex = "(-|\\+|)((\\d+\\.\\d+)|(\\d+))(\\+|-)(j((\\d+\\.\\d+)|(\\d+))*|(((\\d+\\.\\d+)|(\\d+))*j))";

@@ -25,6 +25,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
     private Manager manager;
     private DefaultTableModel model;
     private String keyModified;
+    private String valueModified;
     
     
     /**
@@ -52,6 +53,9 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent m){
                 int row = table.getSelectedRow();
                 keyModified = table.getModel().getValueAt(row, 0).toString();
+                valueModified = table.getModel().getValueAt(row, 1).toString();
+                System.out.println(keyModified);
+                
             }
         });
         
@@ -60,13 +64,14 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             @Override
             public void tableChanged(TableModelEvent e) {
                 
-                if(keyModified != null){
-                    String newKey = model.getValueAt(e.getLastRow(),0).toString();
-                    String newValue = model.getValueAt(e.getLastRow(),1).toString();
-               
+                if(keyModified != null ){
                     try {
-                        manager.editPersonalizedOperation(keyModified, newKey, newValue);
+                        String newKey = model.getValueAt(e.getLastRow(),0).toString();
+                        String newValue = model.getValueAt(e.getLastRow(),1).toString();
+                        manager.editPersonalizedOperation(keyModified, valueModified, newKey, newValue);
                     } catch (PersonalizedOperationException ex) {
+                        keyModified=null;
+                        buildTable();
                         JOptionPane.showMessageDialog(table, ex.getMessage());
                     }
                 }
@@ -94,6 +99,8 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         addOpButton = new javax.swing.JButton();
         removeOpButton = new javax.swing.JButton();
+        clearOpButton1 = new javax.swing.JButton();
+        print = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 72, 121));
 
@@ -161,7 +168,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         addOpButton.setBackground(new java.awt.Color(207, 237, 242));
         addOpButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         addOpButton.setForeground(new java.awt.Color(0, 72, 121));
-        addOpButton.setText("ADD OPERATION");
+        addOpButton.setText("ADD");
         addOpButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
         addOpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,11 +179,22 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         removeOpButton.setBackground(new java.awt.Color(207, 237, 242));
         removeOpButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         removeOpButton.setForeground(new java.awt.Color(0, 72, 121));
-        removeOpButton.setText("REMOVE OPERATION");
+        removeOpButton.setText("REMOVE");
         removeOpButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
         removeOpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeOpButtonActionPerformed(evt);
+            }
+        });
+
+        clearOpButton1.setBackground(new java.awt.Color(207, 237, 242));
+        clearOpButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        clearOpButton1.setForeground(new java.awt.Color(0, 72, 121));
+        clearOpButton1.setText("CLEAR");
+        clearOpButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        clearOpButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearOpButton1ActionPerformed(evt);
             }
         });
 
@@ -186,20 +204,30 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(addOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(removeOpButton)
+                .addComponent(addOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(removeOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(clearOpButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removeOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(clearOpButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(addOpButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(removeOpButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        print.setText("print");
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -209,9 +237,11 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(print)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -223,11 +253,17 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(print)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -270,9 +306,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             }
         }
         buildTable();
-        Iterator<String> i = manager.getPersonalizedOperations();
-        while(i.hasNext())
-            System.out.println(i.next());
+        
     }//GEN-LAST:event_loadButton1ActionPerformed
 
     private void removeOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeOpButtonActionPerformed
@@ -285,14 +319,34 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_removeOpButtonActionPerformed
 
+    private void clearOpButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearOpButton1ActionPerformed
+        keyModified = null;
+        Object[] options = {"yes","no"};
+        int n = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to delete all operations? Unsaved operations into file will be deleted", "Clear", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        if(n == 0){
+            manager.clearMap();
+            buildTable();
+        }
+    }//GEN-LAST:event_clearOpButton1ActionPerformed
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+        Iterator<String> itr=manager.getPersonalizedOperations();
+        while(itr.hasNext()){
+            System.out.println(itr.next());
+        }
+        System.out.println();
+    }//GEN-LAST:event_printActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addOpButton;
+    private javax.swing.JButton clearOpButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton loadButton1;
+    private javax.swing.JButton print;
     private javax.swing.JButton removeOpButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JTable table;

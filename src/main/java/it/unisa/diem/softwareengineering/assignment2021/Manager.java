@@ -74,7 +74,31 @@ public class Manager {
             this.executeNumberInsertion(input);
         }
     }
-
+    
+    private boolean checkValidPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
+        if (name == null || name.equals(""))
+            throw new PersonalizedOperationException("You have inserted no name for inserted operation!");
+        else if (operations == null || operations.equals(""))
+            throw new PersonalizedOperationException("You have inserted no operation for " + name + "!");
+        else if (ComplexNumber.isComplexNumber(name))
+            throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
+        else if (name.contains(" ") || name.contains("\t")) 
+            throw new PersonalizedOperationException("Operation names can't contain any spaces!"); 
+        StringTokenizer itr = new StringTokenizer(operations);
+        String operationToCheck;
+        while (itr.hasMoreTokens()) {
+            operationToCheck = itr.nextToken();
+            if (Arrays.asList(allowedOperations).contains(operationToCheck)) 
+                continue;
+            else if (personalizedOperations.containsKey(operationToCheck))
+                continue;
+            else if (ComplexNumber.isComplexNumber(operationToCheck))
+                continue;
+            //if our operation doesn't pass any of the above checks, then it hasn't been recognized.
+            throw new PersonalizedOperationException("One or more of your commands in " + name +" isn't recognized!");
+        }
+        return true;
+    }
     /**
      * Inserts a personalized operation into runtime environment, so that it can be later called again. 
      * @param name the name of the personalized operation 
@@ -82,34 +106,8 @@ public class Manager {
      * @throws PersonalizedOperationException when a element of operations isn't recognized, naming the operation with a complex number or the name contains a space.
      */
     public String insertPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
-        if (name == null || name.equals(""))
-            throw new PersonalizedOperationException("You have inserted no name for inserted operation!");
-        else if (operations == null || operations.equals(""))
-            throw new PersonalizedOperationException("You have inserted no operation for " + name + "!");
-        else if (ComplexNumber.isComplexNumber(name))
-            throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
-
-        else if (name.contains(" ") || name.contains("\t")) 
-            throw new PersonalizedOperationException("Operation names can't contain any spaces!"); 
-
-        else {
-            StringTokenizer itr = new StringTokenizer(operations);
-            String operationToCheck;
-
-            while (itr.hasMoreTokens()) {
-                operationToCheck = itr.nextToken();
-                if (Arrays.asList(allowedOperations).contains(operationToCheck)) 
-                    continue;
-                else if (personalizedOperations.containsKey(operationToCheck))
-                    continue;
-                else if (ComplexNumber.isComplexNumber(operationToCheck))
-                    continue;
-                //if our operation doesn't pass any of the above checks, then it hasn't been recognized.
-                throw new PersonalizedOperationException("One or more of your commands in " + name +" isn't recognized!");
-            }
-            //if every operation passes a check, we can safely put our new personalized operation into the map.
-            return personalizedOperations.put(name,operations);
-        }
+        checkValidPersonalizedOperation(name, operations);
+        return personalizedOperations.put(name,operations);
     }
 
     /**
@@ -133,16 +131,20 @@ public class Manager {
      * @param operations the new operations performed by this personalized operation.
      * @throws PersonalizedOperationException when there was no operation named like oldName.
      */
-    public void editPersonalizedOperation(String oldName, String newName, String operations) throws PersonalizedOperationException {
-
+    public void editPersonalizedOperation(String oldName,String oldOperation, String newName, String newOperations) throws PersonalizedOperationException {
+        checkValidPersonalizedOperation(newName, newOperations);
         if (personalizedOperations.containsKey(oldName)) {
-
-            if (!oldName.equals(newName))
-                personalizedOperations.remove(oldName);
-
-            personalizedOperations.put(newName,operations);
+            if(oldName.equals(newName) || !personalizedOperations.containsKey(newName)){
+                
+                
+                if (!oldName.equals(newName))
+                    personalizedOperations.remove(oldName);
+                personalizedOperations.edit(newName,newOperations);
+            }
+            else{
+                throw new PersonalizedOperationException("There is already an operation named " + "!" );
+            }
         }
-
         else
             throw new PersonalizedOperationException("There is no operation named " + oldName + "!");
     }
@@ -155,7 +157,10 @@ public class Manager {
     public void LoadMapToFile() throws ClassNotFoundException, IOException {
         personalizedOperations.loadFromFile("personalized-operations");
     }
-
+    
+    public void clearMap(){
+        personalizedOperations.clear();
+    }
     /**
      * A utility method used by processInput to execute elementary allowed operations. 
      * @param operationName the name of the operation to execute.

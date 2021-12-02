@@ -21,6 +21,10 @@ public class PersonalizedOperationsMap extends HashMap<String,String>{
         return copyKey;
     }
     
+    public void edit(String key, String value){
+        super.put(key,value);
+    }
+    
     /** Get an Iterator that iterate over the operations associated with the key
      * @param key Name of the operation
      * @return Iterator<String>
