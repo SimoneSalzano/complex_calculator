@@ -1,5 +1,7 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -77,7 +79,7 @@ public class Manager {
      * Inserts a personalized operation into runtime environment, so that it can be later called again. 
      * @param name the name of the personalized operation 
      * @param operations the list of elementary operations that compose the personalized operation
-     * @throws PersonalizedOperationException when a element of operations isn't recognized, or when naming the operation with a complex number.
+     * @throws PersonalizedOperationException when a element of operations isn't recognized, naming the operation with a complex number or the name contains a space.
      */
     public void insertPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
 
@@ -86,6 +88,9 @@ public class Manager {
 
         else if (ComplexNumber.isComplexNumber(name))
             throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
+
+        else if (name.contains(" ") || name.contains("\t")) 
+            throw new PersonalizedOperationException("Operation names can't contain any spaces!"); 
 
         else {
             StringTokenizer itr = new StringTokenizer(operations);
@@ -107,10 +112,49 @@ public class Manager {
         }
     }
 
-    public void deletePersonalizedOperation(String name) {
-        personalizedOperations.remove(name);
+    /**
+     * Delete a personalized operation from runtime.
+     * @param name the name of the personalized operation to remove.
+     * @throws PersonalizedOperationException when there is no operation named like the parameter passed.
+     */
+    public void deletePersonalizedOperation(String name) throws PersonalizedOperationException{
+
+        if (personalizedOperations.containsKey(name))
+            personalizedOperations.remove(name);
+
+        else
+            throw new PersonalizedOperationException("There is no operation named " + name + "!");
     }
 
+    /**
+     * Edits a personalized operation's name, or operations.
+     * @param oldName the personalized operation's former name.
+     * @param newName the personalized operation's new name.
+     * @param operations the new operations performed by this personalized operation.
+     * @throws PersonalizedOperationException when there was no operation named like oldName.
+     */
+    public void editPersonalizedOperation(String oldName, String newName, String operations) throws PersonalizedOperationException {
+
+        if (personalizedOperations.containsKey(oldName)) {
+
+            if (!oldName.equals(newName))
+                personalizedOperations.remove(oldName);
+
+            personalizedOperations.put(newName,operations);
+        }
+
+        else
+            throw new PersonalizedOperationException("There is no operation named " + oldName + "!");
+    }
+
+
+    public void saveMapToFile() throws ClassNotFoundException, IOException {
+        personalizedOperations.saveToFile("personalized-operations");
+    }
+
+    public void LoadMapToFile() throws ClassNotFoundException, IOException {
+        personalizedOperations.loadFromFile("personalized-operations");
+    }
 
     /**
      * A utility method used by processInput to execute elementary allowed operations. 
@@ -208,10 +252,26 @@ public class Manager {
     private void executePersonalizedOperation(String personalizedOperationName) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
         Iterator<String> personalizedOperation = personalizedOperations.getPersonalizedOperationIterator(personalizedOperationName);
 
-        while (personalizedOperation.hasNext()) {
-            this.processInput(personalizedOperation.next());
+        //preserve old memory in case an exception occurs
+        ArrayList<ComplexNumber> backupMemory = new ArrayList<>();
+        Iterator<ComplexNumber> itr = memory.getIterator();
+        while (itr.hasNext()) {
+            backupMemory.add(itr.next());
         }
 
+        try {
+            while (personalizedOperation.hasNext()) {
+                this.processInput(personalizedOperation.next());
+            }
+        } catch (Exception ex) {
+            //restore memory before trying the chain of operations called by this method. 
+            memory.clear();
+            while (!backupMemory.isEmpty()) {
+                memory.push(backupMemory.remove(backupMemory.size() - 1));
+            }
+            //propagate the exception so that the GUI can handle it.
+            throw ex;
+        }
     }
 
     /**

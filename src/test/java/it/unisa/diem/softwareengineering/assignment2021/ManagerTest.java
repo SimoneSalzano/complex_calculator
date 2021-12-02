@@ -167,6 +167,16 @@ public class ManagerTest {
         memory = manager.getMemory();
 
         assertEquals(threeAndAHalphPi, memory.next());
+
+        manager.processInput("clear");
+
+        manager.processInput(expected[0].toString());
+        manager.processInput(expected[1].toString());
+        manager.insertPersonalizedOperation("DoubleSubtraction", "- -");
+        assertThrows(NotEnoughOperatorsException.class, () -> manager.processInput("DoubleSubtraction"));
+        memory = manager.getMemory();
+        assertEquals(expected[1],memory.next());
+        assertEquals(expected[0],memory.next());
     }
 
 
