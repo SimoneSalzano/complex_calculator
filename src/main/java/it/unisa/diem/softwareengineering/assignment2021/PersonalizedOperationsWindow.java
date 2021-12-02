@@ -7,6 +7,7 @@ package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,7 +53,18 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
 
             @Override
             public void tableChanged(TableModelEvent e) {
-                //aggiornare il valore in base alla chiave
+                
+                if(keyModified != null){
+                    String newKey = model.getValueAt(e.getLastRow(),0).toString();
+                    String newValue = model.getValueAt(e.getLastRow(),1).toString();
+               
+                    try {
+                        manager.editPersonalizedOperation(keyModified, newKey, newValue);
+                    } catch (PersonalizedOperationException ex) {
+                        JOptionPane.showMessageDialog(table, ex.getMessage());
+                    }
+                }
+                
             }
         });
         
@@ -183,24 +195,34 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         Object[] options = {"yes","no"};
         int n = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(n == 0){
-            //manager.saveMapToFile();
+            try {
+                manager.saveMapToFile();
+            } catch (ClassNotFoundException | IOException ex) {
+                JOptionPane.showMessageDialog(table, ex.getMessage());
+            }
             
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void addOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOpButtonActionPerformed
+        
+        keyModified = null;
         String name = JOptionPane.showInputDialog("Insert operation name");
         String operations = JOptionPane.showInputDialog("Insert operations separated by space");
         try {
             manager.insertPersonalizedOperation(name,operations);
             model.addRow(new Object[]{name,operations});
         } catch (PersonalizedOperationException ex) {
-            Logger.getLogger(PersonalizedOperationsWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(table, ex.getMessage());
         }
+        
     }//GEN-LAST:event_addOpButtonActionPerformed
 
     private void loadButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButton1ActionPerformed
-        // TODO add your handling code here:
+        Iterator<String> i = manager.getPersonalizedOperations();
+        while(i.hasNext())
+            System.out.println(i.next());
+        System.out.println();
     }//GEN-LAST:event_loadButton1ActionPerformed
 
 
