@@ -62,7 +62,7 @@ public class PersonalizedOperationsMapTest {
 
     @Test
     public void testSaveToFile() throws IOException, ClassNotFoundException{
-        File file=new File("test file");
+        File file=new File("test_file");
         if(!file.createNewFile()){
             file.delete();
         }
@@ -84,14 +84,14 @@ public class PersonalizedOperationsMapTest {
         mapExpected.put("6 operation","* dup swap / -");
 
         PersonalizedOperationsMap mapActual= new PersonalizedOperationsMap();
-        mapActual.loadFromFile("test file");
+        mapActual.loadFromFile("test_file");
         assertEquals(mapExpected, mapActual);
 
     }
 
     @Test
     public void testSaveAndLoadFromFile() throws IOException, ClassNotFoundException{
-        File file=new File("test file");
+        File file=new File("test_file");
         if(!file.createNewFile()){
             file.delete();
         }
@@ -105,7 +105,7 @@ public class PersonalizedOperationsMapTest {
         mapExpected.saveToFile("test file");
 
         PersonalizedOperationsMap mapActual= new PersonalizedOperationsMap();
-        mapActual.loadFromFile("test file");
+        mapActual.loadFromFile("test_file");
 
         assertEquals(mapExpected, mapActual);
     }
