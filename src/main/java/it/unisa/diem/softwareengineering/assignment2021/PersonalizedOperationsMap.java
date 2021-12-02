@@ -9,6 +9,18 @@ import java.io.*;
 
 public class PersonalizedOperationsMap extends HashMap<String,String>{
     
+    @Override
+    public String put(String key, String value){
+        int i=0;
+        String copyKey=key;
+        while(this.containsKey(copyKey)){
+            i=i+1;
+            copyKey=key+"("+i+")";
+        }
+        super.put(copyKey,value);
+        return copyKey;
+    }
+    
     /** Get an Iterator that iterate over the operations associated with the key
      * @param key Name of the operation
      * @return Iterator<String>
@@ -67,7 +79,7 @@ public class PersonalizedOperationsMap extends HashMap<String,String>{
                     break;
                 }else{
                     i=i+1;
-                    copyKey=key+"_"+i;
+                    copyKey=key+"("+i+")";
                 }
             }
             if(!check_duplicate){

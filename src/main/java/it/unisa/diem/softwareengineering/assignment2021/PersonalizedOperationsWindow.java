@@ -250,8 +250,8 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         String name = JOptionPane.showInputDialog("Insert operation name");
         String operations = JOptionPane.showInputDialog("Insert operations separated by space");
         try {
-            manager.insertPersonalizedOperation(name,operations);
-            model.addRow(new Object[]{name,operations});
+            String newKey=manager.insertPersonalizedOperation(name,operations);
+            model.addRow(new Object[]{newKey,operations});
         } catch (PersonalizedOperationException ex) {
             JOptionPane.showMessageDialog(table, ex.getMessage());
         }
@@ -259,6 +259,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_addOpButtonActionPerformed
 
     private void loadButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButton1ActionPerformed
+        keyModified = null;
         Object[] options = {"yes","no"};
         int n = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to load from file?", "Loading", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(n == 0){

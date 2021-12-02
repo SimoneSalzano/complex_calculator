@@ -81,11 +81,11 @@ public class Manager {
      * @param operations the list of elementary operations that compose the personalized operation
      * @throws PersonalizedOperationException when a element of operations isn't recognized, naming the operation with a complex number or the name contains a space.
      */
-    public void insertPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
-
-        if (operations == null || operations == "")
+    public String insertPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
+        if (name == null || name.equals(""))
+            throw new PersonalizedOperationException("You have inserted no name for inserted operation!");
+        else if (operations == null || operations.equals(""))
             throw new PersonalizedOperationException("You have inserted no operation for " + name + "!");
-
         else if (ComplexNumber.isComplexNumber(name))
             throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
 
@@ -108,7 +108,7 @@ public class Manager {
                 throw new PersonalizedOperationException("One or more of your commands in " + name +" isn't recognized!");
             }
             //if every operation passes a check, we can safely put our new personalized operation into the map.
-            personalizedOperations.put(name,operations);
+            return personalizedOperations.put(name,operations);
         }
     }
 

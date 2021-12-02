@@ -339,6 +339,7 @@ public class GUI extends javax.swing.JFrame {
 
         fram.add(opPane);
         fram.setVisible(true);
+        fram.pack();
     }//GEN-LAST:event_memoButtonActionPerformed
 
     /**
