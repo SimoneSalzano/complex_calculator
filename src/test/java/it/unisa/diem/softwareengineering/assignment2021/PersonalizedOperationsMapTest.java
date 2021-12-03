@@ -65,6 +65,7 @@ public class PersonalizedOperationsMapTest {
         File file=new File("test_file");
         if(!file.createNewFile()){
             file.delete();
+            file=new File("test_file");
         }
         PersonalizedOperationsMap map= new PersonalizedOperationsMap();
         map.put("1 operation","* dup + / -");
@@ -73,7 +74,7 @@ public class PersonalizedOperationsMapTest {
         map.put("4 operation","* dup / / -");
         map.put("5 operation","* dup over / -");
         map.put("6 operation","* dup swap / -");
-        map.saveToFile("test file");
+        map.saveToFile("test_file");
 
         PersonalizedOperationsMap mapExpected= new PersonalizedOperationsMap();
         mapExpected.put("1 operation","* dup + / -");
@@ -94,6 +95,7 @@ public class PersonalizedOperationsMapTest {
         File file=new File("test_file");
         if(!file.createNewFile()){
             file.delete();
+            file=new File("test_file");
         }
         PersonalizedOperationsMap mapExpected= new PersonalizedOperationsMap();
         mapExpected.put("1 operation","* dup + / -");
@@ -102,7 +104,7 @@ public class PersonalizedOperationsMapTest {
         mapExpected.put("4 operation","* dup / / -");
         mapExpected.put("5 operation","* dup over / -");
         mapExpected.put("6 operation","* dup swap / -");
-        mapExpected.saveToFile("test file");
+        mapExpected.saveToFile("test_file");
 
         PersonalizedOperationsMap mapActual= new PersonalizedOperationsMap();
         mapActual.loadFromFile("test_file");
