@@ -18,6 +18,26 @@ import org.junit.jupiter.api.BeforeAll;
 public class PersonalizedOperationsMapTest {
 
     @Test
+    public void testPut(){
+        PersonalizedOperationsMap mapActual= new PersonalizedOperationsMap();
+        mapActual.put("1 operation","* dup + / -");
+        mapActual.put("1 operation","* dup - / -");
+        mapActual.put("1 operation","* dup * / -");
+        mapActual.put("4 operation","* dup / / -");
+        mapActual.put("4 operation","* dup over / -");
+        mapActual.put("6 operation","* dup swap / -");
+
+        PersonalizedOperationsMap mapExpected= new PersonalizedOperationsMap();
+        mapExpected.put("1 operation","* dup + / -");
+        mapExpected.put("1 operation(1)","* dup - / -");
+        mapExpected.put("1 operation(2)","* dup * / -");
+        mapExpected.put("4 operation","* dup / / -");
+        mapExpected.put("4 operation(1)","* dup over / -");
+        mapExpected.put("6 operation","* dup swap / -");
+
+        assertEquals(mapExpected, mapActual);
+    }
+    @Test
     public void testGetPersonalizedOperationIterator(){
         PersonalizedOperationsMap map= new PersonalizedOperationsMap();
         map.put("1 operation","* dup + / -");
