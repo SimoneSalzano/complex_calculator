@@ -75,6 +75,13 @@ public class Manager {
         }
     }
     
+    /**
+     * Utility methot that checks if the personalized operation passed is valid.
+     * @param name the name of the personalized operation.
+     * @param operations the elementary operations contained in the personalized operation.
+     * @return true if the operation is valid
+     * @throws PersonalizedOperationException when the operation is not valid, varying its message in each case.
+     */
     private boolean checkValidPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
         if (name == null || name.equals(""))
             throw new PersonalizedOperationException("You have inserted no name for inserted operation!");
@@ -131,31 +138,47 @@ public class Manager {
      * @param operations the new operations performed by this personalized operation.
      * @throws PersonalizedOperationException when there was no operation named like oldName.
      */
-    public void editPersonalizedOperation(String oldName,String oldOperation, String newName, String newOperations) throws PersonalizedOperationException {
+    public void editPersonalizedOperation(String oldName, String newName, String newOperations) throws PersonalizedOperationException {
+
         checkValidPersonalizedOperation(newName, newOperations);
+
         if (personalizedOperations.containsKey(oldName)) {
+            //check if newName isn't another existing personalizedOperation, so that we don't overwrite it.
             if(oldName.equals(newName) || !personalizedOperations.containsKey(newName)){
+                //remove the old operation if the new name is different from the old name, otherwise just update the elementary operations. 
                 if (!oldName.equals(newName))
                     personalizedOperations.remove(oldName);
                 personalizedOperations.edit(newName,newOperations);
             }
             else{
-                throw new PersonalizedOperationException("There is already an operation named " + "!" );
+                throw new PersonalizedOperationException("There is already an operation named " + newName + "!" );
             }
         }
         else
             throw new PersonalizedOperationException("There is no operation named " + oldName + "!");
     }
 
-
+    /**
+     * Saves the personalized operations defined at runtime to a standard file.
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
     public void saveMapToFile() throws ClassNotFoundException, IOException {
         personalizedOperations.saveToFile("personalized-operations");
     }
 
+    /**
+     * Loads the personalized operation from the standard file to runtime.
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
     public void LoadMapToFile() throws ClassNotFoundException, IOException {
         personalizedOperations.loadFromFile("personalized-operations");
     }
     
+    /**
+     * Deletes every personalized operations defined at runtime.
+     */
     public void clearMap(){
         personalizedOperations.clear();
     }
