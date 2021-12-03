@@ -135,8 +135,6 @@ public class Manager {
         checkValidPersonalizedOperation(newName, newOperations);
         if (personalizedOperations.containsKey(oldName)) {
             if(oldName.equals(newName) || !personalizedOperations.containsKey(newName)){
-                
-                
                 if (!oldName.equals(newName))
                     personalizedOperations.remove(oldName);
                 personalizedOperations.edit(newName,newOperations);

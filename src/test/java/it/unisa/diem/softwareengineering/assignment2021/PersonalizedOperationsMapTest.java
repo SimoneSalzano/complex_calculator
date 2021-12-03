@@ -4,19 +4,36 @@ import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ArrayBlockingQueue;
 
-import org.junit.jupiter.api.BeforeAll;
 
 
 public class PersonalizedOperationsMapTest {
 
+    @Test
+    public void testPut(){
+        PersonalizedOperationsMap mapActual= new PersonalizedOperationsMap();
+        mapActual.put("1 operation","* dup + / -");
+        mapActual.put("1 operation","* dup - / -");
+        mapActual.put("1 operation","* dup * / -");
+        mapActual.put("4 operation","* dup / / -");
+        mapActual.put("4 operation","* dup over / -");
+        mapActual.put("6 operation","* dup swap / -");
+
+        PersonalizedOperationsMap mapExpected= new PersonalizedOperationsMap();
+        mapExpected.put("1 operation","* dup + / -");
+        mapExpected.put("1 operation(1)","* dup - / -");
+        mapExpected.put("1 operation(2)","* dup * / -");
+        mapExpected.put("4 operation","* dup / / -");
+        mapExpected.put("4 operation(1)","* dup over / -");
+        mapExpected.put("6 operation","* dup swap / -");
+
+        assertEquals(mapExpected, mapActual);
+    }
     @Test
     public void testGetPersonalizedOperationIterator(){
         PersonalizedOperationsMap map= new PersonalizedOperationsMap();
@@ -65,6 +82,7 @@ public class PersonalizedOperationsMapTest {
         File file=new File("test_file");
         if(!file.createNewFile()){
             file.delete();
+            file=new File("test_file");
         }
         PersonalizedOperationsMap map= new PersonalizedOperationsMap();
         map.put("1 operation","* dup + / -");
@@ -73,7 +91,7 @@ public class PersonalizedOperationsMapTest {
         map.put("4 operation","* dup / / -");
         map.put("5 operation","* dup over / -");
         map.put("6 operation","* dup swap / -");
-        map.saveToFile("test file");
+        map.saveToFile("test_file");
 
         PersonalizedOperationsMap mapExpected= new PersonalizedOperationsMap();
         mapExpected.put("1 operation","* dup + / -");
@@ -94,6 +112,7 @@ public class PersonalizedOperationsMapTest {
         File file=new File("test_file");
         if(!file.createNewFile()){
             file.delete();
+            file=new File("test_file");
         }
         PersonalizedOperationsMap mapExpected= new PersonalizedOperationsMap();
         mapExpected.put("1 operation","* dup + / -");
@@ -102,7 +121,7 @@ public class PersonalizedOperationsMapTest {
         mapExpected.put("4 operation","* dup / / -");
         mapExpected.put("5 operation","* dup over / -");
         mapExpected.put("6 operation","* dup swap / -");
-        mapExpected.saveToFile("test file");
+        mapExpected.saveToFile("test_file");
 
         PersonalizedOperationsMap mapActual= new PersonalizedOperationsMap();
         mapActual.loadFromFile("test_file");

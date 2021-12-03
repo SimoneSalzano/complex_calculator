@@ -9,6 +9,12 @@ import java.io.*;
 
 public class PersonalizedOperationsMap extends HashMap<String,String>{
     
+    
+    /** Put method that checks if the key already exists. In this case, the key will be duplicated
+     * @param key
+     * @param value
+     * @return String return the key that will be modified if there is a duplicate
+     */
     @Override
     public String put(String key, String value){
         int i=0;
@@ -21,6 +27,11 @@ public class PersonalizedOperationsMap extends HashMap<String,String>{
         return copyKey;
     }
     
+    
+    /** Method that edit an operation and replace the old value associated with the key.
+     * @param key key to modify
+     * @param value new value
+     */
     public void edit(String key, String value){
         super.put(key,value);
     }
@@ -61,7 +72,7 @@ public class PersonalizedOperationsMap extends HashMap<String,String>{
     }
     
     
-    /** Load from file the map (serialization). If there are duplicate keys they will be kept unless their values are the same
+    /** Load from file the map (serialization). If there are duplicate keys, they will be kept unless their values are the same
      * @param fileName
      * @throws IOException
      * @throws ClassNotFoundException

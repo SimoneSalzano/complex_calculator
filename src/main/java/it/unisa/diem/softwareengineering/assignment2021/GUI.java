@@ -378,7 +378,7 @@ public class GUI extends javax.swing.JFrame {
         });
     }
     
-    //------------------------------------------- Private methods ------------------------------------------------------------------
+    //----------------------------------------------------------------- Private methods ------------------------------------------------------------------
     
     /**
      * This methods check if the input (operators, function, operators) is valid and run the task required or, it will notificate an error through a pop-up notification
