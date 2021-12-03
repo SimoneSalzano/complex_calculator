@@ -154,7 +154,10 @@ public class ComplexNumber {
         String immString = df.format(imm);
         //We only need plus symbol if imm is greather than 0, because - is printed by toString otherwise.
         String plus = imm >= 0.0 ? "+" : "";
-        return realString+plus+immString+'j';
+        String convertedNumber =realString+plus+immString+'j';
+        //avoid displaying -0 on the calculator, we don't need a distinction between -0 and 0.
+        convertedNumber = convertedNumber.replaceAll("-0","0");
+        return convertedNumber;
     }
 
 
