@@ -59,5 +59,6 @@ nb-*
 ~$cklogGruppo14IZ.docx
 
 
-#dummy I/O test files
-test_file
+#personalized-operations personal file
+./personalized-operations
+personalized-operations

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Iterator;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
 
@@ -27,6 +28,11 @@ public class ManagerTest {
         expected[3] = new ComplexNumber(1.923, 0.385);
         expected[4] = new ComplexNumber(-5.0, -5.0);
         expected[5] = new ComplexNumber(2.457, 1.018);
+    }
+
+    @AfterEach
+    public static void teardown() {
+        manager.clearMap();
     }
 
     @Test
@@ -139,8 +145,8 @@ public class ManagerTest {
         manager.insertPersonalizedOperation(name2, operations2);
         
         Iterator<String> personalizedOperations = manager.getPersonalizedOperations();
-        assertEquals(personalizedOperations.next(), name2+":"+operations2);
-        assertEquals(personalizedOperations.next(), name1+":"+operations1);
+        assertEquals(name2+":"+operations2, personalizedOperations.next());
+        assertEquals(name1+":"+operations1, personalizedOperations.next());
     }
 
     @Test
@@ -179,5 +185,36 @@ public class ManagerTest {
         assertEquals(expected[0],memory.next());
     }
 
+    @Test
+    public void testEditPersonalizedOperation() throws PersonalizedOperationException {
+        //operation validity is already tested in testInsertPersonalizedOperation, and both methods call the same utility method to check it.
+        String name1 = "myOperation";
+        String operation1 = "+ + +";
+        String operation2 = "* + +";
+        String modifiedName = "myModifiedOperation";
+
+        manager.insertPersonalizedOperation(name1, operation1);
+        manager.editPersonalizedOperation(name1, modifiedName, operation1);
+
+        Iterator<String> personalizedOperations = manager.getPersonalizedOperations();
+        assertEquals(modifiedName+":"+operation1, personalizedOperations.next());
+        assertFalse(personalizedOperations.hasNext());
+
+        manager.editPersonalizedOperation(modifiedName, modifiedName, operation2);
+
+        personalizedOperations = manager.getPersonalizedOperations();
+        assertEquals(modifiedName+":"+operation2, personalizedOperations.next());
+        assertFalse(personalizedOperations.hasNext());
+
+        manager.editPersonalizedOperation(modifiedName, name1, operation1);
+
+        personalizedOperations = manager.getPersonalizedOperations();
+        assertEquals(name1+":"+operation1, personalizedOperations.next());
+        assertFalse(personalizedOperations.hasNext());
+
+        assertThrows(PersonalizedOperationException.class, () -> manager.editPersonalizedOperation("NotExistingOperation", "NewPersonalizedOperation", "dup drop dup drop"), "There is no operation named NotExistingOperation!");
+        manager.insertPersonalizedOperation(modifiedName,operation2);
+        assertThrows(PersonalizedOperationException.class, () -> manager.editPersonalizedOperation(name1,modifiedName,operation1), "There is already an operation named " + modifiedName + "!" );
+    }
 
 }
