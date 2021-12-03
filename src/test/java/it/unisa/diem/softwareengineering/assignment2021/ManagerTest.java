@@ -31,7 +31,7 @@ public class ManagerTest {
     }
 
     @AfterEach
-    public static void teardown() {
+    public void teardown() {
         manager.clearMap();
     }
 
@@ -215,6 +215,19 @@ public class ManagerTest {
         assertThrows(PersonalizedOperationException.class, () -> manager.editPersonalizedOperation("NotExistingOperation", "NewPersonalizedOperation", "dup drop dup drop"), "There is no operation named NotExistingOperation!");
         manager.insertPersonalizedOperation(modifiedName,operation2);
         assertThrows(PersonalizedOperationException.class, () -> manager.editPersonalizedOperation(name1,modifiedName,operation1), "There is already an operation named " + modifiedName + "!" );
+    }
+
+    @Test
+    public void testDeletePersonalizedOperation() throws PersonalizedOperationException {
+        String name1 = "myOperation";
+        String operation1 = "+ + +";
+        manager.insertPersonalizedOperation(name1, operation1);
+        manager.deletePersonalizedOperation(name1);
+
+        Iterator<String> personalizedOperations = manager.getPersonalizedOperations();
+        assertFalse(personalizedOperations.hasNext());
+
+        assertThrows(PersonalizedOperationException.class, () -> manager.deletePersonalizedOperation(name1));
     }
 
 }
