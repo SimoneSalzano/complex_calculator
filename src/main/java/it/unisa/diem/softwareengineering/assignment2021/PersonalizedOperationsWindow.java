@@ -9,17 +9,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Andre
- */
+
 public class PersonalizedOperationsWindow extends javax.swing.JPanel {
 
     private Manager manager;
@@ -27,58 +22,39 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
     private String keyModified;
     private String valueModified;
     
-    
-    /**
-     * Creates new form PersonalizedOperationsWindow
-     */
-    private void buildTable(){
-        keyModified = null;
-        model.setRowCount(0);
-        Iterator<String> itr = manager.getPersonalizedOperations();
-        while(itr.hasNext()){
-            String[] words = itr.next().split(":");
-            model.addRow(new Object[]{words[0],words[1]});
-        }
-        
-    }
     public PersonalizedOperationsWindow() {
         initComponents();
         manager = Manager.getManager();
-        
         model = (DefaultTableModel)table.getModel();
-        
         buildTable();
         
+        //this anonymous class returns the key and the value of the selected row
         table.addMouseListener(new MouseAdapter(){
+            @Override
             public void mouseClicked(MouseEvent m){
                 int row = table.getSelectedRow();
                 keyModified = table.getModel().getValueAt(row, 0).toString();
                 valueModified = table.getModel().getValueAt(row, 1).toString();
-                System.out.println(keyModified);
-                
             }
         });
         
+        //this anonymous class is used to change the run-time operations, when the table is modified 
         table.getModel().addTableModelListener(new TableModelListener(){
-
             @Override
             public void tableChanged(TableModelEvent e) {
-                
                 if(keyModified != null ){
                     try {
                         String newKey = model.getValueAt(e.getLastRow(),0).toString();
                         String newValue = model.getValueAt(e.getLastRow(),1).toString();
                         manager.editPersonalizedOperation(keyModified, valueModified, newKey, newValue);
                     } catch (PersonalizedOperationException ex) {
-                        keyModified=null;
+                        keyModified = null;
                         buildTable();
                         JOptionPane.showMessageDialog(table, ex.getMessage());
                     }
                 }
             }
-        });
-        
-        
+        });  
     }
 
     /**
@@ -99,8 +75,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         addOpButton = new javax.swing.JButton();
         removeOpButton = new javax.swing.JButton();
-        clearOpButton1 = new javax.swing.JButton();
-        print = new javax.swing.JButton();
+        clearOpButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 72, 121));
 
@@ -187,14 +162,14 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             }
         });
 
-        clearOpButton1.setBackground(new java.awt.Color(207, 237, 242));
-        clearOpButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        clearOpButton1.setForeground(new java.awt.Color(0, 72, 121));
-        clearOpButton1.setText("CLEAR");
-        clearOpButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
-        clearOpButton1.addActionListener(new java.awt.event.ActionListener() {
+        clearOpButton.setBackground(new java.awt.Color(207, 237, 242));
+        clearOpButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        clearOpButton.setForeground(new java.awt.Color(0, 72, 121));
+        clearOpButton.setText("CLEAR");
+        clearOpButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        clearOpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearOpButton1ActionPerformed(evt);
+                clearOpButtonActionPerformed(evt);
             }
         });
 
@@ -208,7 +183,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(removeOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(clearOpButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clearOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -216,18 +191,11 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(clearOpButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(clearOpButton, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addComponent(addOpButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(removeOpButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        print.setText("print");
-        print.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -240,8 +208,6 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(print)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -253,20 +219,18 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(print)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This method is used to save on file the run-time operations, showing a pop-up to ask for confirmation  
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Object[] options = {"yes","no"};
         int n = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
@@ -279,21 +243,27 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             
         }
     }//GEN-LAST:event_saveButtonActionPerformed
-
+    /**
+     * This method is used to add new personalized operations to run-time by using pop-up to ask the name and operands of the operations. 
+     * @param evt 
+     */
     private void addOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOpButtonActionPerformed
-        
         keyModified = null;
         String name = JOptionPane.showInputDialog("Insert operation name");
-        String operations = JOptionPane.showInputDialog("Insert operations separated by space");
-        try {
-            String newKey=manager.insertPersonalizedOperation(name,operations);
-            model.addRow(new Object[]{newKey,operations});
-        } catch (PersonalizedOperationException ex) {
-            JOptionPane.showMessageDialog(table, ex.getMessage());
+        if(name != null){
+            String operations = JOptionPane.showInputDialog("Insert operations separated by space");
+            try {
+                String newKey=manager.insertPersonalizedOperation(name,operations);
+                model.addRow(new Object[]{newKey,operations});
+            } catch (PersonalizedOperationException ex) {
+                JOptionPane.showMessageDialog(table, ex.getMessage());
+            }
         }
-        
     }//GEN-LAST:event_addOpButtonActionPerformed
-
+    /**
+     * This method is used to load from file the run-time operations, showing a pop-up to ask for confirmation
+     * @param evt 
+     */
     private void loadButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButton1ActionPerformed
         keyModified = null;
         Object[] options = {"yes","no"};
@@ -309,17 +279,30 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         
     }//GEN-LAST:event_loadButton1ActionPerformed
 
+    /**
+     * This method is used to remove the selected personalized operations from run-time. 
+     * @param evt 
+     */
     private void removeOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeOpButtonActionPerformed
-        String name = JOptionPane.showInputDialog("Insert operation name you want to delete");
-        try {
-            manager.deletePersonalizedOperation(name);
+        
+        if(keyModified == null)
+            JOptionPane.showMessageDialog(table, "You have to select the row you want to delete");
+        else{
+            try {
+            manager.deletePersonalizedOperation(keyModified);
             buildTable();
-        } catch (PersonalizedOperationException ex) {
+            } catch (PersonalizedOperationException ex) {
             JOptionPane.showMessageDialog(table, ex.getMessage());
+            }
         }
+        
     }//GEN-LAST:event_removeOpButtonActionPerformed
 
-    private void clearOpButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearOpButton1ActionPerformed
+    /**
+     * This method is used to remove all the personalized operations from run-time. 
+     * @param evt 
+     */
+    private void clearOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearOpButtonActionPerformed
         keyModified = null;
         Object[] options = {"yes","no"};
         int n = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to delete all operations? Unsaved operations into file will be deleted", "Clear", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
@@ -327,29 +310,36 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
             manager.clearMap();
             buildTable();
         }
-    }//GEN-LAST:event_clearOpButton1ActionPerformed
+    }//GEN-LAST:event_clearOpButtonActionPerformed
 
-    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
-        Iterator<String> itr=manager.getPersonalizedOperations();
+    //----------------------------------------------------------- Private methods -----------------------------------------------------------
+    /**
+     * This methods fill the table with the run-time operations
+     */
+    private void buildTable(){
+        keyModified = null;
+        model.setRowCount(0);
+        Iterator<String> itr = manager.getPersonalizedOperations();
         while(itr.hasNext()){
-            System.out.println(itr.next());
+            String[] words = itr.next().split(":");
+            model.addRow(new Object[]{words[0],words[1]});
         }
-        System.out.println();
-    }//GEN-LAST:event_printActionPerformed
-
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addOpButton;
-    private javax.swing.JButton clearOpButton1;
+    private javax.swing.JButton clearOpButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton loadButton1;
-    private javax.swing.JButton print;
     private javax.swing.JButton removeOpButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
+
+
 
