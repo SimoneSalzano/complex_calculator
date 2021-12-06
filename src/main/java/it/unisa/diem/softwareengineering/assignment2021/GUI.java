@@ -307,6 +307,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        nOnerButton.setBackground(new java.awt.Color(255, 255, 255));
         nOnerButton.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         nOnerButton.setForeground(new java.awt.Color(0, 72, 121));
         nOnerButton.setLabel("1");
@@ -584,9 +585,7 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

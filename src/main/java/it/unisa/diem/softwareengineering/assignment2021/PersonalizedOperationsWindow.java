@@ -76,6 +76,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         clearOpButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 72, 121));
+        setName("Personalised Operation"); // NOI18N
 
         table.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue));
         table.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -90,6 +91,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         ));
         table.setRowHeight(28);
         table.setRowMargin(2);
+        table.setSelectionBackground(new java.awt.Color(255, 255, 255));
         table.setShowGrid(true);
         jScrollPane1.setViewportView(table);
 
@@ -212,7 +214,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
