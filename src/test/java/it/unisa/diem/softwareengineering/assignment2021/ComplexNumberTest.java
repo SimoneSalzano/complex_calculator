@@ -90,6 +90,11 @@ public class ComplexNumberTest {
         c.setReal(-2.000);
         c.setImm(3.0);
         assertEquals(expected,c.toString());
+
+        expected = "0+0j";
+        c.setReal(-0.0);
+        c.setImm(-0.0);
+        assertEquals(expected,c.toString());
     }
 
     @Test
