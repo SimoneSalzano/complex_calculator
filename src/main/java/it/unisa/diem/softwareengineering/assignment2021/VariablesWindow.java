@@ -6,6 +6,7 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +21,8 @@ public class VariablesWindow extends javax.swing.JPanel {
    
     public VariablesWindow() {
         initComponents();
+        manager = Manager.getManager();
+        model = (DefaultTableModel)table.getModel();
         buildTable();
     }
 
@@ -43,8 +46,8 @@ public class VariablesWindow extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(0, 72, 121));
         jPanel1.setName("Personalised Operation"); // NOI18N
 
-        table.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue));
-        table.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        table.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(240, 240, 240), new java.awt.Color(240, 240, 240), new java.awt.Color(240, 240, 240), new java.awt.Color(240, 240, 240)));
+        table.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         table.setForeground(new java.awt.Color(0, 72, 121));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,7 +152,7 @@ public class VariablesWindow extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -160,21 +163,19 @@ public class VariablesWindow extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Object[] options = {"yes","no"};
-        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to restore the old values?", "Restore", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to save?", "Restore", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
-            
+            manager.saveVariables();
         }
         
     }//GEN-LAST:event_saveButtonActionPerformed
@@ -183,7 +184,11 @@ public class VariablesWindow extends javax.swing.JPanel {
         Object[] options = {"yes","no"};
         int response = JOptionPane.showOptionDialog(table, "Are you sure you want to restore the old values?", "Restore", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
-            
+            try{
+                manager.resetVariables();
+            }catch(NoSuchElementException ex){
+                JOptionPane.showMessageDialog(table, ex.getMessage());
+            }
         }
         buildTable();
     }//GEN-LAST:event_restoreButtonActionPerformed
@@ -195,15 +200,14 @@ public class VariablesWindow extends javax.swing.JPanel {
 
 
     //--------------------------------------------------------- Private Methods -----------------------------------------------------------------
-     private void buildTable(){
+     
+    private void buildTable(){
         model.setRowCount(0);
         Iterator<String> itr = manager.getVariables();
         while(itr.hasNext()){
             String[] row = itr.next().split(":");
             model.addRow(new Object[]{row[0],row[1],row[2]});  
             }
-        
-        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

@@ -78,7 +78,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         setBackground(new java.awt.Color(0, 72, 121));
         setName("Personalised Operation"); // NOI18N
 
-        table.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue));
+        table.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(240, 240, 240), new java.awt.Color(240, 240, 240), new java.awt.Color(240, 240, 240), new java.awt.Color(240, 240, 240)));
         table.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         table.setForeground(new java.awt.Color(0, 72, 121));
         table.setModel(new javax.swing.table.DefaultTableModel(
