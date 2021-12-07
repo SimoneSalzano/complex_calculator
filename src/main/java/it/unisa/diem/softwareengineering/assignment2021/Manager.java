@@ -334,10 +334,8 @@ public class Manager {
     public Iterator<String> iteratorVariablesStack(){
         List<String> listPairs = new ArrayList<>();
         Iterator<String> itrVariables = this.variables.variablesIterator();
-        Variables oldMap;
-        if(!stackVariables.isEmpty()){
-            oldMap=stackVariables.pop();
-        }
+        
+        
         while (itrVariables.hasNext()){
             String pair = itrVariables.next();
             Character key = pair.split(":")[0].charAt(0);
@@ -345,6 +343,7 @@ public class Manager {
                 listPairs.add(pair+": ");
             }
             else{
+                Variables oldMap = stackVariables.getFirst();
                 ComplexNumber oldValue = oldMap.get(key);
                 if(oldValue == null){
                     listPairs.add(pair+": ");
@@ -354,7 +353,7 @@ public class Manager {
                 }
             }
         }
-        
+
         return listPairs.iterator();
     }
 }
