@@ -322,7 +322,7 @@ public class Manager {
         stackVariables.push(variables);
     }
 
-    public void loadVariables() throws NoSuchElementException{
+    public void restoreVariables() throws NoSuchElementException{
         if(stackVariables.isEmpty()){
             throw new NoSuchElementException();
         }
@@ -331,7 +331,7 @@ public class Manager {
         }
     }
 
-    public Iterator<String> iteratorVariablesStack(){
+    public Iterator<String> getVariables(){
         List<String> listPairs = new ArrayList<>();
         Iterator<String> itrVariables = this.variables.variablesIterator();
         
@@ -353,7 +353,12 @@ public class Manager {
                 }
             }
         }
-
         return listPairs.iterator();
+    }
+
+    public void resetVariables(){
+        for(char c='a';c<='z';c++){
+            variables.put(c,null);
+        }
     }
 }
