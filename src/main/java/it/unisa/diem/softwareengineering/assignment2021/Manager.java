@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
 * The Manager of the Complex Calculator, which makes the comunication between the GUI, the Memory and the available operations possible.
@@ -29,10 +33,14 @@ public class Manager {
     private Memory memory;
     private PersonalizedOperationsMap personalizedOperations;
     private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","dup","drop","over","swap"}; 
+    private Deque<Variables> stackVariables;
+    private Variables variables;
 
     private Manager() {
         memory = new Memory();
         personalizedOperations = new PersonalizedOperationsMap();
+        stackVariables = new ArrayDeque<>();
+        variables = new Variables();
     }
 
     /** 
@@ -309,5 +317,44 @@ public class Manager {
         ComplexNumber newNumber = ComplexNumber.parseToComplexNumber(complexNumber);
         memory.push(newNumber);
     }
-     
+
+    public void saveVariables(){
+        stackVariables.push(variables);
+    }
+
+    public void loadVariables() throws NoSuchElementException{
+        if(stackVariables.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        else{
+            this.variables=stackVariables.pop();
+        }
+    }
+
+    public Iterator<String> iteratorVariablesStack(){
+        List<String> listPairs = new ArrayList<>();
+        Iterator<String> itrVariables = this.variables.variablesIterator();
+        Variables oldMap;
+        if(!stackVariables.isEmpty()){
+            oldMap=stackVariables.pop();
+        }
+        while (itrVariables.hasNext()){
+            String pair = itrVariables.next();
+            Character key = pair.split(":")[0].charAt(0);
+            if(stackVariables.isEmpty()){
+                listPairs.add(pair+": ");
+            }
+            else{
+                ComplexNumber oldValue = oldMap.get(key);
+                if(oldValue == null){
+                    listPairs.add(pair+": ");
+                }
+                else{
+                    listPairs.add(pair+":"+oldValue);
+                }
+            }
+        }
+        
+        return listPairs.iterator();
+    }
 }

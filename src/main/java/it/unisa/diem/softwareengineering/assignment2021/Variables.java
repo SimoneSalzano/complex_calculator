@@ -1,10 +1,11 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-public class Variables extends HashMap<Character,ComplexNumber>{
+public class Variables extends TreeMap<Character,ComplexNumber>{
     
     @Override
     public ComplexNumber put(Character key, ComplexNumber value) throws IllegalArgumentException{
@@ -17,14 +18,19 @@ public class Variables extends HashMap<Character,ComplexNumber>{
     }
 
 
-    public Iterator<ComplexNumber> variablesIterator() {
-        List<Character> alphabet = new ArrayList<>();
-        for (char c = 'a'; c <= 'z'; c++) {
-            alphabet.add(c);
+    public Iterator<String> variablesIterator() {
+        List<String> listPairs = new ArrayList<>();
+        for (Map.Entry<Character, ComplexNumber> pair: this.entrySet()){
+            Character key = pair.getKey();
+            ComplexNumber value = pair.getValue();
+            if(value == null){
+                listPairs.add(key+": ");
+            }
+            else{
+                listPairs.add(key+":"+value);
+            }
         }
-        List<ComplexNumber> variablesValues = new ArrayList<>();
-        alphabet.forEach( (c) -> variablesValues.add(this.get(c)) );
-        return variablesValues.iterator();
+        return listPairs.iterator();
     }
     
     public ComplexNumber loadVariable(char variable) throws IllegalArgumentException{
