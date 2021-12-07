@@ -309,5 +309,5 @@ public class Manager {
         ComplexNumber newNumber = ComplexNumber.parseToComplexNumber(complexNumber);
         memory.push(newNumber);
     }
-
+     
 }
