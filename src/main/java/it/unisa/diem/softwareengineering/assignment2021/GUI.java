@@ -1,5 +1,6 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
+
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import javax.swing.JFrame;
@@ -12,15 +13,24 @@ public class GUI extends javax.swing.JFrame {
     
     Manager manager;
     private final static int readlimiter = 12; //.... 
-    PersonalizedOperationsWindow opPane = new PersonalizedOperationsWindow();
-        JFrame fram = new JFrame();
     
+    PersonalizedOperationsWindow opPane = new PersonalizedOperationsWindow();
+    VariablesWindow varPane = new VariablesWindow();
+    JFrame frame = new JFrame();
+    JFrame frame2 = new JFrame();
+     
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
         manager = Manager.getManager();
+        
+        frame.add(opPane);
+        frame.setTitle("Personalized Operations");
+        frame2.add(varPane);
+        frame2.setTitle("Variables");
+       
     }
 
     /**
@@ -47,6 +57,7 @@ public class GUI extends javax.swing.JFrame {
         swapButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         memoButton = new javax.swing.JButton();
+        variablesButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         nFourButton = new java.awt.Button();
         plusButton = new java.awt.Button();
@@ -242,20 +253,35 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        variablesButton.setBackground(new java.awt.Color(207, 237, 242));
+        variablesButton.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
+        variablesButton.setForeground(new java.awt.Color(0, 72, 121));
+        variablesButton.setText("VAR");
+        variablesButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        variablesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                variablesButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(memoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(memoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(variablesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(memoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(variablesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(memoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -552,7 +578,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,8 +595,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -585,7 +611,7 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -655,10 +681,9 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_swapButtonActionPerformed
 
     private void memoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoButtonActionPerformed
-
-        fram.add(opPane);
-        fram.setVisible(true);
-        fram.pack();
+        
+        frame.setVisible(true);
+        frame.pack();
     }//GEN-LAST:event_memoButtonActionPerformed
 
     private void nFourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nFourButtonActionPerformed
@@ -741,6 +766,12 @@ public class GUI extends javax.swing.JFrame {
     private void dotButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotButton2ActionPerformed
         inputTextField.setText(inputTextField.getText() + ".");
     }//GEN-LAST:event_dotButton2ActionPerformed
+
+    private void variablesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesButtonActionPerformed
+
+        frame2.setVisible(true);
+        frame2.pack();
+    }//GEN-LAST:event_variablesButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -869,5 +900,6 @@ public class GUI extends javax.swing.JFrame {
     private java.awt.Button sqrtButton;
     private javax.swing.JButton swapButton;
     private javax.swing.JTextArea textArea;
+    private javax.swing.JButton variablesButton;
     // End of variables declaration//GEN-END:variables
 }
