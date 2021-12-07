@@ -25,12 +25,14 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         manager = Manager.getManager();
-        
-        frame.add(opPane);
+        //manager.observeVariables(varPane);
+   
+        //Assign to frames the extra-panels
         frame.setTitle("Personalized Operations");
-        frame2.add(varPane);
+        frame.add(opPane);
         frame2.setTitle("Variables");
-       
+        frame2.add(varPane);
+        
     }
 
     /**
