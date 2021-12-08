@@ -41,12 +41,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -67,22 +67,26 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="361" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                      <Component id="jSeparator1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel3" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel2" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPanel3" max="32767" attributes="0"/>
+                                      <Component id="jPanel4" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPanel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="jSeparator1" alignment="1" min="-2" pref="530" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -92,18 +96,18 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace pref="35" max="32767" attributes="0"/>
                           <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" min="-2" pref="391" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jSeparator1" min="-2" pref="12" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,7 +167,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="computeButton" min="-2" pref="126" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="inputTextField" pref="344" max="32767" attributes="0"/>
+                      <Component id="inputTextField" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -246,7 +250,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="clearButton" alignment="0" pref="109" max="32767" attributes="0"/>
+                          <Component id="clearButton" alignment="0" pref="116" max="32767" attributes="0"/>
                           <Component id="dropButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="dupButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="overButton" alignment="0" max="32767" attributes="0"/>
@@ -268,7 +272,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="overButton" pref="44" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="swapButton" pref="48" max="32767" attributes="0"/>
+                      <Component id="swapButton" pref="46" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -281,7 +285,7 @@
                   <Color blue="f2" green="ed" red="cf" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="21" style="0"/>
+                  <Font name="Tahoma" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -305,7 +309,7 @@
                   <Color blue="f2" green="ed" red="cf" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="21" style="0"/>
+                  <Font name="Tahoma" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -329,7 +333,7 @@
                   <Color blue="f2" green="ed" red="cf" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="21" style="0"/>
+                  <Font name="Tahoma" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -353,7 +357,7 @@
                   <Color blue="f2" green="ed" red="cf" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="21" style="0"/>
+                  <Font name="Tahoma" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -377,7 +381,7 @@
                   <Color blue="f2" green="ed" red="cf" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="21" style="0"/>
+                  <Font name="Tahoma" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -417,8 +421,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="memoButton" pref="109" max="32767" attributes="0"/>
-                          <Component id="variablesButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="memoButton" max="32767" attributes="0"/>
+                          <Component id="variablesButton" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -427,10 +431,10 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="variablesButton" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="memoButton" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="variablesButton" min="-2" pref="44" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="memoButton" pref="45" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -443,7 +447,7 @@
                   <Color blue="f2" green="ed" red="cf" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="21" style="0"/>
+                  <Font name="Tahoma" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -467,7 +471,7 @@
                   <Color blue="f2" green="ed" red="cf" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="21" style="0"/>
+                  <Font name="Tahoma" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -507,7 +511,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="powButton1" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -522,58 +526,60 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="minusButton" alignment="1" min="-2" pref="71" max="-2" attributes="0"/>
-                                  <Component id="plusButton" alignment="1" min="-2" pref="71" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="nFourButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nFiveButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nSixButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="nOnerButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nTwoButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nThreeButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="plusButton" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <Component id="minusButton" min="-2" pref="71" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="cleareTextButton" min="-2" pref="71" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="delButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="divisionButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                      <Component id="dotButton2" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nZeroButton1" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nJButton" min="-2" pref="71" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="expButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="multiplyButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                      <Component id="nSevenButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nEightButton" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nNineButton" min="-2" pref="71" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jSeparator3" min="-2" pref="4" max="-2" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="nFourButton" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nFiveButton" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nSixButton" min="-2" pref="71" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="nOnerButton" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nTwoButton" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nThreeButton" min="-2" pref="71" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="dotButton2" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nZeroButton1" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nJButton" min="-2" pref="71" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="nSevenButton" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nEightButton" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nNineButton" min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -582,76 +588,88 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="inverteButton" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="argButton" min="-2" pref="50" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="nThreeButton" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="nOnerButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="inverteButton" min="-2" pref="50" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="argButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="plusButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="minusButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="sqrtButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="modButton3" min="-2" pref="50" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nSixButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="nFourButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="powButton1" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Component id="expButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="delButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Component id="cleareTextButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="multiplyButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="divisionButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="nTwoButton" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="nFiveButton" min="-2" pref="50" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="plusButton" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="minusButton" min="-2" pref="50" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="sqrtButton" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="modButton3" min="-2" pref="50" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="nThreeButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="nOnerButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="nSixButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Component id="nFourButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="nTwoButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="nFiveButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="nSevenButton" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <Component id="nEightButton" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <Component id="nNineButton" min="-2" pref="50" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="powButton1" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="expButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="nSevenButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="nEightButton" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="nNineButton" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="nZeroButton1" min="-2" pref="50" max="-2" attributes="0"/>
                                   <Component id="nJButton" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="delButton" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="cleareTextButton" min="-2" pref="50" max="-2" attributes="0"/>
                                   <Component id="dotButton2" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="multiplyButton" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="divisionButton" min="-2" pref="50" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -873,7 +891,7 @@
             <Component class="java.awt.Button" name="sqrtButton">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="24" style="0"/>
+                  <Font name="Dialog" size="23" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -940,22 +958,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dotButton2ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSeparator" name="jSeparator2">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="ed" red="cf" type="rgb"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="ed" red="cf" type="rgb"/>
-                </Property>
-                <Property name="orientation" type="int" value="1"/>
-              </Properties>
-            </Component>
             <Component class="java.awt.Button" name="expButton">
               <Properties>
                 <Property name="actionCommand" type="java.lang.String" value="EXP"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="24" style="0"/>
+                  <Font name="Dialog" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -969,7 +976,7 @@
             <Component class="java.awt.Button" name="argButton">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="24" style="0"/>
+                  <Font name="Dialog" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -983,7 +990,7 @@
             <Component class="java.awt.Button" name="modButton3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="24" style="0"/>
+                  <Font name="Dialog" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -997,7 +1004,7 @@
             <Component class="java.awt.Button" name="powButton1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="24" style="0"/>
+                  <Font name="Dialog" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="79" green="48" red="0" type="rgb"/>
@@ -1007,6 +1014,17 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="powButton1ActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator3">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="79" green="48" red="0" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="79" green="48" red="0" type="rgb"/>
+                </Property>
+                <Property name="orientation" type="int" value="1"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

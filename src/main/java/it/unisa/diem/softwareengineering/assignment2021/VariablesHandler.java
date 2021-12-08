@@ -34,7 +34,7 @@ public class VariablesHandler extends Observable{
 
     public void restore() throws NoSuchElementException{
         if(stackVariables.isEmpty()){
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("There are no older saved versions of the variables");
         }
         else{
             this.currentVariables=stackVariables.pop();

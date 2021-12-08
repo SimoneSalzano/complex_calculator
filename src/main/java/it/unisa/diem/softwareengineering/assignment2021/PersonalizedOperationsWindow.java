@@ -94,8 +94,12 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         table.setRowHeight(28);
         table.setRowMargin(2);
         table.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        table.setSelectionForeground(new java.awt.Color(128, 0, 128));
         table.setShowGrid(true);
         jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setPreferredWidth(10);
+        }
 
         jPanel2.setBackground(new java.awt.Color(45, 161, 200));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));

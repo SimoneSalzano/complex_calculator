@@ -65,18 +65,30 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        table.setColumnSelectionAllowed(true);
+        table.setOpaque(false);
         table.setRowHeight(28);
         table.setRowMargin(2);
         table.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        table.setSelectionForeground(new java.awt.Color(128, 0, 128));
         table.setShowGrid(true);
         jScrollPane1.setViewportView(table);
+        table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setResizable(false);
+            table.getColumnModel().getColumn(0).setPreferredWidth(5);
+            table.getColumnModel().getColumn(1).setResizable(false);
+            table.getColumnModel().getColumn(1).setPreferredWidth(50);
+            table.getColumnModel().getColumn(2).setResizable(false);
+            table.getColumnModel().getColumn(2).setPreferredWidth(50);
+        }
 
         jPanel2.setBackground(new java.awt.Color(45, 161, 200));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
@@ -167,8 +179,8 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -184,12 +196,14 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -223,9 +237,10 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         if(response == 0){
             try{
                 manager.processInput("restore");
-            } catch (NumberFormatException | NotEnoughOperatorsException | ArithmeticException ex) {
+            } catch (NumberFormatException | NotEnoughOperatorsException | ArithmeticException | NoSuchElementException ex) {
                 JOptionPane.showMessageDialog(table, ex.getMessage());
-            }
+                }
+            
         }
         buildTable();
     }//GEN-LAST:event_restoreButtonActionPerformed
@@ -234,11 +249,8 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         Object[] options = {"yes","no"};
         int response = JOptionPane.showOptionDialog(table, "Are you sure you want to reset all the variables", "Resetting", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
-            try{
-                manager.resetVariables();
-            }catch(NoSuchElementException ex){
-                JOptionPane.showMessageDialog(table, ex.getMessage());
-            }
+            manager.resetVariables();
+            
         }
         buildTable();
     }//GEN-LAST:event_resetOpButtonActionPerformed
