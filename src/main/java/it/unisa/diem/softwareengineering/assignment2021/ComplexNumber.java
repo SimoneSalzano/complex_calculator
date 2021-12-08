@@ -20,7 +20,7 @@ public class ComplexNumber {
         this.real=real;
         this.imm=imm;
         
-        if(!checkDigitsLength())
+        if(!checkDigitsLength() || real.isInfinite() || real.isNaN() || imm.isInfinite() || imm.isNaN())
             throw new IllegalArgumentException("This number has too many digits");
     }
 
@@ -75,9 +75,7 @@ public class ComplexNumber {
             indexImmDot=immString.length();
         }
         immString = immString.substring(0, indexImmDot);
-
-        System.out.println(immString);
-        System.out.println(realString);
+        
         if(immString.length()>10 || realString.length()>10){
             return false;
         }

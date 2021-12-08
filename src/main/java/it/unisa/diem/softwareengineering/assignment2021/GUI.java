@@ -88,7 +88,6 @@ public class GUI extends javax.swing.JFrame implements Observer{
         argButton = new java.awt.Button();
         modButton3 = new java.awt.Button();
         powButton1 = new java.awt.Button();
-        jSeparator3 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -516,11 +515,6 @@ public class GUI extends javax.swing.JFrame implements Observer{
             }
         });
 
-        jSeparator3.setBackground(new java.awt.Color(0, 72, 121));
-        jSeparator3.setForeground(new java.awt.Color(0, 72, 121));
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 72, 121), new java.awt.Color(0, 72, 121), null, null));
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -555,9 +549,7 @@ public class GUI extends javax.swing.JFrame implements Observer{
                                 .addComponent(expButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(multiplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(23, 23, 23)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(nFourButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -587,7 +579,6 @@ public class GUI extends javax.swing.JFrame implements Observer{
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator3)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,7 +643,7 @@ public class GUI extends javax.swing.JFrame implements Observer{
 
         jSeparator1.setBackground(new java.awt.Color(207, 237, 242));
         jSeparator1.setForeground(new java.awt.Color(207, 237, 242));
-        jSeparator1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(207, 237, 242), new java.awt.Color(207, 237, 242), null, null));
+        jSeparator1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(207, 237, 242), new java.awt.Color(207, 237, 242), new java.awt.Color(207, 237, 242), new java.awt.Color(207, 237, 242)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -936,7 +927,7 @@ public class GUI extends javax.swing.JFrame implements Observer{
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(rootPane, "The inserted element is neither a number nor an operation!");
             
-        } catch (NotEnoughOperatorsException | NoSuchElementException ex) {
+        } catch (NotEnoughOperatorsException | NoSuchElementException | IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             
         } catch (ArithmeticException ex) {
@@ -994,9 +985,11 @@ public class GUI extends javax.swing.JFrame implements Observer{
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton memoButton;
     private java.awt.Button minusButton;
     private java.awt.Button modButton3;
@@ -1015,8 +1008,11 @@ public class GUI extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton overButton;
     private java.awt.Button plusButton;
     private java.awt.Button powButton1;
+    private javax.swing.JButton restoreButton1;
+    private javax.swing.JButton saveButton1;
     private java.awt.Button sqrtButton;
     private javax.swing.JButton swapButton;
+    private javax.swing.JTable table1;
     private javax.swing.JTextArea textArea;
     private javax.swing.JButton variablesButton;
     // End of variables declaration//GEN-END:variables

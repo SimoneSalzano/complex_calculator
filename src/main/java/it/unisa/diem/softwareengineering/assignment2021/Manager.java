@@ -86,6 +86,7 @@ public class Manager{
      * Inserts a personalized operation into runtime environment, so that it can be later called again. 
      * @param name the name of the personalized operation 
      * @param operations the list of elementary operations that compose the personalized operation
+     * @return the new name of the operation
      * @throws PersonalizedOperationException when a element of operations isn't recognized, naming the operation with a complex number or the name contains a space.
      */
     public String insertPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
@@ -111,7 +112,7 @@ public class Manager{
      * Edits a personalized operation's name, or operations.
      * @param oldName the personalized operation's former name.
      * @param newName the personalized operation's new name.
-     * @param operations the new operations performed by this personalized operation.
+     * @param newOperations the personalized operation's new operation.
      * @throws PersonalizedOperationException when there was no operation named like oldName.
      */
     public void editPersonalizedOperation(String oldName, String newName, String newOperations) throws PersonalizedOperationException {
@@ -352,11 +353,12 @@ public class Manager{
                     break;
             }
         }catch (IllegalArgumentException ex){
-            if(secondOperand != null){
-                memory.push(secondOperand);
-            }
+            //Restore the operands in the stack if the operation outputs a number that is too big
             if(firstOperand != null){
                 memory.push(firstOperand);
+            }
+            if(secondOperand != null){
+                memory.push(secondOperand);
             }
             throw ex;
         }
@@ -384,7 +386,7 @@ public class Manager{
             while (personalizedOperation.hasNext()) {
                 this.processInput(personalizedOperation.next());
             }
-        } catch (Exception ex) {
+        } catch (NotEnoughOperatorsException | ArithmeticException | NumberFormatException | NoSuchElementException ex) {
             //restore memory before trying the chain of operations called by this method. 
             memory.clear();
             while (!backupMemory.isEmpty()) {
@@ -440,15 +442,15 @@ public class Manager{
                 break;
 
             case '+':
-            if (memory.size() < 1)
-                throw new NotEnoughOperatorsException("Summing to a variable requires 1 operand to be in the memory!");
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Summing to a variable requires 1 operand to be in the memory!");
                 cn = memory.pop();
                 variables.sumToVariable(variable,cn);
                 break;
 
             case '-':
-            if (memory.size() < 1)
-                throw new NotEnoughOperatorsException("Subtracting from a variable requires 1 operand to be in the memory!");
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Subtracting from a variable requires 1 operand to be in the memory!");
                 cn = memory.pop();
                 variables.subFromVariable(variable,cn);
                 break;
