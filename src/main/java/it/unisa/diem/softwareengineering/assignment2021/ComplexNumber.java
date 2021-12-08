@@ -16,9 +16,12 @@ public class ComplexNumber {
     private Double real;
     private Double imm;
 
-    public ComplexNumber(Double real, Double imm) {
+    public ComplexNumber(Double real, Double imm) throws IllegalArgumentException {
         this.real=real;
         this.imm=imm;
+        
+        if(!checkDigitsLength())
+            throw new IllegalArgumentException("This number has too many digits");
     }
 
     
@@ -57,6 +60,9 @@ public class ComplexNumber {
         this.imm = imm;
     }
 
+    private boolean checkDigitsLength(){
+        return !(real.toString().length() >= String.valueOf(Double.MAX_VALUE).length() || imm.toString().length() >= String.valueOf(Double.MAX_VALUE).length());
+    }
     
     /** 
      * A method to convert a properly formatted String to a Complex Number.
@@ -152,11 +158,14 @@ public class ComplexNumber {
         //df.toLocalizedPattern();
         String realString = df.format(real);
         String immString = df.format(imm);
+        //avoid displaying -0 on the calculator, we don't need a distinction between -0 and 0.
+        if(realString.equals("-0"))
+            realString = "0";
+        if(immString.equals("-0"))
+            immString = "0";
         //We only need plus symbol if imm is greather than 0, because - is printed by toString otherwise.
         String plus = imm >= 0.0 ? "+" : "";
-        String convertedNumber =realString+plus+immString+'j';
-        //avoid displaying -0 on the calculator, we don't need a distinction between -0 and 0.
-        convertedNumber = convertedNumber.replaceAll("-0","0");
+        String convertedNumber = realString + plus + immString + 'j';
         return convertedNumber;
     }
 

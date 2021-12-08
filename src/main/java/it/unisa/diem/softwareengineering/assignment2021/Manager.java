@@ -181,6 +181,14 @@ public class Manager{
     public void observeVariables(Observer observer) {
         variables.addObserver(observer);
     }
+    
+    /**
+     * Makes it so memory can be observed by an observer, so that the changes on the stack will be noticed by the observer, and it will update accordingly. 
+     * @param observer the observer that observes a Memory
+     */
+    public void observeMemory(Observer observer) {
+        memory.addObserver(observer);
+    }
 
     /**
      * Utility methot that checks if the personalized operation passed is valid.
@@ -311,6 +319,10 @@ public class Manager{
                 firstOperand = memory.pop();
                 result = ComplexOperations.pow(firstOperand,secondOperand);
                 memory.push(result);
+                break;
+                
+            case "clear":
+                memory.clear();
                 break;
 
             case "drop":

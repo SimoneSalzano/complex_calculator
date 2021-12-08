@@ -164,7 +164,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
         jSeparator1.setBackground(new java.awt.Color(45, 161, 200));
         jSeparator1.setForeground(new java.awt.Color(207, 237, 242));
 
-        jPanel1.setBackground(new java.awt.Color(45, 161, 200));
+        jPanel1.setBackground(new java.awt.Color(55, 200, 180));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         saveButton.setBackground(new java.awt.Color(207, 237, 242));

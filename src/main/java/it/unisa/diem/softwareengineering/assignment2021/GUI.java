@@ -3,10 +3,12 @@ package it.unisa.diem.softwareengineering.assignment2021;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class GUI extends javax.swing.JFrame {
+public class GUI extends javax.swing.JFrame implements Observer{
    
     Manager manager;
     
@@ -25,14 +27,15 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         manager = Manager.getManager();
-        manager.observeVariables(varPane);
-   
+        
         //Assign to frames the extra-panels
         frame.setTitle("Personalized Operations");
         frame.add(opPane);
         frame2.setTitle("Variables");
         frame2.add(varPane);
         
+        manager.observeVariables(varPane);
+        manager.observeMemory(this);
     }
 
     /**
@@ -516,6 +519,7 @@ public class GUI extends javax.swing.JFrame {
         jSeparator3.setBackground(new java.awt.Color(0, 72, 121));
         jSeparator3.setForeground(new java.awt.Color(0, 72, 121));
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 72, 121), new java.awt.Color(0, 72, 121), null, null));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -551,9 +555,9 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(expButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(multiplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(30, 30, 30)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(nFourButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -646,8 +650,9 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jSeparator1.setBackground(new java.awt.Color(45, 161, 200));
+        jSeparator1.setBackground(new java.awt.Color(207, 237, 242));
         jSeparator1.setForeground(new java.awt.Color(207, 237, 242));
+        jSeparator1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(207, 237, 242), new java.awt.Color(207, 237, 242), null, null));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -656,18 +661,16 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -841,7 +844,8 @@ public class GUI extends javax.swing.JFrame {
 
     private void delButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delButtonActionPerformed
         String str = inputTextField.getText();
-        inputTextField.setText(str.substring(0, str.length()-1));
+        if(str != null)
+            inputTextField.setText(str.substring(0, str.length()-1));
     }//GEN-LAST:event_delButtonActionPerformed
 
     private void cleareTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleareTextButtonActionPerformed
@@ -918,7 +922,7 @@ public class GUI extends javax.swing.JFrame {
      * This methods check if the input (operators, function, operators) is valid and run the task required or, it will notificate an error through a pop-up notification
      * @param text 
      */
-    private void runTask(String text){
+    protected void runTask(String text){
         computeButton.setEnabled(false);
         clearButton.setEnabled(false);
         dropButton.setEnabled(false);
@@ -939,7 +943,7 @@ public class GUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
             
         }finally{
-            printOnTextArea();
+            //printOnTextArea();
             computeButton.setEnabled(true);
             clearButton.setEnabled(true);
             dropButton.setEnabled(true);
@@ -964,6 +968,11 @@ public class GUI extends javax.swing.JFrame {
         }
         textArea.setText(str);
             
+    }
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        printOnTextArea();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1011,4 +1020,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextArea textArea;
     private javax.swing.JButton variablesButton;
     // End of variables declaration//GEN-END:variables
+
+    
 }

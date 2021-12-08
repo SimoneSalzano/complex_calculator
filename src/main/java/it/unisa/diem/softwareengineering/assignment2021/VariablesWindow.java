@@ -5,6 +5,8 @@
  */
 package it.unisa.diem.softwareengineering.assignment2021;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Observable;
@@ -18,14 +20,28 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VariablesWindow extends javax.swing.JPanel implements Observer {
 
-   private DefaultTableModel model;
-   private Manager manager;
+   private final DefaultTableModel model;
+   private final Manager manager;
+   private String selectedVariable = "x";
    
     public VariablesWindow() {
         initComponents();
         manager = Manager.getManager();
         model = (DefaultTableModel)table.getModel();
         buildTable();
+        
+        //this anonymous class returns the key and the value of the selected row
+        table.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent m){
+                int row = table.getSelectedRow();
+                selectedVariable = table.getModel().getValueAt(row, 0).toString();
+                storeInVariableButton.setLabel(">" + selectedVariable);
+                loadFromVariableButton.setLabel("<" + selectedVariable);
+                sumToVariableButton.setLabel("+" + selectedVariable);
+                substractToVariableButton.setLabel("-" + selectedVariable);
+            }
+        });
         
     }
 
@@ -47,6 +63,11 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         resetOpButton = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        storeInVariableButton = new javax.swing.JButton();
+        loadFromVariableButton = new javax.swing.JButton();
+        sumToVariableButton = new javax.swing.JButton();
+        substractToVariableButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 72, 121));
         jPanel1.setName("Personalised Operation"); // NOI18N
@@ -63,7 +84,7 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -88,7 +109,7 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             table.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
-        jPanel2.setBackground(new java.awt.Color(45, 161, 200));
+        jPanel2.setBackground(new java.awt.Color(55, 200, 180));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         saveButton.setBackground(new java.awt.Color(207, 237, 242));
@@ -119,28 +140,26 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(restoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(restoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(restoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator1.setBackground(new java.awt.Color(45, 161, 200));
         jSeparator1.setForeground(new java.awt.Color(207, 237, 242));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jPanel3.setBackground(new java.awt.Color(45, 161, 200));
+        jPanel3.setBackground(new java.awt.Color(55, 200, 180));
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         resetOpButton.setBackground(new java.awt.Color(207, 237, 242));
@@ -158,17 +177,91 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(resetOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(resetOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(resetOpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(45, 161, 200));
+        jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+
+        storeInVariableButton.setBackground(new java.awt.Color(207, 237, 242));
+        storeInVariableButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        storeInVariableButton.setForeground(new java.awt.Color(0, 72, 121));
+        storeInVariableButton.setText(">x");
+        storeInVariableButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        storeInVariableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                storeInVariableButtonActionPerformed(evt);
+            }
+        });
+
+        loadFromVariableButton.setBackground(new java.awt.Color(207, 237, 242));
+        loadFromVariableButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        loadFromVariableButton.setForeground(new java.awt.Color(0, 72, 121));
+        loadFromVariableButton.setText("<x");
+        loadFromVariableButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        loadFromVariableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadFromVariableButtonActionPerformed(evt);
+            }
+        });
+
+        sumToVariableButton.setBackground(new java.awt.Color(207, 237, 242));
+        sumToVariableButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        sumToVariableButton.setForeground(new java.awt.Color(0, 72, 121));
+        sumToVariableButton.setText("+x");
+        sumToVariableButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        sumToVariableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sumToVariableButtonActionPerformed(evt);
+            }
+        });
+
+        substractToVariableButton.setBackground(new java.awt.Color(207, 237, 242));
+        substractToVariableButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        substractToVariableButton.setForeground(new java.awt.Color(0, 72, 121));
+        substractToVariableButton.setText("-x");
+        substractToVariableButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 72, 121), 0, true));
+        substractToVariableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                substractToVariableButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(storeInVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loadFromVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sumToVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(substractToVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(storeInVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(loadFromVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(sumToVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(substractToVariableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -180,14 +273,12 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,12 +287,14 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))))
+                        .addGap(25, 25, 25))))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -209,11 +302,13 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -265,6 +360,38 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         buildTable();
     }//GEN-LAST:event_resetOpButtonActionPerformed
 
+    private void storeInVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storeInVariableButtonActionPerformed
+       try {
+           manager.processInput(">" + selectedVariable);
+       } catch (NumberFormatException | NotEnoughOperatorsException | ArithmeticException | NoSuchElementException ex) {
+           JOptionPane.showMessageDialog(table, ex.getMessage());
+       }
+    }//GEN-LAST:event_storeInVariableButtonActionPerformed
+
+    private void loadFromVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFromVariableButtonActionPerformed
+        try {
+           manager.processInput("<" + selectedVariable);
+       } catch (NumberFormatException | NotEnoughOperatorsException | ArithmeticException | NoSuchElementException ex) {
+           JOptionPane.showMessageDialog(table, ex.getMessage());
+       }
+    }//GEN-LAST:event_loadFromVariableButtonActionPerformed
+
+    private void sumToVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumToVariableButtonActionPerformed
+        try {
+           manager.processInput("+" + selectedVariable);
+       } catch (NumberFormatException | NotEnoughOperatorsException | ArithmeticException | NoSuchElementException ex) {
+           JOptionPane.showMessageDialog(table, ex.getMessage());
+       }
+    }//GEN-LAST:event_sumToVariableButtonActionPerformed
+
+    private void substractToVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_substractToVariableButtonActionPerformed
+        try {
+           manager.processInput("-" + selectedVariable);
+       } catch (NumberFormatException | NotEnoughOperatorsException | ArithmeticException | NoSuchElementException ex) {
+           JOptionPane.showMessageDialog(table, ex.getMessage());
+       }
+    }//GEN-LAST:event_substractToVariableButtonActionPerformed
+
 
     //--------------------------------------------------------- Private Methods -----------------------------------------------------------------
     
@@ -293,11 +420,16 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton loadFromVariableButton;
     private javax.swing.JButton resetOpButton;
     private javax.swing.JButton restoreButton;
     private javax.swing.JButton saveButton;
+    private javax.swing.JButton storeInVariableButton;
+    private javax.swing.JButton substractToVariableButton;
+    private javax.swing.JButton sumToVariableButton;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
