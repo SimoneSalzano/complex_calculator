@@ -1,19 +1,17 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
-
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
-
 public class GUI extends javax.swing.JFrame {
-    
-    
+   
     Manager manager;
-    private final static int readlimiter = 12; //.... 
+    
+    //number of elements visualized in the textArea 
+    private final static int readlimiter = 12; 
     
     PersonalizedOperationsWindow opPane = new PersonalizedOperationsWindow();
     VariablesWindow varPane = new VariablesWindow();
@@ -762,7 +760,11 @@ public class GUI extends javax.swing.JFrame {
     private void swapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swapButtonActionPerformed
         runTask("swap");
     }//GEN-LAST:event_swapButtonActionPerformed
-
+    
+    /**
+     * This method open the PersonalizedOperationsWindows
+     * @param evt 
+     */
     private void memoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoButtonActionPerformed
         
         frame.setVisible(true);
@@ -849,9 +851,12 @@ public class GUI extends javax.swing.JFrame {
     private void dotButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotButton2ActionPerformed
         inputTextField.setText(inputTextField.getText() + ".");
     }//GEN-LAST:event_dotButton2ActionPerformed
-
+    
+    /**
+     * This method open the VariablesWindows
+     * @param evt 
+     */
     private void variablesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesButtonActionPerformed
-
         frame2.setVisible(true);
         frame2.pack();
     }//GEN-LAST:event_variablesButtonActionPerformed

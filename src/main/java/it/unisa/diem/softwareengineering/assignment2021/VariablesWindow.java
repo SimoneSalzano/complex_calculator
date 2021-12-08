@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -218,7 +216,11 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * This method is used to save the run-time variables, showing a pop-up to ask for confirmation
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Object[] options = {"yes","no"};
         int response = JOptionPane.showOptionDialog(table, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
@@ -230,7 +232,11 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             }
         }
     }//GEN-LAST:event_saveButtonActionPerformed
-
+    
+    /**
+     * This method is used to restore the old version of the run-time variables, showing a pop-up to ask for confirmation
+     * @param evt 
+     */
     private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreButtonActionPerformed
         Object[] options = {"yes","no"};
         int response = JOptionPane.showOptionDialog(table, "Are you sure you want to restore the old values?", "Restoring", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
@@ -244,7 +250,11 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         }
         buildTable();
     }//GEN-LAST:event_restoreButtonActionPerformed
-
+    
+    /**
+     * This method is used to clear the run-time variables, showing a pop-up to ask for confirmation
+     * @param evt 
+     */
     private void resetOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetOpButtonActionPerformed
         Object[] options = {"yes","no"};
         int response = JOptionPane.showOptionDialog(table, "Are you sure you want to reset all the variables", "Resetting", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
@@ -257,7 +267,10 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
 
 
     //--------------------------------------------------------- Private Methods -----------------------------------------------------------------
-     
+    
+    /**
+     * This methods fill the table with the values of the Variables
+     */
     private void buildTable(){
         model.setRowCount(0);
         Iterator<String> itr = manager.getVariables();
@@ -265,6 +278,16 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             String[] row = itr.next().split(":");
             model.addRow(new Object[]{row[0],row[1],row[2]});  
             }
+    }
+    
+    /**
+     * This methods update the table when an operation on Variables occur
+     * @param o
+     * @param arg 
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        buildTable();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -278,8 +301,5 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void update(Observable o, Object arg) {
-        buildTable();
-    }
+    
 }
