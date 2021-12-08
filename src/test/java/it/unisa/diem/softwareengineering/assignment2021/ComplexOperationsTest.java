@@ -267,47 +267,47 @@ public class ComplexOperationsTest {
     private ComplexNumber round3(ComplexNumber complex1){
         return new ComplexNumber(Math.round(complex1.getReal()*1000d)/1000d, Math.round(complex1.getImm()*1000d)/1000d);
     }
-    // @Test
-    // public void testArg(){
-    //     double arg1=ComplexOperations.arg(new ComplexNumber(5.0,10.0));
-    //     double arg2=ComplexOperations.arg(new ComplexNumber(-2.0,6.0));
-    //     double arg3=ComplexOperations.arg(new ComplexNumber(10.0,-2.0));
-    //     double arg4=ComplexOperations.arg(new ComplexNumber(14.5,0.0));
-    //     double arg5=ComplexOperations.arg(new ComplexNumber(0.0, -4.5));
+     @Test
+     public void testArg(){
+         double arg1=ComplexOperations.arg(new ComplexNumber(5.0,10.0));
+         double arg2=ComplexOperations.arg(new ComplexNumber(-2.0,6.0));
+         double arg3=ComplexOperations.arg(new ComplexNumber(10.0,-2.0));
+         double arg4=ComplexOperations.arg(new ComplexNumber(14.5,0.0));
+         double arg5=ComplexOperations.arg(new ComplexNumber(0.0, -4.5));
 
-    //     double expected1=1.107;
-    //     double expected2=1.893;
-    //     double expected3=-0.197;
-    //     double expected4=0;
-    //     double expected5=-1.571;
+         double expected1=1.107;
+         double expected2=1.893;
+         double expected3=-0.197;
+         double expected4=0;
+         double expected5=-1.571;
 
-    //     assertEquals(expected1,Math.round(arg1*1000d)/1000d);
-    //     assertEquals(expected2,Math.round(arg2*1000d)/1000d);
-    //     assertEquals(expected3,Math.round(arg3*1000d)/1000d);
-    //     assertEquals(expected4,Math.round(arg4*1000d)/1000d);
-    //     assertEquals(expected5,Math.round(arg5*1000d)/1000d);
-    // }
+         assertEquals(expected1,Math.round(arg1*1000d)/1000d);
+         assertEquals(expected2,Math.round(arg2*1000d)/1000d);
+         assertEquals(expected3,Math.round(arg3*1000d)/1000d);
+         assertEquals(expected4,Math.round(arg4*1000d)/1000d);
+         assertEquals(expected5,Math.round(arg5*1000d)/1000d);
+     }
 
-    // @Test
-    // public void testMod(){
-    //     double mod1=ComplexOperations.mod(new ComplexNumber(5.0,10.0));
-    //     double mod2=ComplexOperations.mod(new ComplexNumber(-2.0,6.0));
-    //     double mod3=ComplexOperations.mod(new ComplexNumber(10.0,-2.0));
-    //     double mod4=ComplexOperations.mod(new ComplexNumber(14.5,0.0));
-    //     double mod5=ComplexOperations.mod(new ComplexNumber(0.0, -4.5));
+     @Test
+     public void testMod(){
+         double mod1=ComplexOperations.mod(new ComplexNumber(5.0,10.0));
+         double mod2=ComplexOperations.mod(new ComplexNumber(-2.0,6.0));
+         double mod3=ComplexOperations.mod(new ComplexNumber(10.0,-2.0));
+         double mod4=ComplexOperations.mod(new ComplexNumber(14.5,0.0));
+         double mod5=ComplexOperations.mod(new ComplexNumber(0.0, -4.5));
 
-    //     double expected1=11.180;
-    //     double expected2=6.325;
-    //     double expected3=10.198;
-    //     double expected4=14.5;
-    //     double expected5=4.5;
+         double expected1=11.180;
+         double expected2=6.325;
+         double expected3=10.198;
+         double expected4=14.5;
+         double expected5=4.5;
 
-    //     assertEquals(expected1,Math.round(mod1*1000d)/1000d);
-    //     assertEquals(expected2,Math.round(mod2*1000d)/1000d);
-    //     assertEquals(expected3,Math.round(mod3*1000d)/1000d);
-    //     assertEquals(expected4,Math.round(mod4*1000d)/1000d);
-    //     assertEquals(expected5,Math.round(mod5*1000d)/1000d);
-    // }
+         assertEquals(expected1,Math.round(mod1*1000d)/1000d);
+         assertEquals(expected2,Math.round(mod2*1000d)/1000d);
+         assertEquals(expected3,Math.round(mod3*1000d)/1000d);
+         assertEquals(expected4,Math.round(mod4*1000d)/1000d);
+         assertEquals(expected5,Math.round(mod5*1000d)/1000d);
+     }
     
     @Test
     public void testSqrt(){
@@ -332,6 +332,115 @@ public class ComplexOperationsTest {
         assertEquals(expected4,complex4);
         assertEquals(complex5,expected5);
         assertEquals(complex6,expected6);
+    }
+    
+    @Test
+    public void testPow(){
+        
+        ComplexNumber complex1 = new ComplexNumber(0.0,0.0);
+        ComplexNumber complex2 = new ComplexNumber(-3.0,-5.0);
+        ComplexNumber complex3 = new ComplexNumber(-7.5,3.0);
+        ComplexNumber complex4 = new ComplexNumber(8.3,-1.5);
+        ComplexNumber complex5 = new ComplexNumber(4.0,3.2);
+        
+        ComplexNumber result21 = ComplexOperations.pow(complex2, new ComplexNumber(0.0,0.0));
+        ComplexNumber result22 = ComplexOperations.pow(complex2, new ComplexNumber(5.0,0.0));
+        ComplexNumber result23 = ComplexOperations.pow(complex2, new ComplexNumber(-3.0,0.0));
+        ComplexNumber result24 = ComplexOperations.pow(complex2, new ComplexNumber(1.0,0.0));
+        
+        ComplexNumber result31 = ComplexOperations.pow(complex3, new ComplexNumber(-4.0,0.0));
+        ComplexNumber result32 = ComplexOperations.pow(complex3, new ComplexNumber(2.0,0.0));
+        ComplexNumber result33 = ComplexOperations.pow(complex3, new ComplexNumber(0.0,0.0));
+        ComplexNumber result34 = ComplexOperations.pow(complex3, new ComplexNumber(-2.0,0.0));
+        
+        ComplexNumber result41 = ComplexOperations.pow(complex4, new ComplexNumber(0.0,0.0));
+        ComplexNumber result42 = ComplexOperations.pow(complex4, new ComplexNumber(-2.0,0.0));
+        ComplexNumber result43 = ComplexOperations.pow(complex4, new ComplexNumber(4.0,0.0));
+        ComplexNumber result44 = ComplexOperations.pow(complex4, new ComplexNumber(2.5,0.0));
+        
+        ComplexNumber result51 = ComplexOperations.pow(complex5, new ComplexNumber(0.0,0.0));
+        ComplexNumber result52 = ComplexOperations.pow(complex5, new ComplexNumber(3.0,0.0));
+        ComplexNumber result53 = ComplexOperations.pow(complex5, new ComplexNumber(-4.0,0.0));
+        ComplexNumber result54 = ComplexOperations.pow(complex5, new ComplexNumber(5.7,0.0));
+                 
+        ComplexNumber expected21 = new ComplexNumber(1.000,0.000);
+        ComplexNumber expected22 = new ComplexNumber(-2868.000,6100.000);
+        ComplexNumber expected23 = new ComplexNumber(0.005,0.000);
+        ComplexNumber expected24 = new ComplexNumber(-3.0,-5.0);
+        
+        ComplexNumber expected31 = new ComplexNumber(0.000,0.000);
+        ComplexNumber expected32 = new ComplexNumber(47.250,-45.000);
+        ComplexNumber expected33 = new ComplexNumber(1.000,0.000);
+        ComplexNumber expected34 = new ComplexNumber(0.011,0.011);
+        
+        ComplexNumber expected41 = new ComplexNumber(1.000,0.000);
+        ComplexNumber expected42 = new ComplexNumber(0.013,0.005);
+        ComplexNumber expected43 = new ComplexNumber(3820.880,-3318.672);
+        ComplexNumber expected44 = new ComplexNumber(186.308,-89.305);
+        
+        ComplexNumber expected51 = new ComplexNumber(1.000,0.000);
+        ComplexNumber expected52 = new ComplexNumber(-58.880,120.832);
+        ComplexNumber expected53 = new ComplexNumber(-0.001,-0.000);
+        ComplexNumber expected54 = new ComplexNumber(-8433.167,-7167.272);
+        
+        
+        assertThrows(ArithmeticException.class,() -> ComplexOperations.pow(complex1, new ComplexNumber(-2.0,0.0)));
+        assertThrows(ArithmeticException.class,() -> ComplexOperations.pow(complex1, new ComplexNumber(45.0,0.0)));
+        assertThrows(ArithmeticException.class,() -> ComplexOperations.pow(complex1, new ComplexNumber(-5.0,0.0)));
+        assertThrows(ArithmeticException.class,() -> ComplexOperations.pow(complex1, new ComplexNumber(32.0,0.0)));
+        assertThrows(IllegalArgumentException.class,() -> ComplexOperations.pow(complex1,new ComplexNumber(2.0,-5.0)));
+        assertThrows(IllegalArgumentException.class,() -> ComplexOperations.pow(complex1,new ComplexNumber(0.0,-5.0)));
+         
+        assertEquals(expected21,round3(result21));
+        assertEquals(expected22,round3(result22));
+        assertEquals(expected23,round3(result23));
+        assertEquals(expected24,round3(result24));
+ 
+        assertEquals(expected31,round3(result31));
+        assertEquals(expected32,round3(result32));
+        assertEquals(expected33,round3(result33));
+        assertEquals(expected34,round3(result34));
+        
+        assertEquals(expected41,round3(result41));
+        assertEquals(expected42,round3(result42));
+        assertEquals(expected43,round3(result43));
+        assertEquals(expected44,round3(result44));
+        
+        assertThrows(IllegalArgumentException.class,() -> ComplexOperations.pow(complex3,new ComplexNumber(2.0,-5.0)));
+        assertThrows(IllegalArgumentException.class,() -> ComplexOperations.pow(complex2,new ComplexNumber(0.0,-5.0)));
+
+    }
+    
+    @Test
+    public void testExp(){
+        ComplexNumber complex1 = new ComplexNumber(5.0,3.2);
+        ComplexNumber complex2 = new ComplexNumber(-2.5,-4.0);
+        ComplexNumber complex3 = new ComplexNumber(0.0,0.0);
+        ComplexNumber complex4 = new ComplexNumber(0.0,5.5);
+        ComplexNumber complex5 = new ComplexNumber(-2.5,0.0);
+        ComplexNumber complex6 = new ComplexNumber(3.4,-2.7);
+        
+        ComplexNumber expected1 = new ComplexNumber(-148.160,-8.663);
+        ComplexNumber expected2 = new ComplexNumber(-0.054,0.062);
+        ComplexNumber expected3 = new ComplexNumber(1.000,0.000);
+        ComplexNumber expected4 = new ComplexNumber(0.709,-0.706);
+        ComplexNumber expected5 = new ComplexNumber(0.082,0.000);
+        ComplexNumber expected6 = new ComplexNumber(-27.090,-12.806);
+        
+        ComplexNumber result1 = round3(ComplexOperations.exp(complex1));
+        ComplexNumber result2 = round3(ComplexOperations.exp(complex2));
+        ComplexNumber result3 = round3(ComplexOperations.exp(complex3));
+        ComplexNumber result4 = round3(ComplexOperations.exp(complex4));
+        ComplexNumber result5 = round3(ComplexOperations.exp(complex5));
+        ComplexNumber result6 = round3(ComplexOperations.exp(complex6));
+        
+        assertEquals(expected1,result1);
+        assertEquals(expected2,result2);
+        assertEquals(expected3,result3);
+        assertEquals(expected4,result4);
+        assertEquals(expected5,result5);
+        assertEquals(expected6,result6);
+        
     }
 
     
