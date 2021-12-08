@@ -1,6 +1,9 @@
 package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.util.Observable;
+
+import javax.swing.plaf.synth.SynthEditorPaneUI;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
@@ -18,22 +21,10 @@ public class VariablesHandler extends Observable{
         stackVariables = new ArrayDeque<>();
     }
 
-    public ComplexNumber load(Character key) throws NoSuchElementException{
-        ComplexNumber value = currentVariables.get(key);
-        if(value!=null){
-            return value;
-        }
-        else{
-            throw new NoSuchElementException("No value has been assigned to this variable yet!");
-        }
-    }
-
-    public void store(Character key,ComplexNumber value){
-        currentVariables.put(key,value);
-    }
-
     public void save(){
         stackVariables.push(currentVariables);
+        setChanged();
+        notifyObservers();
     }
 
     public void restore() throws NoSuchElementException{
@@ -42,13 +33,17 @@ public class VariablesHandler extends Observable{
         }
         else{
             this.currentVariables=stackVariables.pop();
+            setChanged();
         }
+        notifyObservers();
     }
 
     public void reset(){
         for(char c='a';c<='z';c++){
             currentVariables.put(c,null);
         }
+        setChanged();
+        notifyObservers();
     }
 
     public Iterator<String> getVariables(){
@@ -76,6 +71,22 @@ public class VariablesHandler extends Observable{
         return listPairs.iterator();
     }
 
+    public ComplexNumber load(Character key) throws NoSuchElementException{
+        ComplexNumber value = currentVariables.get(key);
+        if(value!=null){
+            return value;
+        }
+        else{
+            throw new NoSuchElementException("No value has been assigned to this variable yet!");
+        }
+    }
+
+    public void store(Character key,ComplexNumber value){
+        currentVariables.put(key,value);
+        setChanged();
+        notifyObservers();
+    }
+
     public void sumToVariable(char variable,ComplexNumber cNumber) throws NoSuchElementException{
         
         ComplexNumber x = currentVariables.get(variable);
@@ -85,8 +96,10 @@ public class VariablesHandler extends Observable{
         }
         else {
             ComplexNumber result = ComplexOperations.sum(x, cNumber);
-            currentVariables.put(variable,result);        
+            currentVariables.put(variable,result);   
+            setChanged();     
         }
+        notifyObservers();
     }
     
     public void subFromVariable(char variable,ComplexNumber cNumber) throws NoSuchElementException{
@@ -99,6 +112,8 @@ public class VariablesHandler extends Observable{
         else {
             ComplexNumber result = ComplexOperations.sub(x,cNumber);
             currentVariables.put(variable,result);
+            setChanged();
         }
+        notifyObservers();
     }
 }
