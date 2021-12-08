@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 /**
 * The Manager of the Complex Calculator, which makes the comunication between the GUI, the Memory and the available operations possible.
@@ -32,15 +28,13 @@ public class Manager {
 
     private Memory memory;
     private PersonalizedOperationsMap personalizedOperations;
-    private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","dup","drop","over","swap"}; 
-    private Deque<Variables> stackVariables;
-    private Variables variables;
+    private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","dup","drop","over","swap","save","restore"}; 
+    private VariablesHandler variables;
 
     private Manager() {
         memory = new Memory();
         personalizedOperations = new PersonalizedOperationsMap();
-        stackVariables = new ArrayDeque<>();
-        variables = new Variables();
+        variables = new VariablesHandler();
     }
 
     /** 
@@ -71,11 +65,14 @@ public class Manager {
     public void processInput(String input) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
         //Check if inpput contains a legal operation
         if (Arrays.asList(allowedOperations).contains(input)) {
-            this.executeOperation(input);
+            this.executeAllowedOperation(input);
         }
         //Check if input references the name of a personalized operation
         else if (personalizedOperations.containsKey(input)) {
             this.executePersonalizedOperation(input);
+        }
+        else if (this.isVariablesOperation(input)) {
+            this.executeVariablesOperation(input);
         }
         //if it's not an operation, it's either a complex number, or a wrong input, in which case formatting it to a Complex Number produces an exception which will be handles by GUI. 
         else {
@@ -196,7 +193,7 @@ public class Manager {
      * @throws ArithmeticException when the resulting operation is arithmetically illegal.
      * @throws NotEnoughOperatorsException when there aren't enough operators in the stack to execute the operation.
      */
-    private void executeOperation(String operationName) throws ArithmeticException, NotEnoughOperatorsException {
+    private void executeAllowedOperation(String operationName) throws ArithmeticException, NotEnoughOperatorsException {
         ComplexNumber secondOperand, firstOperand,result;
 
         switch (operationName) {
@@ -272,6 +269,14 @@ public class Manager {
             case "dup":
                 memory.dup();
                 break;
+
+            case "save":
+                variables.save();
+                break;
+
+            case "restore":
+                variables.restore();
+                break;
         }
     }
 
@@ -318,47 +323,45 @@ public class Manager {
         memory.push(newNumber);
     }
 
-    public void saveVariables(){
-        stackVariables.push(variables);
+    private Boolean isVariablesOperation(String input) {
+        String variablesOperationRegex = "(<|>|\\+|-)[a-z]";
+        return input.matches(variablesOperationRegex);
     }
 
-    public void restoreVariables() throws NoSuchElementException{
-        if(stackVariables.isEmpty()){
-            throw new NoSuchElementException();
-        }
-        else{
-            this.variables=stackVariables.pop();
-        }
-    }
+    private void executeVariablesOperation(String input) {
+        char operation = input.charAt(0);
+        char variable = input.charAt(1);
+        ComplexNumber cn;
+        switch (operation) {
 
-    public Iterator<String> getVariables(){
-        List<String> listPairs = new ArrayList<>();
-        Iterator<String> itrVariables = this.variables.variablesIterator();
-        
-        
-        while (itrVariables.hasNext()){
-            String pair = itrVariables.next();
-            Character key = pair.split(":")[0].charAt(0);
-            if(stackVariables.isEmpty()){
-                listPairs.add(pair+": ");
+            case '<':
+                cn = variables.load(variable);
+                memory.push(cn);
+                break;
+
+            case '>':
+                cn = memory.pop();
+                variables.store(variable,cn);
+                break;
+
+            case '+':
+                cn = memory.pop();
+                variables.sumToVariable(variable,cn);
+                break;
+
+            case '-':
+                cn = memory.pop();
+                variables.subFromVariable(variable,cn);
+                break;
             }
-            else{
-                Variables oldMap = stackVariables.getFirst();
-                ComplexNumber oldValue = oldMap.get(key);
-                if(oldValue == null){
-                    listPairs.add(pair+": ");
-                }
-                else{
-                    listPairs.add(pair+":"+oldValue);
-                }
-            }
-        }
-        return listPairs.iterator();
     }
 
-    public void resetVariables(){
-        for(char c='a';c<='z';c++){
-            variables.put(c,null);
-        }
+    public void resetVariables() {
+        variables.reset();
     }
+
+    public Iterator<String> getVariables() {
+        return variables.getVariables();
+    }
+
 }

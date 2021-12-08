@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 public class VariablesTest {
     private Variables variables;
-    private static char letter1, letter2, notLetter;
-    private static ComplexNumber cn1,cn2;
+    private static char letter1, notLetter;
+    private static ComplexNumber cn1;
 
     @BeforeEach
     public void setup() {
@@ -20,10 +20,8 @@ public class VariablesTest {
     @BeforeAll
     public static void assign() {
         letter1 = 'c';
-        letter2 = 't';
         notLetter = '!';
         cn1 = new ComplexNumber(57.32,8.11);
-        cn2 = new ComplexNumber(16.0,0.0);
     }
 
     @Test
@@ -35,33 +33,5 @@ public class VariablesTest {
         assertThrows(IllegalArgumentException.class, () -> variables.put(notLetter,cn1), "The variable must be a lowercase letter!");
     }
 
-    @Test
-    public void testLoadVariable() {
-        variables.put(letter1,cn1);
-
-        assertEquals(variables.loadVariable(letter1),cn1);
-
-        assertThrows(IllegalArgumentException.class, () -> variables.loadVariable(letter2), "The input variable doesn't exists!");   
-    }
-
-    @Test
-    public void testSumToVariable() {
-        variables.put(letter1,cn1);
-        variables.sumToVariable(letter1, cn2);
-
-        assertEquals(ComplexOperations.sum(cn1,cn2), variables.get(letter1));
-
-        assertThrows(IllegalArgumentException.class, () -> variables.sumToVariable(letter2,cn2), "The input variable doesn't exists!");   
-    }
-
-
-    @Test
-    public void testSubFromVariable() {
-        variables.put(letter1,cn1);
-        variables.subFromVariable(letter1, cn2);
-
-        assertEquals(ComplexOperations.sub(cn1,cn2), variables.get(letter1));
-
-        assertThrows(IllegalArgumentException.class, () -> variables.subFromVariable(letter2,cn2), "The input variable doesn't exists!");   
-    }
+ 
 }
