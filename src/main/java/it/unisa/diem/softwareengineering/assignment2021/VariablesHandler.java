@@ -22,7 +22,8 @@ public class VariablesHandler extends Observable{
     }
 
     public void save(){
-        stackVariables.push(currentVariables);
+        Variables mapToSave = currentVariables;
+        stackVariables.push(mapToSave);
         setChanged();
         notifyObservers();
     }
