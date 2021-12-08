@@ -280,8 +280,37 @@ public class Manager{
                 memory.push(result);
                 break;
 
-            case "clear":
-                memory.clear();
+            case "mod":
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                firstOperand = memory.pop();
+                result = ComplexOperations.mod(firstOperand);
+                memory.push(result);
+                break;
+
+            case "arg":
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                firstOperand = memory.pop();
+                result = ComplexOperations.arg(firstOperand);
+                memory.push(result);
+                break;
+
+            case "exp":
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                firstOperand = memory.pop();
+                result = ComplexOperations.exp(firstOperand);
+                memory.push(result);
+                break;
+
+            case "pow":
+                if (memory.size() < 2)
+                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                secondOperand = memory.pop();
+                firstOperand = memory.pop();
+                result = ComplexOperations.pow(firstOperand,secondOperand);
+                memory.push(result);
                 break;
 
             case "drop":
