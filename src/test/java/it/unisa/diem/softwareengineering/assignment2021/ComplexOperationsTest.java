@@ -380,7 +380,7 @@ public class ComplexOperationsTest {
         
         ComplexNumber expected51 = new ComplexNumber(1.000,0.000);
         ComplexNumber expected52 = new ComplexNumber(-58.880,120.832);
-        ComplexNumber expected53 = new ComplexNumber(-0.001,-0.000);
+        ComplexNumber expected53 = new ComplexNumber(-0.001,-0.001);
         ComplexNumber expected54 = new ComplexNumber(-8433.167,-7167.272);
         
         
@@ -405,6 +405,11 @@ public class ComplexOperationsTest {
         assertEquals(expected42,round3(result42));
         assertEquals(expected43,round3(result43));
         assertEquals(expected44,round3(result44));
+        
+        assertEquals(expected51,round3(result51));
+        assertEquals(expected52,round3(result52));
+        assertEquals(expected53,round3(result53));
+        assertEquals(expected54,round3(result54));
         
         assertThrows(IllegalArgumentException.class,() -> ComplexOperations.pow(complex3,new ComplexNumber(2.0,-5.0)));
         assertThrows(IllegalArgumentException.class,() -> ComplexOperations.pow(complex2,new ComplexNumber(0.0,-5.0)));
