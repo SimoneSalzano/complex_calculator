@@ -32,40 +32,7 @@ public class Variables extends TreeMap<Character,ComplexNumber>{
         return listPairs.iterator();
     }
     
-    public ComplexNumber loadVariable(char variable) throws IllegalArgumentException{
-        
-        ComplexNumber x = this.get(variable);
-        
-        if(x!=null){
-            return x;
-        }else {  
-           throw new IllegalArgumentException("The input variable doesn't exists!");
-        }
-}
     
-    public void sumToVariable(char variable,ComplexNumber last) throws IllegalArgumentException{
-        
-        ComplexNumber x = this.get(variable);
-        
-        if(x==null){
-            throw new IllegalArgumentException("The input variable doesn't exists!");
-        }else {
-            ComplexNumber result = ComplexOperations.sum(x, last);
-            this.put(variable,result);        
-        }
-    }
-    
-    public void subFromVariable(char variable,ComplexNumber last) throws IllegalArgumentException{
-        
-        ComplexNumber x = this.get(variable);
-        
-        if(x==null){
-            throw new IllegalArgumentException("The input variable doesn't exists!");
-        }else {
-            ComplexNumber result = ComplexOperations.sub(x,last);
-            this.put(variable,result);
-        }
-    }
 
 
 }
