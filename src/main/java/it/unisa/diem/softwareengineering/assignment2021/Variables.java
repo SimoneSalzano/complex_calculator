@@ -20,9 +20,8 @@ public class Variables extends TreeMap<Character,ComplexNumber>{
 
     public Iterator<String> variablesIterator() {
         List<String> listPairs = new ArrayList<>();
-        for (Map.Entry<Character, ComplexNumber> pair: this.entrySet()){
-            Character key = pair.getKey();
-            ComplexNumber value = pair.getValue();
+        for (char key='a'; key<='z'; key++){
+            ComplexNumber value = this.get(key);
             if(value == null){
                 listPairs.add(key+": ");
             }
