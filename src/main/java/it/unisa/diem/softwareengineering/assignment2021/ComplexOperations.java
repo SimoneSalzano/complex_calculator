@@ -3,15 +3,18 @@ import java.lang.Math;
 import java.lang.ArithmeticException;
 
 
-
+/**
+ * Operations on Complex Numbers, developed in a Math-like style.
+ * @Authors Michele Spremulli, Dario Montervino
+ */
 public class ComplexOperations{
     
 
     
     /**
      * Return the sum between two complex numbers
-     * @param complex1
-     * @param complex2
+     * @param complex1 first operand
+     * @param complex2 second operand
      * @return ComplexNumber
      */
     public static ComplexNumber sum(ComplexNumber complex1, ComplexNumber complex2){
@@ -52,8 +55,8 @@ public class ComplexOperations{
     
     /** 
      * Return the multiplication between two complex numbers
-     * @param complex1
-     * @param complex2
+     * @param complex1 first operand
+     * @param complex2 second operand
      * @return ComplexNumber
      */
     public static ComplexNumber mul(ComplexNumber complex1, ComplexNumber complex2){
@@ -73,8 +76,8 @@ public class ComplexOperations{
     
     /**  
      * Return the division between two complex numbers
-     * @param complex1  first operan
-     * @param complex2  second operan
+     * @param complex1  first operand
+     * @param complex2  second operand
      * @return ComplexNumber    
      * @throws ArithmeticException Throws exceptio if second operand is 0 (Division by 0)
      */
@@ -99,7 +102,7 @@ public class ComplexOperations{
     
     /** 
      * Return the negative complex number
-     * @param complex1
+     * @param complex1 first operand
      * @return ComplexNumber
      */
     public static ComplexNumber inv(ComplexNumber complex1){
@@ -115,12 +118,12 @@ public class ComplexOperations{
     
     /** 
      * Return the square root of a complex number. The solution is calculated assuming k=0
-     * @param complex1
+     * @param complex1 first operand
      * @return ComplexNumber
      */
     public static ComplexNumber sqrt(ComplexNumber complex1){
-        double mod=mod(complex1);
-        double arg=arg(complex1);
+        double mod=mod(complex1).getReal();
+        double arg=arg(complex1).getReal();
         double realTot=Math.round((Math.sqrt(mod)*Math.cos(arg/2))*1000d)/1000d;
         double immTot=Math.round((Math.sqrt(mod)*Math.sin(arg/2))*1000d)/1000d;
         ComplexNumber complexResult=new ComplexNumber(realTot, immTot);
@@ -130,50 +133,49 @@ public class ComplexOperations{
     
     /** 
      * return the magnitude of a complex number
-     * @param complex1
-     * @return double
+     * @param complex1 first operand
+     * @return ComplexNumber
      */
-    public static double mod(ComplexNumber complex1){
+    public static ComplexNumber mod(ComplexNumber complex1){
         double a=complex1.getReal();
         double b=complex1.getImm();
 
         double mod=Math.sqrt(a*a+b*b);
-        return mod;
+        return new ComplexNumber(mod,0.0);
     }
-
     
     /** 
      * return the argument of a complex number
-     * @param complex1
-     * @return double
+     * @param complex1 first operand
+     * @return ComplexNumber
      * @throws ArithmeticException
      */
-    public static double arg(ComplexNumber complex1) throws ArithmeticException{
+    public static ComplexNumber arg(ComplexNumber complex1) throws ArithmeticException{
         double a=complex1.getReal();
         double b=complex1.getImm();
         
         if(a==0 && b>0){
-            return (Math.PI/2*1000d);
+            return new ComplexNumber((Math.PI/2*1000d),0.0);
         }
         if(a==0 && b<0){
-            return (-Math.PI/2);
+            return new ComplexNumber((-Math.PI/2),0.0);
         }
         if(a==0 && b==0){
             throw new ArithmeticException("Arg of 0 isn't defined");
         }
         if(a<0 && b>=0){
-            return (Math.atan(b/a)+Math.PI);
+            return new ComplexNumber((Math.atan(b/a)+Math.PI),0.0);
         }
         if(a<0 && b<0){
-            return (Math.atan(b/a)-Math.PI);
+            return new ComplexNumber((Math.atan(b/a)-Math.PI),0.0);
         } 
         
-        return (Math.atan(b/a));
+        return new ComplexNumber((Math.atan(b/a)), 0.0);
     }
     /**
      * Return the power of a complex number, where the base is the first parameter and the exponent is the second parameter.
-     * @param complex1
-     * @param exponent
+     * @param complex1 first operand
+     * @param exponent second operand
      * @return ComplexNumber
      */
     
@@ -183,8 +185,8 @@ public class ComplexOperations{
                 throw new ArithmeticException("Can't compute the power of a complex number with both real and immaginary parts equal to 0") ;      
             }else {
             double realExponent = exponent.getReal();
-            double module = ComplexOperations.mod(complex1);
-            double phase= ComplexOperations.arg(complex1);           
+            double module = ComplexOperations.mod(complex1).getReal();
+            double phase= ComplexOperations.arg(complex1).getReal();           
             module = Math.pow(module, realExponent); 
             phase = phase * realExponent;
                 
@@ -199,7 +201,7 @@ public class ComplexOperations{
     }
     /**
      * Return the exponential value of the input complex number.
-     * @param complex
+     * @param complex first operand
      * @return ComplexNumber
      */
     

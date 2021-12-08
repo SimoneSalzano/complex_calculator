@@ -2,7 +2,10 @@ package it.unisa.diem.softwareengineering.assignment2021;
 import java.util.*;
 
 
-
+/** 
+ * A stack that manages complex numbers.
+ * @Author Dario Montervino 
+ */
 public class Memory {
     private Deque<ComplexNumber> stack;
 

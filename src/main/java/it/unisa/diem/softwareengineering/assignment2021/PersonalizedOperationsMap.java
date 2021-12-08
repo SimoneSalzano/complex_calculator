@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.io.*;
 
 
+/**
+ * A map that manages the personalized operations' representation and its persistence.
+ * @Author Dario Montervino
+ */
 public class PersonalizedOperationsMap extends HashMap<String,String>{
     
     

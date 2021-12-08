@@ -30,7 +30,7 @@ public class Manager{
 
     private Memory memory;
     private PersonalizedOperationsMap personalizedOperations;
-    private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","dup","drop","over","swap","save","restore"}; 
+    private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","mod","arg","pow","exp","dup","drop","over","swap","save","restore"}; 
     private VariablesHandler variables;
 
     private Manager() {
@@ -82,39 +82,6 @@ public class Manager{
         }
     }
     
-    /**
-     * Utility methot that checks if the personalized operation passed is valid.
-     * @param name the name of the personalized operation.
-     * @param operations the elementary operations contained in the personalized operation.
-     * @return true if the operation is valid
-     * @throws PersonalizedOperationException when the operation is not valid, varying its message in each case.
-     */
-    private boolean checkValidPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
-        if (name == null || name.equals(""))
-            throw new PersonalizedOperationException("You have inserted no name for inserted operation!");
-        else if (operations == null || operations.equals(""))
-            throw new PersonalizedOperationException("You have inserted no operation for " + name + "!");
-        else if (ComplexNumber.isComplexNumber(name))
-            throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
-        else if (name.contains(" ") || name.contains("\t")) 
-            throw new PersonalizedOperationException("Operation names can't contain any spaces!"); 
-        StringTokenizer itr = new StringTokenizer(operations);
-        String operationToCheck;
-        while (itr.hasMoreTokens()) {
-            operationToCheck = itr.nextToken();
-            if (Arrays.asList(allowedOperations).contains(operationToCheck)) 
-                continue;
-            else if (personalizedOperations.containsKey(operationToCheck))
-                continue;
-            else if (isVariablesOperation(operationToCheck))
-                continue;
-            else if (ComplexNumber.isComplexNumber(operationToCheck))
-                continue;
-            //if our operation doesn't pass any of the above checks, then it hasn't been recognized.
-            throw new PersonalizedOperationException("One or more of your commands in " + name +" isn't recognized!");
-        }
-        return true;
-    }
     /**
      * Inserts a personalized operation into runtime environment, so that it can be later called again. 
      * @param name the name of the personalized operation 
@@ -191,6 +158,65 @@ public class Manager{
     public void clearMap(){
         personalizedOperations.clear();
     }
+
+    /**
+     * Clears every element from the runtime variables.
+     */
+    public void resetVariables() {
+        variables.reset();
+    }
+
+    /**
+     * Returns an iterator over every runtime variable, from a to z, followed by the older values precedently stored in the variables. 
+     * @return an iterator over every runtime variable, from a to z, followed by the older values precedently stored in the variables. 
+     */
+    public Iterator<String> getVariables() {
+        return variables.getVariables();
+    }
+
+    /**
+     * Makes it so the variables can be observed by an observer, so that the changes on Variables will be noticed by the observer, and it will update accordingly. 
+     * @param observer the observer that observes a VariableHandler
+     */
+    public void observeVariables(Observer observer) {
+        variables.addObserver(observer);
+    }
+
+    /**
+     * Utility methot that checks if the personalized operation passed is valid.
+     * @param name the name of the personalized operation.
+     * @param operations the elementary operations contained in the personalized operation.
+     * @return true if the operation is valid
+     * @throws PersonalizedOperationException when the operation is not valid, varying its message in each case.
+     */
+    private boolean checkValidPersonalizedOperation(String name, String operations) throws PersonalizedOperationException{
+        if (name == null || name.equals(""))
+            throw new PersonalizedOperationException("You have inserted no name for inserted operation!");
+        else if (operations == null || operations.equals(""))
+            throw new PersonalizedOperationException("You have inserted no operation for " + name + "!");
+        else if (ComplexNumber.isComplexNumber(name))
+            throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
+        else if (name.contains(" ") || name.contains("\t")) 
+            throw new PersonalizedOperationException("Operation names can't contain any spaces!"); 
+        StringTokenizer itr = new StringTokenizer(operations);
+        String operationToCheck;
+        while (itr.hasMoreTokens()) {
+            operationToCheck = itr.nextToken();
+            if (Arrays.asList(allowedOperations).contains(operationToCheck)) 
+                continue;
+            else if (personalizedOperations.containsKey(operationToCheck))
+                continue;
+            else if (isVariablesOperation(operationToCheck))
+                continue;
+            else if (ComplexNumber.isComplexNumber(operationToCheck))
+                continue;
+            //if our operation doesn't pass any of the above checks, then it hasn't been recognized.
+            throw new PersonalizedOperationException("One or more of your commands in " + name +" isn't recognized!");
+        }
+        return true;
+    }
+
+
     /**
      * A utility method used by processInput to execute elementary allowed operations. 
      * @param operationName the name of the operation to execute.
@@ -337,6 +363,12 @@ public class Manager{
         return input.matches(variablesOperationRegex);
     }
 
+    /**
+     * Utility method that executes variables operations based on what's in input. 
+     * @param input the operation written as a String. It is expected it's format is checked with isVariablesOperation method before running this method.
+     * @throws NotEnoughOperatorsException when there are not enough complex numbers in the stack to perform the requested operation.
+     * @throws NoSuchElementException when there is an attempt to load a variable that has no value stored yet.
+     */
     private void executeVariablesOperation(String input) throws NotEnoughOperatorsException, NoSuchElementException{
         char operation = input.charAt(0);
         char variable = input.charAt(1);
@@ -369,18 +401,6 @@ public class Manager{
                 variables.subFromVariable(variable,cn);
                 break;
             }
-    }
-
-    public void resetVariables() {
-        variables.reset();
-    }
-
-    public Iterator<String> getVariables() {
-        return variables.getVariables();
-    }
-
-    public void observeVariables(Observer observer) {
-        variables.addObserver(observer);
     }
 
 }
