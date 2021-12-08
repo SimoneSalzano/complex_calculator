@@ -240,7 +240,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
      */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Object[] options = {"yes","no"};
-        int response = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
             try {
                 manager.saveMapToFile();
@@ -274,7 +274,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
     private void loadButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButton1ActionPerformed
         keyModified = null;
         Object[] options = {"yes","no"};
-        int response = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to load from file?", "Loading", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to load from file?", "Loading", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
             try {
                 manager.LoadMapToFile();
@@ -312,7 +312,7 @@ public class PersonalizedOperationsWindow extends javax.swing.JPanel {
     private void clearOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearOpButtonActionPerformed
         keyModified = null;
         Object[] options = {"yes","no"};
-        int response = JOptionPane.showOptionDialog(saveButton, "Are you sure you want to delete all operations? Unsaved operations into file will be deleted", "Clear", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to delete all operations? Unsaved operations into file will be deleted", "Clear", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
             manager.clearMap();
             buildTable();

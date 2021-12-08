@@ -119,9 +119,9 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(restoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jSeparator1.setBackground(new java.awt.Color(45, 161, 200));
@@ -205,7 +205,7 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Object[] options = {"yes","no"};
-        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to save?", "Restore", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
             manager.saveVariables();
         }
@@ -213,10 +213,10 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
 
     private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreButtonActionPerformed
         Object[] options = {"yes","no"};
-        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to restore the old values?", "Restore", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to restore the old values?", "Restoring", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
             try{
-                manager.resetVariables();
+                manager.restoreVariables();
             }catch(NoSuchElementException ex){
                 JOptionPane.showMessageDialog(table, ex.getMessage());
             }
@@ -225,7 +225,15 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
     }//GEN-LAST:event_restoreButtonActionPerformed
 
     private void resetOpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetOpButtonActionPerformed
-        
+        Object[] options = {"yes","no"};
+        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to reset all the variables", "Resetting", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        if(response == 0){
+            try{
+                manager.resetVariables();
+            }catch(NoSuchElementException ex){
+                JOptionPane.showMessageDialog(table, ex.getMessage());
+            }
+        }
         buildTable();
     }//GEN-LAST:event_resetOpButtonActionPerformed
 
