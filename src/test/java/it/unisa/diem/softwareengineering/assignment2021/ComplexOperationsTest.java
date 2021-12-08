@@ -267,47 +267,47 @@ public class ComplexOperationsTest {
     private ComplexNumber round3(ComplexNumber complex1){
         return new ComplexNumber(Math.round(complex1.getReal()*1000d)/1000d, Math.round(complex1.getImm()*1000d)/1000d);
     }
-     @Test
-     public void testArg(){
-         double arg1=ComplexOperations.arg(new ComplexNumber(5.0,10.0));
-         double arg2=ComplexOperations.arg(new ComplexNumber(-2.0,6.0));
-         double arg3=ComplexOperations.arg(new ComplexNumber(10.0,-2.0));
-         double arg4=ComplexOperations.arg(new ComplexNumber(14.5,0.0));
-         double arg5=ComplexOperations.arg(new ComplexNumber(0.0, -4.5));
+    @Test
+    public void testArg(){
+        ComplexNumber arg1=ComplexOperations.arg(new ComplexNumber(5.0,10.0));
+        ComplexNumber arg2=ComplexOperations.arg(new ComplexNumber(-2.0,6.0));
+        ComplexNumber arg3=ComplexOperations.arg(new ComplexNumber(10.0,-2.0));
+        ComplexNumber arg4=ComplexOperations.arg(new ComplexNumber(14.5,0.0));
+        ComplexNumber arg5=ComplexOperations.arg(new ComplexNumber(0.0, -4.5));
 
-         double expected1=1.107;
-         double expected2=1.893;
-         double expected3=-0.197;
-         double expected4=0;
-         double expected5=-1.571;
+        ComplexNumber expected1=new ComplexNumber(1.107,0.0);
+        ComplexNumber expected2=new ComplexNumber(1.893,0.0);
+        ComplexNumber expected3=new ComplexNumber(-0.197,0.0);
+        ComplexNumber expected4=new ComplexNumber(0.0,0.0);
+        ComplexNumber expected5=new ComplexNumber(-1.571,0.0);
 
-         assertEquals(expected1,Math.round(arg1*1000d)/1000d);
-         assertEquals(expected2,Math.round(arg2*1000d)/1000d);
-         assertEquals(expected3,Math.round(arg3*1000d)/1000d);
-         assertEquals(expected4,Math.round(arg4*1000d)/1000d);
-         assertEquals(expected5,Math.round(arg5*1000d)/1000d);
-     }
+        assertEquals(expected1,round3(arg1));
+        assertEquals(expected2,round3(arg2));
+        assertEquals(expected3,round3(arg3));
+        assertEquals(expected4,round3(arg4));
+        assertEquals(expected5,round3(arg5));
+    }
 
-     @Test
-     public void testMod(){
-         double mod1=ComplexOperations.mod(new ComplexNumber(5.0,10.0));
-         double mod2=ComplexOperations.mod(new ComplexNumber(-2.0,6.0));
-         double mod3=ComplexOperations.mod(new ComplexNumber(10.0,-2.0));
-         double mod4=ComplexOperations.mod(new ComplexNumber(14.5,0.0));
-         double mod5=ComplexOperations.mod(new ComplexNumber(0.0, -4.5));
+    @Test
+    public void testMod(){
+        ComplexNumber mod1=ComplexOperations.mod(new ComplexNumber(5.0,10.0));
+        ComplexNumber mod2=ComplexOperations.mod(new ComplexNumber(-2.0,6.0));
+        ComplexNumber mod3=ComplexOperations.mod(new ComplexNumber(10.0,-2.0));
+        ComplexNumber mod4=ComplexOperations.mod(new ComplexNumber(14.5,0.0));
+        ComplexNumber mod5=ComplexOperations.mod(new ComplexNumber(0.0, -4.5));
 
-         double expected1=11.180;
-         double expected2=6.325;
-         double expected3=10.198;
-         double expected4=14.5;
-         double expected5=4.5;
+        ComplexNumber expected1=new ComplexNumber(11.180,0.0);
+        ComplexNumber expected2=new ComplexNumber(6.325,0.0);
+        ComplexNumber expected3=new ComplexNumber(10.198,0.0);
+        ComplexNumber expected4=new ComplexNumber(14.5,0.0);
+        ComplexNumber expected5=new ComplexNumber(4.5,0.0);
 
-         assertEquals(expected1,Math.round(mod1*1000d)/1000d);
-         assertEquals(expected2,Math.round(mod2*1000d)/1000d);
-         assertEquals(expected3,Math.round(mod3*1000d)/1000d);
-         assertEquals(expected4,Math.round(mod4*1000d)/1000d);
-         assertEquals(expected5,Math.round(mod5*1000d)/1000d);
-     }
+        assertEquals(expected1,round3(mod1));
+        assertEquals(expected2,round3(mod2));
+        assertEquals(expected3,round3(mod3));
+        assertEquals(expected4,round3(mod4));
+        assertEquals(expected5,round3(mod5));
+    }
     
     @Test
     public void testSqrt(){
