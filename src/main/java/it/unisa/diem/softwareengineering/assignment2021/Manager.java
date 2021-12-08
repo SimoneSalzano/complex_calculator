@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Observer;
 import java.util.StringTokenizer;
 
@@ -63,7 +64,7 @@ public class Manager{
      * @throws NotEnoughOperatorsException when there aren't enough operands in the memory to process an operation
      * @throws ArithmeticException when a arithmetically illegal operation occurs.
      */
-    public void processInput(String input) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
+    public void processInput(String input) throws NumberFormatException, NotEnoughOperatorsException, ArithmeticException, NoSuchElementException{
         //Check if inpput contains a legal operation
         if (Arrays.asList(allowedOperations).contains(input)) {
             this.executeAllowedOperation(input);
@@ -289,7 +290,7 @@ public class Manager{
      * @throws NotEnoughOperatorsException on the same conditions of processInput.
      * @throws ArithmeticException on the same conditions of processInput.
      */
-    private void executePersonalizedOperation(String personalizedOperationName) throws NumberFormatException,NotEnoughOperatorsException,ArithmeticException{
+    private void executePersonalizedOperation(String personalizedOperationName) throws NumberFormatException, NotEnoughOperatorsException, ArithmeticException, NoSuchElementException{
         Iterator<String> personalizedOperation = personalizedOperations.getPersonalizedOperationIterator(personalizedOperationName);
 
         //preserve old memory in case an exception occurs
@@ -324,12 +325,17 @@ public class Manager{
         memory.push(newNumber);
     }
 
+    /**
+     * Utility method that checks if input corresponds to a operation on the current variables such as >x, <x, +x, -x, where x is a lowercase letter.
+     * @param input the input to check
+     * @return true if input is a variable operation, false if not.
+     */
     private Boolean isVariablesOperation(String input) {
         String variablesOperationRegex = "(<|>|\\+|-)[a-z]";
         return input.matches(variablesOperationRegex);
     }
 
-    private void executeVariablesOperation(String input) {
+    private void executeVariablesOperation(String input) throws NotEnoughOperatorsException, NoSuchElementException{
         char operation = input.charAt(0);
         char variable = input.charAt(1);
         ComplexNumber cn;
@@ -341,16 +347,22 @@ public class Manager{
                 break;
 
             case '>':
+                if (memory.size() < 1)
+                    throw new NotEnoughOperatorsException("Storing to a variable requires 1 operand to be in the memory!");
                 cn = memory.pop();
                 variables.store(variable,cn);
                 break;
 
             case '+':
+            if (memory.size() < 1)
+                throw new NotEnoughOperatorsException("Summing to a variable requires 1 operand to be in the memory!");
                 cn = memory.pop();
                 variables.sumToVariable(variable,cn);
                 break;
 
             case '-':
+            if (memory.size() < 1)
+                throw new NotEnoughOperatorsException("Subtracting from a variable requires 1 operand to be in the memory!");
                 cn = memory.pop();
                 variables.subFromVariable(variable,cn);
                 break;
