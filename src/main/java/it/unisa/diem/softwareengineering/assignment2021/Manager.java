@@ -106,6 +106,8 @@ public class Manager{
                 continue;
             else if (personalizedOperations.containsKey(operationToCheck))
                 continue;
+            else if (isVariablesOperation(operationToCheck))
+                continue;
             else if (ComplexNumber.isComplexNumber(operationToCheck))
                 continue;
             //if our operation doesn't pass any of the above checks, then it hasn't been recognized.
