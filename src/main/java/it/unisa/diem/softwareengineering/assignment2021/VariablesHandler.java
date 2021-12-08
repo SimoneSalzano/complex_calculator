@@ -8,6 +8,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -22,7 +23,11 @@ public class VariablesHandler extends Observable{
     }
 
     public void save(){
-        stackVariables.push(currentVariables);
+        Variables mapToSave = new Variables();
+        for (Map.Entry<Character, ComplexNumber> pair: currentVariables.entrySet()){
+            mapToSave.put(pair.getKey(), pair.getValue());
+        }
+        stackVariables.push(mapToSave);
         setChanged();
         notifyObservers();
     }

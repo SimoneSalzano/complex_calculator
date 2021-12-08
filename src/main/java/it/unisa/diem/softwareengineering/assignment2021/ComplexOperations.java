@@ -133,7 +133,7 @@ public class ComplexOperations{
      * @param complex1
      * @return double
      */
-    private static double mod(ComplexNumber complex1){
+    public static double mod(ComplexNumber complex1){
         double a=complex1.getReal();
         double b=complex1.getImm();
 
@@ -148,7 +148,7 @@ public class ComplexOperations{
      * @return double
      * @throws ArithmeticException
      */
-    private static double arg(ComplexNumber complex1) throws ArithmeticException{
+    public static double arg(ComplexNumber complex1) throws ArithmeticException{
         double a=complex1.getReal();
         double b=complex1.getImm();
         
@@ -170,7 +170,49 @@ public class ComplexOperations{
         
         return (Math.atan(b/a));
     }
-
+    /**
+     * Return the power of a complex number, where the base is the first parameter and the exponent is the second parameter.
+     * @param complex1
+     * @param exponent
+     * @return ComplexNumber
+     */
+    
+    public static ComplexNumber pow(ComplexNumber complex1,ComplexNumber exponent){
+        if(exponent.getImm()==0){  
+            if(complex1.getImm()==0 && complex1.getReal()==0){
+                throw new ArithmeticException("Can't compute the power of a complex number with both real and immaginary parts equal to 0") ;      
+            }else {
+            double realExponent = exponent.getReal();
+            double module = ComplexOperations.mod(complex1);
+            double phase= ComplexOperations.arg(complex1);           
+            module = Math.pow(module, realExponent); 
+            phase = phase * realExponent;
+                
+            double real = module * Math.cos(phase);
+            double imm = module * Math.sin(phase);
+                
+            return new ComplexNumber(real,imm);
+            }
+        }else {
+            throw new IllegalArgumentException("The exponent is a complex number. It must be a real number!");
+        }
+    }
+    /**
+     * Return the exponential value of the input complex number.
+     * @param complex
+     * @return ComplexNumber
+     */
+    
+    public static ComplexNumber exp(ComplexNumber complex){
+        double real = complex.getReal();
+        double imm = complex.getImm();
+        double exponent= Math.E;
+        
+        double exp_real = Math.pow(exponent,real)*Math.cos(imm);
+        double exp_imm = Math.pow(exponent, real)*Math.sin(imm);
+        
+        return new ComplexNumber(exp_real,exp_imm);   
+    }
 
     
 }
