@@ -61,7 +61,27 @@ public class ComplexNumber {
     }
 
     private boolean checkDigitsLength(){
-        return !(real.toString().length() >= String.valueOf(Double.MAX_VALUE).length() || imm.toString().length() >= String.valueOf(Double.MAX_VALUE).length());
+        DecimalFormat df = new DecimalFormat("#");
+        String realString = (df.format(real).toString());
+        int indexRealDot = realString.indexOf(".");
+        if(indexRealDot==-1){
+            indexRealDot=realString.length();
+        }
+        realString = realString.substring(0, indexRealDot);
+
+        String immString = (df.format(imm).toString());
+        int indexImmDot = immString.indexOf(".");   
+        if(indexImmDot==-1){
+            indexImmDot=immString.length();
+        }
+        immString = immString.substring(0, indexImmDot);
+
+        System.out.println(immString);
+        System.out.println(realString);
+        if(immString.length()>10 || realString.length()>10){
+            return false;
+        }
+        return true;
     }
     
     /** 

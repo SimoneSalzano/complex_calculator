@@ -232,122 +232,133 @@ public class Manager{
      * @throws NotEnoughOperatorsException when there aren't enough operators in the stack to execute the operation.
      */
     private void executeAllowedOperation(String operationName) throws ArithmeticException, NotEnoughOperatorsException {
-        ComplexNumber secondOperand, firstOperand,result;
+        ComplexNumber secondOperand=null;
+        ComplexNumber firstOperand=null;
+        ComplexNumber result;
 
-        switch (operationName) {
+        try{
+            switch (operationName) {
+                case "+":
+                    if (memory.size() < 2)
+                        throw new NotEnoughOperatorsException("Sum requires 2 operands to be in the memory!");
+                    secondOperand = memory.pop();
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.sum(firstOperand,secondOperand);
+                    memory.push(result);
+                    break;
 
-            case "+":
-                if (memory.size() < 2)
-                    throw new NotEnoughOperatorsException("Sum requires 2 operands to be in the memory!");
-                secondOperand = memory.pop();
-                firstOperand = memory.pop();
-                result = ComplexOperations.sum(firstOperand,secondOperand);
-                memory.push(result);
-                break;
+                case "-":
+                    if (memory.size() < 2)
+                        throw new NotEnoughOperatorsException("Subtraction requires 2 operands to be in the memory!");
+                    secondOperand = memory.pop();
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.sub(firstOperand,secondOperand);
+                    memory.push(result);
+                    break;
 
-            case "-":
-                if (memory.size() < 2)
-                    throw new NotEnoughOperatorsException("Subtraction requires 2 operands to be in the memory!");
-                secondOperand = memory.pop();
-                firstOperand = memory.pop();
-                result = ComplexOperations.sub(firstOperand,secondOperand);
-                memory.push(result);
-                break;
+                case "*":
+                    if (memory.size() < 2)
+                        throw new NotEnoughOperatorsException("Multiplication requires 2 operands to be in the memory!");
+                    secondOperand = memory.pop();
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.mul(firstOperand,secondOperand);
+                    memory.push(result);
+                    break;
 
-            case "*":
-                if (memory.size() < 2)
-                    throw new NotEnoughOperatorsException("Multiplication requires 2 operands to be in the memory!");
-                secondOperand = memory.pop();
-                firstOperand = memory.pop();
-                result = ComplexOperations.mul(firstOperand,secondOperand);
-                memory.push(result);
-                break;
+                case "/":
+                    if (memory.size() < 2)
+                        throw new NotEnoughOperatorsException("Division requires 2 operands to be in the memory!");
+                    secondOperand = memory.pop();
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.div(firstOperand,secondOperand);
+                    memory.push(result);
+                    break;
 
-            case "/":
-                if (memory.size() < 2)
-                    throw new NotEnoughOperatorsException("Division requires 2 operands to be in the memory!");
-                secondOperand = memory.pop();
-                firstOperand = memory.pop();
-                result = ComplexOperations.div(firstOperand,secondOperand);
-                memory.push(result);
-                break;
+                case "+-":
+                    if (memory.size() < 1)
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.inv(firstOperand);
+                    memory.push(result);
+                    break;
 
-            case "+-":
-                if (memory.size() < 1)
-                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                firstOperand = memory.pop();
-                result = ComplexOperations.inv(firstOperand);
-                memory.push(result);
-                break;
+                case "sqrt":
+                    if (memory.size() < 1)
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.sqrt(firstOperand);
+                    memory.push(result);
+                    break;
 
-            case "sqrt":
-                if (memory.size() < 1)
-                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                firstOperand = memory.pop();
-                result = ComplexOperations.sqrt(firstOperand);
-                memory.push(result);
-                break;
+                case "mod":
+                    if (memory.size() < 1)
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.mod(firstOperand);
+                    memory.push(result);
+                    break;
 
-            case "mod":
-                if (memory.size() < 1)
-                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                firstOperand = memory.pop();
-                result = ComplexOperations.mod(firstOperand);
-                memory.push(result);
-                break;
+                case "arg":
+                    if (memory.size() < 1)
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.arg(firstOperand);
+                    memory.push(result);
+                    break;
 
-            case "arg":
-                if (memory.size() < 1)
-                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                firstOperand = memory.pop();
-                result = ComplexOperations.arg(firstOperand);
-                memory.push(result);
-                break;
+                case "exp":
+                    if (memory.size() < 1)
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.exp(firstOperand);
+                    memory.push(result);
+                    break;
 
-            case "exp":
-                if (memory.size() < 1)
-                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                firstOperand = memory.pop();
-                result = ComplexOperations.exp(firstOperand);
-                memory.push(result);
-                break;
+                case "pow":
+                    if (memory.size() < 2)
+                        throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
+                    secondOperand = memory.pop();
+                    firstOperand = memory.pop();
+                    result = ComplexOperations.pow(firstOperand,secondOperand);
+                    memory.push(result);
+                    break;
+                    
+                case "clear":
+                    memory.clear();
+                    break;
 
-            case "pow":
-                if (memory.size() < 2)
-                    throw new NotEnoughOperatorsException("Inversion requires 1 operand to be in the memory!");
-                secondOperand = memory.pop();
-                firstOperand = memory.pop();
-                result = ComplexOperations.pow(firstOperand,secondOperand);
-                memory.push(result);
-                break;
-                
-            case "clear":
-                memory.clear();
-                break;
+                case "drop":
+                    memory.drop();
+                    break;
 
-            case "drop":
-                memory.drop();
-                break;
+                case "swap":
+                    memory.swap();
+                    break;
 
-            case "swap":
-                memory.swap();
-                break;
+                case "over":
+                    memory.over();
+                    break;
 
-            case "over":
-                memory.over();
-                break;
+                case "dup":
+                    memory.dup();
+                    break;
 
-            case "dup":
-                memory.dup();
-                break;
+                case "save":
+                    variables.save();
+                    break;
 
-            case "save":
-                variables.save();
-                break;
-
-            case "restore":
-                variables.restore();
-                break;
+                case "restore":
+                    variables.restore();
+                    break;
+            }
+        }catch (IllegalArgumentException ex){
+            if(secondOperand != null){
+                memory.push(secondOperand);
+            }
+            if(firstOperand != null){
+                memory.push(firstOperand);
+            }
+            throw ex;
         }
     }
 
