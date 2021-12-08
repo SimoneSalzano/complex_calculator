@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Observer;
 import java.util.StringTokenizer;
 
 /**
@@ -11,7 +12,7 @@ import java.util.StringTokenizer;
 * @author Simone Salzano
 * 
 */
-public class Manager {
+public class Manager{
 
     //Manager is a Singleton. 
     private static Manager instance = null;
@@ -362,6 +363,10 @@ public class Manager {
 
     public Iterator<String> getVariables() {
         return variables.getVariables();
+    }
+
+    public void observeVariables(Observer observer) {
+        variables.addObserver(observer);
     }
 
 }
