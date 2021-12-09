@@ -19,7 +19,7 @@ public class Manager{
     private static Manager instance = null;
     
     /** 
-     * A method that creates a new Manager if it wasn't already created, or the previously istanced one.
+     * A method that creates a new Manager if it wasn't already created, or the previously instanced one.
      * @return Manager the manager of the Complex Calculator.
      */
     public static Manager getManager() {

@@ -127,5 +127,14 @@ public class ComplexNumberTest {
         assertFalse(ComplexNumber.isComplexNumber(notcn4));
     }
 
+    @Test
+    public void testComplexNumberConstructorExceptions() {
+        assertThrows(IllegalArgumentException.class,() -> new ComplexNumber(0.0, -1234148938234785345634.6543));
+        assertThrows(IllegalArgumentException.class,() -> new ComplexNumber(9879767856878656796596779.12, 0.0));
+        assertThrows(IllegalArgumentException.class,() -> new ComplexNumber(9879767856878656796596779.12, -1234148938234785345634.6543));
+        assertThrows(IllegalArgumentException.class,() -> new ComplexNumber(Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY));
+        assertThrows(IllegalArgumentException.class,() -> new ComplexNumber(Double.NaN, Double.NaN));
+    }
+
 
 }
