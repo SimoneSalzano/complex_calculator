@@ -19,7 +19,7 @@ public class ComplexNumber {
     public ComplexNumber(Double real, Double imm) throws IllegalArgumentException {
         this.real=real;
         this.imm=imm;
-        
+        //Check if the number is valid, otherwise the constructor throws an exception. 
         if(!checkDigitsLength() || real.isInfinite() || real.isNaN() || imm.isInfinite() || imm.isNaN())
             throw new IllegalArgumentException("This number has too many digits");
     }
@@ -60,6 +60,11 @@ public class ComplexNumber {
         this.imm = imm;
     }
 
+
+    /**
+     * Check if the number of digits is less than 15. 
+     * @return true if the number of digits is less than 15, otherwise it returns false.
+     */
     private boolean checkDigitsLength(){
         DecimalFormat df = new DecimalFormat("#");
         String realString = (df.format(real).toString());
@@ -76,7 +81,7 @@ public class ComplexNumber {
         }
         immString = immString.substring(0, indexImmDot);
         
-        if(immString.length()>10 || realString.length()>10){
+        if(immString.length()>15 || realString.length()>15){
             return false;
         }
         return true;
