@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.awt.event.MouseAdapter;
@@ -15,8 +10,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Andre
+ * This secondary interface allow the user to interact,  with the Personalised Operations
+ * @author Andrea Tisi
  */
 public class PersonalizedOperationsWindow extends javax.swing.JPanel {
 

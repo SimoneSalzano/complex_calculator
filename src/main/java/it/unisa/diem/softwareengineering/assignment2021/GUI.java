@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andre
+ * This is the principal interface class, it manage the user input and show graphically the correct output
+ * @author Andrea Tisi
  */
 public class GUI extends javax.swing.JFrame implements Observer{
    

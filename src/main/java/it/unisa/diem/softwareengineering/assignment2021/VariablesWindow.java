@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.diem.softwareengineering.assignment2021;
 
 import java.awt.event.MouseAdapter;
@@ -11,12 +6,14 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Andre
+ * This secondary interface allow the user to interact with the Auxiliary Variables
+ * @author Andrea Tisi
  */
 public class VariablesWindow extends javax.swing.JPanel implements Observer {
 
@@ -85,7 +82,7 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -338,12 +335,12 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         if(response == 0){
             try{
                 manager.processInput("restore");
+           
             } catch (NumberFormatException | NotEnoughOperatorsException | ArithmeticException | NoSuchElementException ex) {
                 JOptionPane.showMessageDialog(table, ex.getMessage());
-                }
-            
-        }
+            }
         buildTable();
+        }
     }//GEN-LAST:event_restoreButtonActionPerformed
     
     /**
