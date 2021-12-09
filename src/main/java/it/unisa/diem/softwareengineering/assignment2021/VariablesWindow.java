@@ -30,12 +30,13 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         model = (DefaultTableModel)table.getModel();
         buildTable();
         
-        //this anonymous class returns the key and the value of the selected row
+        //this anonymous class returns the variable selected and update the buttons's labels
         table.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent m){
                 int row = table.getSelectedRow();
                 selectedVariable = table.getModel().getValueAt(row, 0).toString();
+                
                 storeInVariableButton.setLabel(">" + selectedVariable);
                 loadFromVariableButton.setLabel("<" + selectedVariable);
                 sumToVariableButton.setLabel("+" + selectedVariable);
@@ -317,7 +318,7 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
      */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Object[] options = {"yes","no"};
-        int response = JOptionPane.showOptionDialog(table, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
+        int response = JOptionPane.showOptionDialog(jPanel1, "Are you sure you want to save?", "Saving", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "");
         if(response == 0){
             try {
                 manager.processInput("save");
@@ -358,7 +359,10 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
         }
         buildTable();
     }//GEN-LAST:event_resetOpButtonActionPerformed
-
+    /**
+     * this method store in the selectedVariable the last element saved in Memory
+     * @param evt 
+     */
     private void storeInVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storeInVariableButtonActionPerformed
        try {
            manager.processInput(">" + selectedVariable);
@@ -366,7 +370,11 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
            JOptionPane.showMessageDialog(table, ex.getMessage());
        }
     }//GEN-LAST:event_storeInVariableButtonActionPerformed
-
+    
+    /**
+     * this method puts in Memory the current value of the selectedVariable
+     * @param evt 
+     */
     private void loadFromVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFromVariableButtonActionPerformed
         try {
            manager.processInput("<" + selectedVariable);
@@ -374,7 +382,10 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
            JOptionPane.showMessageDialog(table, ex.getMessage());
        }
     }//GEN-LAST:event_loadFromVariableButtonActionPerformed
-
+    /**
+     * this method performed the sum between the value in the selectedVariable and last element inserted in Memory, saving the result in Memory 
+     * @param evt 
+     */
     private void sumToVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumToVariableButtonActionPerformed
         try {
            manager.processInput("+" + selectedVariable);
@@ -382,7 +393,11 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
            JOptionPane.showMessageDialog(table, ex.getMessage());
        }
     }//GEN-LAST:event_sumToVariableButtonActionPerformed
-
+    
+    /**
+     * this method performed the substract between the value in the selectedVariable and last element inserted in Memory, saving the result in Memory 
+     * @param evt 
+     */
     private void substractToVariableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_substractToVariableButtonActionPerformed
         try {
            manager.processInput("-" + selectedVariable);
@@ -415,6 +430,8 @@ public class VariablesWindow extends javax.swing.JPanel implements Observer {
     public void update(Observable o, Object arg) {
         buildTable();
     }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

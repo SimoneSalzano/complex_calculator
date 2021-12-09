@@ -8,6 +8,10 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Andre
+ */
 public class GUI extends javax.swing.JFrame implements Observer{
    
     Manager manager;
@@ -33,6 +37,7 @@ public class GUI extends javax.swing.JFrame implements Observer{
         frame.add(opPane);
         frame2.setTitle("Variables");
         frame2.add(varPane);
+        
         
         manager.observeVariables(varPane);
         manager.observeMemory(this);
@@ -778,11 +783,11 @@ public class GUI extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_minusButtonActionPerformed
 
     private void divisionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionButtonActionPerformed
-        inputTextField.setText("/");
+        runTask("/");
     }//GEN-LAST:event_divisionButtonActionPerformed
 
     private void multiplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplyButtonActionPerformed
-        inputTextField.setText("*");
+        runTask("*");
     }//GEN-LAST:event_multiplyButtonActionPerformed
 
     private void nOnerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nOnerButtonActionPerformed
@@ -790,7 +795,7 @@ public class GUI extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_nOnerButtonActionPerformed
 
     private void inverteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inverteButtonActionPerformed
-        inputTextField.setText("+-");
+        runTask("+-");
     }//GEN-LAST:event_inverteButtonActionPerformed
 
     private void nSevenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nSevenButtonActionPerformed
@@ -826,7 +831,7 @@ public class GUI extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_nJButtonActionPerformed
 
     private void sqrtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqrtButtonActionPerformed
-        inputTextField.setText("sqrt");
+        runTask("sqrt");
     }//GEN-LAST:event_sqrtButtonActionPerformed
 
     private void nZeroButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nZeroButton1ActionPerformed
@@ -857,19 +862,19 @@ public class GUI extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_variablesButtonActionPerformed
 
     private void expButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expButtonActionPerformed
-        inputTextField.setText("exp");
+        runTask("exp");
     }//GEN-LAST:event_expButtonActionPerformed
 
     private void argButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_argButtonActionPerformed
-        inputTextField.setText("arg");
+        runTask("arg");
     }//GEN-LAST:event_argButtonActionPerformed
 
     private void modButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modButton3ActionPerformed
-        inputTextField.setText("mod");
+        runTask("mod");
     }//GEN-LAST:event_modButton3ActionPerformed
 
     private void powButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powButton1ActionPerformed
-        inputTextField.setText("pow");
+        runTask("pow");
     }//GEN-LAST:event_powButton1ActionPerformed
 
     /**
@@ -914,6 +919,8 @@ public class GUI extends javax.swing.JFrame implements Observer{
      * @param text 
      */
     protected void runTask(String text){
+        
+        //disable buttons during the esecution
         computeButton.setEnabled(false);
         clearButton.setEnabled(false);
         dropButton.setEnabled(false);
@@ -934,7 +941,7 @@ public class GUI extends javax.swing.JFrame implements Observer{
             JOptionPane.showMessageDialog(rootPane, "Arithmetic Error: " + ex.getMessage());
             
         }finally{
-            //printOnTextArea();
+            
             computeButton.setEnabled(true);
             clearButton.setEnabled(true);
             dropButton.setEnabled(true);
@@ -946,8 +953,11 @@ public class GUI extends javax.swing.JFrame implements Observer{
     
     /**
      * This method is called whenever a methods needs to update the Output in the textArea (it also clean the inputTextfield). 
-     */ 
-    private void printOnTextArea(){
+     * @param o
+     * @param arg 
+     */
+    @Override
+    public void update(Observable o, Object arg) {
         inputTextField.setText(null); //clean the inputTextField
         Iterator<ComplexNumber> memory = manager.getMemory();
         int flag = 0;
@@ -958,12 +968,6 @@ public class GUI extends javax.swing.JFrame implements Observer{
             flag += 1;
         }
         textArea.setText(str);
-            
-    }
-    
-    @Override
-    public void update(Observable o, Object arg) {
-        printOnTextArea();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1016,6 +1020,5 @@ public class GUI extends javax.swing.JFrame implements Observer{
     private javax.swing.JTextArea textArea;
     private javax.swing.JButton variablesButton;
     // End of variables declaration//GEN-END:variables
-
-    
+  
 }

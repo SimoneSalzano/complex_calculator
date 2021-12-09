@@ -14,7 +14,10 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-
+/**
+ *
+ * @author Andre
+ */
 public class PersonalizedOperationsWindow extends javax.swing.JPanel {
 
     private Manager manager;
