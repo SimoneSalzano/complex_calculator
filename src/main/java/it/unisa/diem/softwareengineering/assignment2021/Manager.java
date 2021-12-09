@@ -48,7 +48,7 @@ public class Manager{
         return memory.getIterator();
     }
 
-        /** 
+    /** 
      * Gets an iterator over the personalized operation loaded in runtime, separating key name from the operation list with ":".
      * @return Iterator<String>
      */
@@ -209,7 +209,7 @@ public class Manager{
         else if (name.contains(" ") || name.contains("\t")) 
             throw new PersonalizedOperationException("Operation names can't contain any spaces!"); 
         else if (isVariablesOperation(name) || Arrays.asList(allowedOperations).contains(name))
-            throw new PersonalizedOperationException("Personalized Operation names can't be an elementary operation"); 
+            throw new PersonalizedOperationException("A personalized operation can't have the same name of an elementary operation!"); 
         StringTokenizer itr = new StringTokenizer(operations);
         String operationToCheck;
         while (itr.hasMoreTokens()) {

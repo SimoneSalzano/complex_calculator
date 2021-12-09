@@ -16,6 +16,12 @@ public class ComplexNumber {
     private Double real;
     private Double imm;
 
+    /**
+     * Creates a new Complex Number, while checking if its digits aren't too big or if number passed is NaN.
+     * @param real the real part of the complex number.
+     * @param imm the immaginary part of the complex number.
+     * @throws IllegalArgumentException when either real or imm have too many digits, they're Infinite or they're NaN.
+     */
     public ComplexNumber(Double real, Double imm) throws IllegalArgumentException {
         this.real=real;
         this.imm=imm;

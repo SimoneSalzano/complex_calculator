@@ -21,13 +21,17 @@ public class ManagerTest {
     public static void setup() {
         manager = Manager.getManager();
 
-        expected = new ComplexNumber[6];
+        expected = new ComplexNumber[10];
         expected[0] = new ComplexNumber(8.0, 7.0);          
         expected[1] = new ComplexNumber(2.0, 3.0);
         expected[2] = new ComplexNumber(5.0, 25.0);
         expected[3] = new ComplexNumber(1.923, 0.385);
         expected[4] = new ComplexNumber(-5.0, -5.0);
         expected[5] = new ComplexNumber(2.457, 1.018);
+        expected[6] = new ComplexNumber(7.071,0.0);
+        expected[7] = new ComplexNumber(0.785,0.0);
+        expected[8] = new ComplexNumber(42.099,-142.317);
+        expected[9] = new ComplexNumber(0.0,50.0);
     }
 
     @AfterEach
@@ -87,6 +91,39 @@ public class ManagerTest {
         result.setReal(Math.round(result.getReal()*1000d)/1000d);
         result.setImm(Math.round(result.getImm()*1000d)/1000d);
         assertEquals(expected[5], result);
+        
+        manager.processInput(c1);
+        manager.processInput("mod");
+        memory = manager.getMemory();
+        result = memory.next();
+        result.setReal(Math.round(result.getReal()*1000d)/1000d);
+        result.setImm(Math.round(result.getImm()*1000d)/1000d);
+        assertEquals(expected[6], result);
+
+        manager.processInput(c1);
+        manager.processInput("arg");
+        memory = manager.getMemory();
+        result = memory.next();
+        result.setReal(Math.round(result.getReal()*1000d)/1000d);
+        result.setImm(Math.round(result.getImm()*1000d)/1000d);
+        assertEquals(expected[7], result);
+
+        manager.processInput(c1);
+        manager.processInput("exp");
+        memory = manager.getMemory();
+        result = memory.next();
+        result.setReal(Math.round(result.getReal()*1000d)/1000d);
+        result.setImm(Math.round(result.getImm()*1000d)/1000d);
+        assertEquals(expected[8], result);
+        
+        manager.processInput(c1);
+        manager.processInput("2");
+        manager.processInput("pow");
+        memory = manager.getMemory();
+        result = memory.next();
+        result.setReal(Math.round(result.getReal()*1000d)/1000d);
+        result.setImm(Math.round(result.getImm()*1000d)/1000d);
+        assertEquals(expected[9], result);
 
         manager.processInput("dup");
         memory = manager.getMemory();
@@ -98,8 +135,8 @@ public class ManagerTest {
         memory = manager.getMemory();
         ComplexNumber last = memory.next();
         ComplexNumber secondToLast = memory.next();
-        assertEquals(expected[5], last);
-        assertEquals(expected[4], secondToLast);
+        assertEquals(expected[9], last);
+        assertEquals(expected[8], secondToLast);
 
         manager.processInput("over");
         memory = manager.getMemory();
@@ -114,12 +151,51 @@ public class ManagerTest {
         memory = manager.getMemory();
         last = memory.next();
         secondToLast = memory.next();
-        assertEquals(expected[4], last);
-        assertEquals(expected[5], secondToLast);
-
+        assertEquals(expected[8], last);
+        assertEquals(expected[9], secondToLast);
+        
         manager.processInput("clear");
         memory = manager.getMemory();
         assertFalse(memory.hasNext());
+
+        manager.processInput(expected[1].toString());
+        manager.processInput(">a");
+        Iterator<String> variables = manager.getVariables();
+        assertEquals("a:"+expected[1].toString()+": ", variables.next());
+        
+        manager.processInput("<a");
+        memory = manager.getMemory();
+        assertEquals(expected[1], memory.next());
+
+        manager.processInput("6+4j");
+        manager.processInput("+a");
+        variables = manager.getVariables();
+        assertEquals("a:"+expected[0].toString()+": ", variables.next());
+
+        manager.processInput("6+4j");
+        manager.processInput("-a");
+        variables = manager.getVariables();
+        assertEquals("a:"+expected[1].toString()+": ", variables.next());
+
+        assertThrows(NumberFormatException.class, () -> manager.processInput(">!") );
+        manager.processInput("clear");
+        assertThrows(NumberFormatException.class, () -> manager.processInput(">abc") );
+        manager.processInput("clear");
+        assertThrows(NotEnoughOperatorsException.class, () -> manager.processInput("pow") );
+        manager.processInput("clear");
+        assertThrows(NotEnoughOperatorsException.class, () -> manager.processInput("dup") );
+
+        manager.processInput("save");
+        variables = manager.getVariables();
+        assertEquals("a:"+expected[1].toString()+":"+expected[1].toString(), variables.next());
+        manager.processInput(expected[2].toString());
+        manager.processInput(">a");
+        variables = manager.getVariables();
+        assertEquals("a:"+expected[2].toString()+":"+expected[1].toString(), variables.next());
+        manager.processInput("restore");
+        variables = manager.getVariables();
+        assertEquals("a:"+expected[1].toString()+": ", variables.next());
+
     }
 
     @Test
@@ -128,18 +204,20 @@ public class ManagerTest {
         String name2 = "Get3Pi/2";
         String wrongName1 = "3-4j";
         String wrongName2 = "Double Sum";
+        String wrongName3 = "*";
         
         String operations1 = "+ +";
         String operations2 = "3.14 dup dup DoubleSum 2 /";
         String wrongOperations1 = "";
         String wrongOperations2 = null;
         
-
-        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(wrongName1, operations1));
-        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(wrongName2, operations2));
-        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name2, operations2)); //Reference to an operation not yet inserted
-        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name1, wrongOperations1));
-        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name2, wrongOperations2));
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation("", operations1), "You have inserted no name for inserted operation!");
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name1, wrongOperations1), "You have inserted no operation for " + name1 + "!" );
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name2, wrongOperations2), "You have inserted no operation for " + name2 + "!");
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(wrongName1, operations1), "Your operation name can't be a Complex Number!");
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(wrongName2, operations2), "Operation names can't contain any spaces!");
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(wrongName3, operations1), "A personalized operation can't have the same name of an elementary operation!");
+        assertThrows(PersonalizedOperationException.class, () -> manager.insertPersonalizedOperation(name2, operations2), "One or more of your commands in " + name2 +" isn't recognized!"); //Reference to an operation not yet inserted
 
         manager.insertPersonalizedOperation(name1, operations1);
         manager.insertPersonalizedOperation(name2, operations2);
