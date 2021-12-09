@@ -71,7 +71,7 @@ public class VariablesHandler extends Observable{
 
     /**
      * returns the value of every variable from the current variables set and the most recent saved state of the variables,
-     * in a format like "variable:value".
+     * in a format like "variable:currentValue:oldValue".
      * @return said iterator.
      */
     public Iterator<String> getVariables(){

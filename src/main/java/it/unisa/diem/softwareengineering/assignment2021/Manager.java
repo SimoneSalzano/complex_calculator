@@ -19,7 +19,7 @@ public class Manager{
     private static Manager instance = null;
     
     /** 
-     * A method that creates a new Manager if it wasn't already created, or the previously istanced one.
+     * A method that creates a new Manager if it wasn't already created, or the previously instanced one.
      * @return Manager the manager of the Complex Calculator.
      */
     public static Manager getManager() {
@@ -32,6 +32,7 @@ public class Manager{
     private PersonalizedOperationsMap personalizedOperations;
     private String [] allowedOperations = {"+","-","*","/","+-","sqrt","clear","mod","arg","pow","exp","dup","drop","over","swap","save","restore"}; 
     private VariablesHandler variables;
+    private boolean memoryBackuped = false;
 
     private Manager() {
         memory = new Memory();
@@ -207,6 +208,8 @@ public class Manager{
             throw new PersonalizedOperationException("Your operation name can't be a Complex Number!");
         else if (name.contains(" ") || name.contains("\t")) 
             throw new PersonalizedOperationException("Operation names can't contain any spaces!"); 
+        else if (isVariablesOperation(name) || Arrays.asList(allowedOperations).contains(name))
+            throw new PersonalizedOperationException("Personalized Operation names can't be an elementary operation"); 
         StringTokenizer itr = new StringTokenizer(operations);
         String operationToCheck;
         while (itr.hasMoreTokens()) {
@@ -354,13 +357,16 @@ public class Manager{
             }
         }catch (IllegalArgumentException ex){
             //Restore the operands in the stack if the operation outputs a number that is too big
-            if(firstOperand != null){
-                memory.push(firstOperand);
-            }
-            if(secondOperand != null){
-                memory.push(secondOperand);
+            if(memoryBackuped == false){
+                if(firstOperand != null){
+                    memory.push(firstOperand);
+                }
+                if(secondOperand != null){
+                    memory.push(secondOperand);
+                }
             }
             throw ex;
+            
         }
     }
 
@@ -374,19 +380,19 @@ public class Manager{
      */
     private void executePersonalizedOperation(String personalizedOperationName) throws NumberFormatException, NotEnoughOperatorsException, ArithmeticException, NoSuchElementException{
         Iterator<String> personalizedOperation = personalizedOperations.getPersonalizedOperationIterator(personalizedOperationName);
-
+        
         //preserve old memory in case an exception occurs
         ArrayList<ComplexNumber> backupMemory = new ArrayList<>();
         Iterator<ComplexNumber> itr = memory.getIterator();
         while (itr.hasNext()) {
             backupMemory.add(itr.next());
         }
-
+        memoryBackuped = true;
         try {
             while (personalizedOperation.hasNext()) {
                 this.processInput(personalizedOperation.next());
             }
-        } catch (NotEnoughOperatorsException | ArithmeticException | NumberFormatException | NoSuchElementException ex) {
+        } catch (IllegalArgumentException | NotEnoughOperatorsException | ArithmeticException | NoSuchElementException ex) {
             //restore memory before trying the chain of operations called by this method. 
             memory.clear();
             while (!backupMemory.isEmpty()) {
@@ -394,6 +400,8 @@ public class Manager{
             }
             //propagate the exception so that the GUI can handle it.
             throw ex;
+        }finally{
+            memoryBackuped = false;
         }
     }
 
